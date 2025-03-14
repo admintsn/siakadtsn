@@ -2,14 +2,20 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Dashboard;
+use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
+use Filament\Notifications\Livewire\Notifications;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\Alignment;
+use Filament\Support\Enums\VerticalAlignment;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -17,6 +23,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use pxlrbt\FilamentSpotlight\SpotlightPlugin;
 
 class TsnPanelProvider extends PanelProvider
 {
@@ -25,18 +32,15 @@ class TsnPanelProvider extends PanelProvider
         return $panel
             ->id('tsn')
             ->path('tsn')
-            ->colors([
-                'primary' => Color::Amber,
-            ])
             ->discoverResources(in: app_path('Filament/Tsn/Resources'), for: 'App\\Filament\\Tsn\\Resources')
             ->discoverPages(in: app_path('Filament/Tsn/Pages'), for: 'App\\Filament\\Tsn\\Pages')
+            ->discoverClusters(in: app_path('Filament/Tsn/Clusters'), for: 'App\\Filament\\Tsn\\Clusters')
             ->pages([
-                Pages\Dashboard::class,
+                Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Tsn/Widgets'), for: 'App\\Filament\\Tsn\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                // Widgets\AccountWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -51,6 +55,56 @@ class TsnPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->colors([
+                'danger' => "#9e5d4b",
+                'gray' => Color::Gray,
+                'info' => Color::Blue,
+                'primary' => "#d3c281",
+                'success' => "#274043",
+                'warning' => Color::Orange,
+            ])
+            ->font('SF Pro')
+            ->brandLogo(asset('SiakadTSN V1 Logo.png'))
+            ->brandLogoHeight('5rem')
+            ->favicon(asset('favicon-32x32.png'))
+            ->navigationGroups([
+
+                NavigationGroup::make()
+                    ->label('PSB')
+                    ->icon('heroicon-o-user-plus')
+                    ->collapsed(),
+
+                NavigationGroup::make()
+                    ->label('Data Santri')
+                    ->icon('heroicon-o-user-group')
+                    ->collapsed(),
+
+                NavigationGroup::make()
+                    ->label('Nilai Imtihan')
+                    ->icon('heroicon-o-academic-cap')
+                    ->collapsed(),
+
+                NavigationGroup::make()
+                    ->label('Menu Mudir')
+                    ->icon('heroicon-o-briefcase')
+                    ->collapsed(),
+
+            ])
+            ->bootUsing(function () {
+                Notifications::alignment(Alignment::Right);
+                Notifications::verticalAlignment(VerticalAlignment::End);
+            })
+            ->unsavedChangesAlerts()
+            ->defaultThemeMode(ThemeMode::Light)
+            ->topNavigation()
+            ->maxContentWidth('full')
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('5s')
+            ->plugins([
+                SpotlightPlugin::make(),
+                // FilamentClearCachePlugin::make(),
+            ])
+            ->viteTheme('resources/css/filament/tsn/theme.css');
     }
 }

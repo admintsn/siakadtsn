@@ -18,5 +18,10 @@ class SemesterBerjalan extends Model
         return $this->hasMany(KelasSantri::class);
     }
 
+    public function acuanPsbs()
+    {
+        return $this->hasMany(AcuanPsb::class);
+    }
+
     use log;
 }

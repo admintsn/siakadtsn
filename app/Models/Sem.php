@@ -18,5 +18,10 @@ class Sem extends Model
         return $this->hasMany(Semester::class, 'sem_s');
     }
 
+    public function acuanPsbs()
+    {
+        return $this->hasMany(AcuanPsb::class);
+    }
+
     use log;
 }

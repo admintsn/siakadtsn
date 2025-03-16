@@ -7,11 +7,14 @@ use App\Http\Responses\LoginResponse;
 use Filament\Http\Responses\Auth\Contracts\LogoutResponse as LogoutResponseContract;
 use Filament\Http\Responses\Auth\Contracts\LoginResponse as LoginResponseContract;
 use BezhanSalleh\PanelSwitch\PanelSwitch;
+use Illuminate\Contracts\View\View;
+use Filament\Support\Facades\FilamentView;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\HeaderActionsPosition;
 use Filament\Tables\Enums\ActionsPosition;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Table;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 
@@ -63,5 +66,10 @@ class AppServiceProvider extends ServiceProvider
                 ->deferLoading()
                 ->extremePaginationLinks();
         });
+
+        // FilamentView::registerRenderHook(
+        //     PanelsRenderHook::SIMPLE_PAGE_START,
+        //     fn(): View => view('filament.login-before'),
+        // );
     }
 }

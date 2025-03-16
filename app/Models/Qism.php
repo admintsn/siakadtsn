@@ -48,5 +48,10 @@ class Qism extends Model
         return $this->hasMany(JumlahPendaftar::class);
     }
 
+    public function acuanPsbs()
+    {
+        return $this->hasMany(AcuanPsb::class);
+    }
+
     use log;
 }

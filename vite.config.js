@@ -10,7 +10,6 @@ export default defineConfig({
                 'resources/css/filament/walisantri/theme.css',
                 'resources/css/app.css',
                 'resources/js/app.js',
-                'vendor/tomatophp/filament-simple-theme/resources/css/theme.css'
             ],
             refresh: true,
         }),

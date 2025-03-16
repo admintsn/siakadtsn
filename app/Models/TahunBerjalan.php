@@ -18,5 +18,10 @@ class TahunBerjalan extends Model
         return $this->belongsTo(PesanDaftar::class);
     }
 
+    public function acuanPsbs()
+    {
+        return $this->hasMany(AcuanPsb::class);
+    }
+
     use log;
 }

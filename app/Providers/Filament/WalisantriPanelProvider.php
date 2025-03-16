@@ -67,8 +67,8 @@ class WalisantriPanelProvider extends PanelProvider
                 'warning' => Color::Orange,
             ])
             ->font('SF Pro Display')
-            ->brandLogo(asset('SiakadTSN V1 Logo.png'))
-            ->brandLogoHeight('5rem')
+            ->brandLogo(fn () => view('filament.logo'))
+            ->brandLogoHeight('auto')
             ->favicon(asset('favicon-32x32.png'))
             ->navigationGroups([
 

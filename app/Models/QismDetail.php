@@ -48,5 +48,10 @@ class QismDetail extends Model
         return $this->belongsToMany(Mapel::class);
     }
 
+    public function acuanPsbs()
+    {
+        return $this->hasMany(AcuanPsb::class);
+    }
+
     use log;
 }

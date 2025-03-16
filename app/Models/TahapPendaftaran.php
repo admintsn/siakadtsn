@@ -13,5 +13,10 @@ class TahapPendaftaran extends Model
         return $this->hasMany(Santri::class);
     }
 
+    public function acuanPsbs()
+    {
+        return $this->hasMany(AcuanPsb::class);
+    }
+
     use log;
 }

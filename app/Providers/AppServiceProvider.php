@@ -67,9 +67,9 @@ class AppServiceProvider extends ServiceProvider
                 ->extremePaginationLinks();
         });
 
-        // FilamentView::registerRenderHook(
-        //     PanelsRenderHook::SIMPLE_PAGE_START,
-        //     fn(): View => view('filament.login-before'),
-        // );
+        FilamentView::registerRenderHook(
+            PanelsRenderHook::AUTH_LOGIN_FORM_AFTER,
+            fn(): View => view('filament.login-after'),
+        );
     }
 }

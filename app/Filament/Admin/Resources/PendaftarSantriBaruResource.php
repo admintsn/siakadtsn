@@ -4442,6 +4442,9 @@ class PendaftarSantriBaruResource extends Resource
                                     $kelassantri->semester_id = $semid->sem_sel;
                                     $kelassantri->kelas_id = $record->kelas_id;
                                     $kelassantri->semester_berjalan_id = $semb->id;
+                                    $kelassantri->nama_lengkap = $record->nama_lengkap;
+                                    $kelassantri->walisantri_id = $record->walisantri_id;
+                                    $kelassantri->kartu_keluarga = $record->kartu_keluarga;
                                     $kelassantri->is_active = 1;
 
                                     $kelassantri->save();
@@ -4486,6 +4489,9 @@ class PendaftarSantriBaruResource extends Resource
                                     $kelassantri->semester_id = $semid->sem_sel;
                                     $kelassantri->kelas_id = $record->kelas_id;
                                     $kelassantri->semester_berjalan_id = $semb->id;
+                                    $kelassantri->nama_lengkap = $record->nama_lengkap;
+                                    $kelassantri->walisantri_id = $record->walisantri_id;
+                                    $kelassantri->kartu_keluarga = $record->kartu_keluarga;
                                     $kelassantri->is_active = 1;
 
                                     $kelassantri->save();

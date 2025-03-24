@@ -2,7 +2,11 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\WSDashboard;
 use App\Filament\Auth\Login;
+use App\Filament\Walisantri\Resources\DataSantriResource\Widgets\FormulirKedatangan;
+use App\Filament\Walisantri\Resources\DataSantriResource\Widgets\Santri;
+use Filament\Actions\Action;
 use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -22,7 +26,9 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\HtmlString;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Orion\FilamentGreeter\GreeterPlugin;
 use pxlrbt\FilamentSpotlight\SpotlightPlugin;
 
 class WalisantriPanelProvider extends PanelProvider
@@ -38,12 +44,9 @@ class WalisantriPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Walisantri/Pages'), for: 'App\\Filament\\Walisantri\\Pages')
             ->discoverClusters(in: app_path('Filament/Walisantri/Clusters'), for: 'App\\Filament\\Walisantri\\Clusters')
             ->pages([
-                Pages\Dashboard::class,
+                WSDashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Walisantri/Widgets'), for: 'App\\Filament\\Walisantri\\Widgets')
-            ->widgets([
-                Widgets\AccountWidget::class,
-            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -67,7 +70,7 @@ class WalisantriPanelProvider extends PanelProvider
                 'warning' => Color::Orange,
             ])
             ->font('SF Pro Display')
-            ->brandLogo(fn () => view('filament.logo'))
+            ->brandLogo(fn() => view('filament.logo'))
             ->brandLogoHeight('auto')
             ->favicon(asset('favicon-32x32.png'))
             ->navigationGroups([
@@ -102,9 +105,15 @@ class WalisantriPanelProvider extends PanelProvider
             ->maxContentWidth('full')
             ->databaseNotifications()
             ->databaseNotificationsPolling('5s')
+            ->sidebarFullyCollapsibleOnDesktop()
             ->plugins([
                 SpotlightPlugin::make(),
                 // FilamentClearCachePlugin::make(),
+            ])
+            ->widgets([
+                // Widgets\AccountWidget::class,
+                FormulirKedatangan::class,
+                Santri::class,
             ])
             ->viteTheme('resources/css/filament/walisantri/theme.css');
     }

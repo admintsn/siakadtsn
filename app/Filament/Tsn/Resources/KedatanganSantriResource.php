@@ -2,9 +2,12 @@
 
 namespace App\Filament\Tsn\Resources;
 
+use App\Filament\Admin\Resources\KedatanganSantriResource as ResourcesKedatanganSantriResource;
 use App\Filament\Tsn\Resources\KedatanganSantriResource\Pages;
 use App\Filament\Tsn\Resources\KedatanganSantriResource\RelationManagers;
 use App\Models\KedatanganSantri;
+use App\Models\PesanDaftar;
+use App\Models\TahunBerjalan;
 use App\Models\Walisantri;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -16,12 +19,12 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class KedatanganSantriResource extends Resource
 {
-    protected static ?string $model = Walisantri::class;
+    protected static ?string $model = PesanDaftar::class;
 
-    public static function canViewAny(): bool
-    {
-        return auth()->user()->id == 1;
-    }
+    // public static function canViewAny(): bool
+    // {
+    //     return auth()->user()->id == 1;
+    // }
 
     protected static ?string $modelLabel = 'Kedatangan Santri';
 
@@ -49,22 +52,7 @@ class KedatanganSantriResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                //
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+        return ResourcesKedatanganSantriResource::table($table);
     }
 
     public static function getRelations(): array
@@ -82,5 +70,14 @@ class KedatanganSantriResource extends Resource
             'view' => Pages\ViewKedatanganSantri::route('/{record}'),
             'edit' => Pages\EditKedatanganSantri::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+
+        $tahunberjalanaktif = TahunBerjalan::where('is_active', 1)->first();
+        $ts = TahunBerjalan::where('tb', $tahunberjalanaktif->ts)->first();
+
+        return parent::getEloquentQuery()->where('tahun_berjalan_id', $tahunberjalanaktif->id);
     }
 }

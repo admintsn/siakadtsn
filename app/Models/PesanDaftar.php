@@ -20,12 +20,17 @@ class PesanDaftar extends Model
 
     public function waktuDatang()
     {
-        return $this->belongsTo(WaktuDatangKembali::class, 'waktu_datang');
+        return $this->belongsTo(WaktuDatangKembali::class, 'w_datang');
     }
 
     public function waktuKembali()
     {
-        return $this->belongsTo(WaktuDatangKembali::class, 'waktu_kembali');
+        return $this->belongsTo(WaktuDatangKembali::class, 'w_kembali');
+    }
+
+    public function menginapTidak()
+    {
+        return $this->belongsTo(MenginapTidak::class);
     }
 
     use log;

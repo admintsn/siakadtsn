@@ -10,10 +10,4 @@ class ListKedatanganSantris extends ListRecords
 {
     protected static string $resource = KedatanganSantriResource::class;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\CreateAction::make(),
-        ];
-    }
 }

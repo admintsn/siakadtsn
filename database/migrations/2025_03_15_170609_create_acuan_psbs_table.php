@@ -30,7 +30,7 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->nullOnDelete();
-            $table->string('angkatan_tahun');
+            $table->string('angkatan_tahun')->nullable();
             $table->foreignId('tahun_ajaran_id')->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
@@ -47,6 +47,9 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->nullOnDelete();
+            $table->string('qism_s')->nullable();
+            $table->string('qism_detail_s')->nullable();
+            $table->string('kelas_s')->nullable();
             $table->foreignId('sem_id')->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()

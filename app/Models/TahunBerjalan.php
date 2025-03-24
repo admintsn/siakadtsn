@@ -23,5 +23,10 @@ class TahunBerjalan extends Model
         return $this->hasMany(AcuanPsb::class);
     }
 
+    public function tahunAjaranAktifs()
+    {
+        return $this->hasMany(TahunAjaranAktif::class);
+    }
+
     use log;
 }

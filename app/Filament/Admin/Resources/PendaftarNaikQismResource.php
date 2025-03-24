@@ -4018,6 +4018,134 @@ class PendaftarNaikQismResource extends Resource
                     ->action(fn(Collection $records, array $data) => $records->each(
                         function ($record) {
 
+                            $taakt = TahunAjaranAktif::where('qism_id', $record->qism_id)->first();
+
+                            $semid = Semester::where('id', $taakt->semester_id)->first();
+
+                            $semb = SemesterBerjalan::where('is_active', 0)->first();
+
+                            $cekkelassantri = KelasSantri::where('santri_id', $record->id)
+                                ->where('santri_id', $record->id)
+                                ->where('mahad_id', '1')
+                                ->where('qism_id', $record->qism_id)
+                                ->where('qism_detail_id', $record->qism_detail_id)
+                                ->where('tahun_berjalan_id', $record->tahun_berjalan_id)
+                                ->where('tahun_ajaran_id', $record->tahun_ajaran_id)
+                                ->where('semester_id', $semid->sem_sel)
+                                ->where('kelas_id', $record->kelas_id)
+                                ->where('semester_berjalan_id', $semb->id)
+                                ->where('is_active', 1)
+                                ->count();
+
+                            if ($record->daftarnaikqism == 'Mendaftar') {
+                                if ($cekkelassantri == 0) {
+
+                                    $tahun = Carbon::now()->year;
+
+                                    $getnismstart = NismPerTahun::where('tahun', $tahun)->first();
+                                    $nismstart = $getnismstart->nismstart;
+                                    $abbrtahun = $getnismstart->abbr_tahun;
+
+                                    $ceknismstartsantri = Santri::where('nism', $nismstart)->count();
+
+                                    $nismterakhir = Santri::where('nism', 'LIKE', $abbrtahun . '%')->max('nism');
+
+                                    $nismbaru = $nismterakhir + 1;
+
+                                    $angktahun = substr($nismstart, 0, 2);
+
+                                    // dd($tahun, $nismstart, $ceknismstartsantri, $nismterakhir, $nismbaru);
+
+                                    $cektahap = $record->tahap_pendaftaran_id;
+
+                                    $semb = SemesterBerjalan::where('is_active', 0)->first();
+
+                                    $taakt = TahunAjaranAktif::where('qism_id', $record->qism_id)->first();
+
+                                    $semid = Semester::where('id', $taakt->semester_id)->first();
+
+                                    $kelassantri = new KelasSantri();
+
+                                    $kelassantri->santri_id = $record->id;
+                                    $kelassantri->mahad_id = '1';
+                                    $kelassantri->qism_id = $record->qism_id;
+                                    $kelassantri->qism_detail_id = $record->qism_detail_id;
+                                    $kelassantri->tahun_berjalan_id = $record->tahun_berjalan_id;
+                                    $kelassantri->tahun_ajaran_id = $record->tahun_ajaran_id;
+                                    $kelassantri->semester_id = $semid->sem_sel;
+                                    $kelassantri->kelas_id = $record->kelas_id;
+                                    $kelassantri->semester_berjalan_id = $semb->id;
+                                    $kelassantri->nama_lengkap = $record->nama_lengkap;
+                                    $kelassantri->walisantri_id = $record->walisantri_id;
+                                    $kelassantri->kartu_keluarga = $record->kartu_keluarga;
+                                    $kelassantri->is_active = 1;
+
+                                    $kelassantri->save();
+
+                                    $statusantri = StatusSantri::where('santri_id', $record->id)->first();
+                                    $statusantri->stat_santri_id = 3;
+                                    $statusantri->keterangan_status_santri_id = null;
+                                    $statusantri->save();
+
+                                    $statususer = User::where('username', $record->kartu_keluarga)->first();
+                                    $statususer->is_active = 1;
+                                    $statususer->save();
+
+                                    $data['status_pendaftaran_id'] = 2;
+                                    $data['tahap_pendaftaran_id'] = 2;
+                                    $record->update($data);
+
+                                    return $record;
+
+                                    Notification::make()
+                                        ->success()
+                                        ->title('Status Ananda telah diupdate')
+                                        // ->persistent()
+                                        ->color('Success')
+                                        ->send();
+                                } elseif ($cekkelassantri != 0) {
+
+                                    $data['status_pendaftaran_id'] = 2;
+                                    $data['tahap_pendaftaran_id'] = 2;
+                                    $record->update($data);
+
+                                    return $record;
+
+                                    Notification::make()
+                                        ->success()
+                                        ->title('Santri sudah diterima')
+                                        ->icon('heroicon-o-exclamation-triangle')
+                                        ->iconColor('danger')
+                                        // ->persistent()
+                                        ->color('warning')
+                                        ->send();
+                                }
+                            } elseif ($record->daftarnaikqism == 'Belum Mendaftar') {
+                                Notification::make()
+                                    ->success()
+                                    ->title('Santri belum mengisi formulir Pendaftaran Santri Lama')
+                                    ->icon('heroicon-o-exclamation-triangle')
+                                    ->iconColor('danger')
+                                    // ->persistent()
+                                    ->color('warning')
+                                    ->send();
+                            }
+                        }
+                    ))
+                    ->deselectRecordsAfterCompletion(),
+
+                Tables\Actions\BulkAction::make('batalditerima')
+                    ->label(__('Batal Diterima'))
+                    ->color('warning')
+                    ->requiresConfirmation()
+                    ->modalIcon('heroicon-o-exclamation-triangle')
+                    ->modalIconColor('danger')
+                    ->modalHeading('Ubah Status menjadi "Tidak diterima naik qism?"')
+                    ->modalDescription('Setelah klik tombol "Simpan", maka status akan berubah')
+                    ->modalSubmitActionLabel('Simpan')
+                    ->action(fn(Collection $records, array $data) => $records->each(
+                        function ($record) {
+
                             $tahun = Carbon::now()->year;
 
                             $getnismstart = NismPerTahun::where('tahun', $tahun)->first();
@@ -4042,32 +4170,23 @@ class PendaftarNaikQismResource extends Resource
 
                             $semid = Semester::where('id', $taakt->semester_id)->first();
 
-                            $kelassantri = new KelasSantri();
+                            //---
 
-                            $kelassantri->santri_id = $record->id;
-                            $kelassantri->mahad_id = '1';
-                            $kelassantri->qism_id = $record->qism_id;
-                            $kelassantri->qism_detail_id = $record->qism_detail_id;
-                            $kelassantri->tahun_berjalan_id = $record->tahun_berjalan_id;
-                            $kelassantri->tahun_ajaran_id = $record->tahun_ajaran_id;
-                            $kelassantri->semester_id = $semid->sem_sel;
-                            $kelassantri->kelas_id = $record->kelas_id;
-                            $kelassantri->semester_berjalan_id = $semb->id;
-                            $kelassantri->is_active = 1;
+                            KelasSantri::where('santri_id', $record->id)
+                                ->where('santri_id', $record->id)
+                                ->where('mahad_id', '1')
+                                ->where('qism_id', $record->qism_id)
+                                ->where('qism_detail_id', $record->qism_detail_id)
+                                ->where('tahun_berjalan_id', $record->tahun_berjalan_id)
+                                ->where('tahun_ajaran_id', $record->tahun_ajaran_id)
+                                ->where('semester_id', $semid->sem_sel)
+                                ->where('kelas_id', $record->kelas_id)
+                                ->where('semester_berjalan_id', $semb->id)
+                                ->where('is_active', 1)
+                                ->delete();
 
-                            $kelassantri->save();
-
-                            $statusantri = StatusSantri::where('santri_id', $record->id)->first();
-                            $statusantri->stat_santri_id = 3;
-                            $statusantri->keterangan_status_santri_id = null;
-                            $statusantri->save();
-
-                            $statususer = User::where('username', $record->kartu_keluarga)->first();
-                            $statususer->is_active = 1;
-                            $statususer->save();
-
-                            $data['status_pendaftaran_id'] = 2;
-                            $data['tahap_pendaftaran_id'] = 2;
+                            $data['status_pendaftaran_id'] = null;
+                            $data['tahap_pendaftaran_id'] = 1;
                             $record->update($data);
 
                             return $record;
@@ -4128,7 +4247,7 @@ class PendaftarNaikQismResource extends Resource
             ])
             ->checkIfRecordIsSelectableUsing(
 
-                fn(Model $record): bool => $record->status_pendaftaran_id != 2,
+                fn(Model $record): bool => $record->status_pendaftaran_id != 2 || auth()->user()->id == 1,
             );
     }
 

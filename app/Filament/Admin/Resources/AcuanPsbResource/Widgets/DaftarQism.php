@@ -2,7 +2,18 @@
 
 namespace App\Filament\Admin\Resources\AcuanPsbResource\Widgets;
 
+use App\Models\AcuanPsb;
+use App\Models\KelasSantri;
+use App\Models\NismPerTahun;
 use App\Models\QismDetail;
+use App\Models\QismDetailHasKelas;
+use App\Models\Semester;
+use App\Models\SemesterBerjalan;
+use App\Models\TahunAjaran;
+use App\Models\TahunAjaranAktif;
+use App\Models\TahunBerjalan;
+use Carbon\Carbon;
+use Filament\Notifications\Notification;
 use Filament\Tables;
 use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Columns\ColumnGroup;
@@ -22,7 +33,7 @@ class DaftarQism extends BaseWidget
             ->query(
                 QismDetail::where('is_active', 1)
             )
-            ->defaultPaginationPageOption(5)
+            ->defaultPaginationPageOption(10)
             ->columns([
 
                 ColumnGroup::make('Qism Detail', [
@@ -135,8 +146,8 @@ class DaftarQism extends BaseWidget
             ->searchOnBlur()
             ->bulkActions([
 
-                Tables\Actions\BulkAction::make('acuanpsb')
-                    ->label(__('Generate Acuan PSB'))
+                Tables\Actions\BulkAction::make('acuanpsbbaru')
+                    ->label(__('Generate Acuan PSB Baru'))
                     ->color('info')
                     // ->requiresConfirmation()
                     // ->modalIcon('heroicon-o-exclamation-triangle')
@@ -147,21 +158,31 @@ class DaftarQism extends BaseWidget
                     ->action(fn(Collection $records, array $data) => $records->each(
                         function ($record) {
 
+                            // dd($record);
+
+                            // $naikqism = QismDetailHasKelas::where('qism_id', $record->qism_id)
+                            //     ->where('qism_detail_id', $record->qism_detail_id)
+                            //     ->where('kelas_id', $record->kelas_id)->first();
+
                             $tahunberjalanaktif = TahunBerjalan::where('is_active', 1)->first();
                             $ts = TahunBerjalan::where('tb', $tahunberjalanaktif->ts)->first();
 
-                            $cekdatats = KelasSantri::where('tahun_berjalan_id', $ts->id)
-                                ->where('santri_id', $record->santri_id)->count();
-
-                            // dd($record->santri_id, $cekdatats);
+                            $cekdatats = AcuanPsb::where('jenis_pendaftar_id', 1)
+                                ->where('tahun_berjalan_id', $ts->id)
+                                ->where('qism_id', $record->qism_id)
+                                ->where('qism_detail_id', $record->id)
+                                ->count();
 
                             if ($cekdatats == 0) {
 
                                 $tahunberjalanaktif = TahunBerjalan::where('is_active', 1)->first();
                                 $ts = TahunBerjalan::where('tb', $tahunberjalanaktif->ts)->first();
 
-                                $datakelassantri = KelasSantri::where('tahun_berjalan_id', $tahunberjalanaktif->id)
-                                    ->where('santri_id', $record->santri_id)->first();
+                                // $datakelassantri = KelasSantri::where('tahun_berjalan_id', $tahunberjalanaktif->id)
+                                //     ->where('santri_id', $record->santri_id)->first();
+
+                                $kelas = QismDetailHasKelas::where('qism_id', $record->qism_id)
+                                    ->where('qism_detail_id', $record->id)->first();
 
                                 $gettaaktif = TahunAjaranAktif::where('qism_id', $record->qism_id)->where('is_active', 1)->first();
 
@@ -173,32 +194,39 @@ class DaftarQism extends BaseWidget
 
                                 $semberjalan = SemesterBerjalan::where('is_active', false)->first();
 
-                                $kelassantri = new KelasSantri;
+                                $tahun = Carbon::now()->year;
 
-                                $kelassantri->santri_id = $record->santri_id;
-                                $kelassantri->mahad_id = '1';
-                                $kelassantri->tahun_berjalan_id = $ts->id;
-                                $kelassantri->tahun_ajaran_id = $getta->tahun_ajaran_id;
-                                $kelassantri->semester_id = $getsem->sem_sel;
-                                $kelassantri->qism_id = $datakelassantri->qism_id;
-                                $kelassantri->qism_detail_id = $datakelassantri->qism_detail_id;
-                                $kelassantri->kelas_id = $datakelassantri->kelas_id;
-                                $kelassantri->semester_berjalan_id = $semberjalan->id;
-                                $kelassantri->save();
+                                $getnismstart = NismPerTahun::where('tahun', $tahun)->first();
+                                $nismstart = $getnismstart->nismstart;
+                                $angktahun = substr($nismstart, 0, 2);
+
+                                $acuanpsbbaru = new AcuanPsb;
+                                $acuanpsbbaru->jenis_pendaftar_id = 1;
+                                $acuanpsbbaru->tahap_pendaftaran_id = 1;
+                                $acuanpsbbaru->status_pendaftaran_id = null;
+                                $acuanpsbbaru->daftarnaikqism = null;
+                                $acuanpsbbaru->tahun_berjalan_id = $ts->id;
+                                $acuanpsbbaru->angkatan_tahun = $angktahun;
+                                $acuanpsbbaru->tahun_ajaran_id = $getta->tahun_ajaran_id;
+                                $acuanpsbbaru->qism_id = $record->qism_id;
+                                $acuanpsbbaru->qism_detail_id = $record->id;
+                                $acuanpsbbaru->kelas_id = null;
+                                $acuanpsbbaru->sem_id = $getsem->sem_sel;
+                                $acuanpsbbaru->semester_berjalan_id = $semberjalan->id;
+                                $acuanpsbbaru->is_active = 1;
+                                $acuanpsbbaru->save();
 
                                 Notification::make()
                                     ->success()
-                                    ->title('Status Ananda telah diupdate')
-                                    ->persistent()
+                                    ->title('Data Acuan PSB generated')
                                     ->color('Success')
                                     ->send();
                             } elseif ($cekdatats != 0) {
                                 Notification::make()
                                     ->success()
-                                    ->title('Santri tidak dapat diubah status "tinggal kelas"')
+                                    ->title('Data Acuan PSB sudah ada')
                                     ->icon('heroicon-o-exclamation-triangle')
                                     ->iconColor('danger')
-                                    ->persistent()
                                     ->color('warning')
                                     ->send();
                             }
@@ -206,6 +234,102 @@ class DaftarQism extends BaseWidget
                     ))
                     ->deselectRecordsAfterCompletion(),
 
+                Tables\Actions\BulkAction::make('acuanpsblama')
+                    ->label(__('Generate Acuan PSB Lama'))
+                    ->color('info')
+                    // ->requiresConfirmation()
+                    // ->modalIcon('heroicon-o-exclamation-triangle')
+                    // ->modalIconColor('danger')
+                    // ->modalHeading('Simpan data santri tinggal kelas?')
+                    // ->modalDescription('Setelah klik tombol "Simpan", maka status akan berubah')
+                    // ->modalSubmitActionLabel('Simpan')
+                    ->action(fn(Collection $records, array $data) => $records->each(
+                        function ($record) {
+
+                            // dd($record);
+
+                            $naikqism = QismDetailHasKelas::where('qism_id', $record->qism_id)
+                                ->where('qism_detail_id', $record->id)
+                                ->where('terakhir', 1)->first();
+
+                            $tahunberjalanaktif = TahunBerjalan::where('is_active', 1)->first();
+                            $ts = TahunBerjalan::where('tb', $tahunberjalanaktif->ts)->first();
+
+                            $cekdatats = AcuanPsb::where('jenis_pendaftar_id', 2)
+                                ->where('tahun_berjalan_id', $ts->id)
+                                ->where('qism_id', $record->qism_id)
+                                ->where('qism_detail_id', $record->id)
+                                ->count();
+
+                            if ($cekdatats == 0) {
+
+                                $tahunberjalanaktif = TahunBerjalan::where('is_active', 1)->first();
+                                $ts = TahunBerjalan::where('tb', $tahunberjalanaktif->ts)->first();
+
+                                // $datakelassantri = KelasSantri::where('tahun_berjalan_id', $tahunberjalanaktif->id)
+                                //     ->where('santri_id', $record->santri_id)->first();
+
+                                $kelas = QismDetailHasKelas::where('qism_id', $record->qism_id)
+                                    ->where('qism_detail_id', $record->id)->first();
+
+                                $gettaaktif = TahunAjaranAktif::where('qism_id', $record->qism_id)->where('is_active', 1)->first();
+
+                                $getta = TahunAjaran::where('id', $gettaaktif->tahun_ajaran_id)->first();
+
+                                $getsemaktif = TahunAjaranAktif::where('qism_id', $record->qism_id)->where('is_active', 1)->first();
+
+                                $getsem = Semester::where('qism_id', $record->qism_id)->where('sem_id', $getsemaktif->semester_id)->first();
+
+                                $semberjalan = SemesterBerjalan::where('is_active', false)->first();
+
+                                $tahun = Carbon::now()->year;
+
+                                $getnismstart = NismPerTahun::where('tahun', $tahun)->first();
+                                $nismstart = $getnismstart->nismstart;
+                                $angktahun = substr($nismstart, 0, 2);
+
+                                // dd($naikqism);
+
+                                $taaktif = TahunAjaranAktif::where('is_active', true)->where('qism_id', $naikqism->qism_s)->first();
+
+                                $tasel = TahunAjaran::where('id', $taaktif->tahun_ajaran_id)->first();
+
+                                $acuanpsblama = new AcuanPsb;
+                                $acuanpsblama->jenis_pendaftar_id = 2;
+                                $acuanpsblama->tahap_pendaftaran_id = 1;
+                                $acuanpsblama->status_pendaftaran_id = null;
+                                $acuanpsblama->daftarnaikqism = 'Belum Mendaftar';
+                                $acuanpsblama->tahun_berjalan_id = $ts->id;
+                                $acuanpsblama->angkatan_tahun = null;
+                                $acuanpsblama->qism_id = $record->qism_id;
+                                $acuanpsblama->qism_detail_id = $record->id;
+                                $acuanpsblama->kelas_id = null;
+                                $acuanpsblama->qism_s = $naikqism->qism_s;
+                                $acuanpsblama->qism_detail_s = $naikqism->qism_detail_s;
+                                $acuanpsblama->kelas_s = $naikqism->kelas_s;
+                                $acuanpsblama->tahun_ajaran_id = $tasel->tahun_ajaran_id;
+                                $acuanpsblama->sem_id = $getsem->sem_sel;
+                                $acuanpsblama->semester_berjalan_id = $semberjalan->id;
+                                $acuanpsblama->is_active = 1;
+                                $acuanpsblama->save();
+
+                                Notification::make()
+                                    ->success()
+                                    ->title('Data Acuan PSB generated')
+                                    ->color('Success')
+                                    ->send();
+                            } elseif ($cekdatats != 0) {
+                                Notification::make()
+                                    ->success()
+                                    ->title('Data Acuan PSB sudah ada')
+                                    ->icon('heroicon-o-exclamation-triangle')
+                                    ->iconColor('danger')
+                                    ->color('warning')
+                                    ->send();
+                            }
+                        }
+                    ))
+                    ->deselectRecordsAfterCompletion(),
 
             ]);
     }

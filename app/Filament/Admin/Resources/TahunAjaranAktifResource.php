@@ -8,12 +8,17 @@ use App\Filament\Admin\Resources\TahunAjaranAktifResource\RelationManagers;
 use App\Filament\Exports\TahunAjaranAktifExporter;
 use App\Filament\Imports\TahunAjaranAktifImporter;
 use App\Models\Kelas;
+use App\Models\NismPerTahun;
 use App\Models\Qism;
 use App\Models\QismDetail;
+use App\Models\QismDetailHasKelas;
 use App\Models\Sem;
 use App\Models\Semester;
+use App\Models\SemesterBerjalan;
 use App\Models\TahunAjaran;
 use App\Models\TahunAjaranAktif;
+use App\Models\TahunBerjalan;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
@@ -23,6 +28,7 @@ use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Filament\Notifications\Notification;
 use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -42,6 +48,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Collection;
 
 class TahunAjaranAktifResource extends Resource
 {
@@ -176,6 +183,16 @@ class TahunAjaranAktifResource extends Resource
                     ->sortable(),
 
                 ColumnGroup::make('Tahun Ajaran Aktif', [
+
+                    TextColumn::make('tahunBerjalan.tb')
+                        ->label('Tahun Berjalan')
+                        ->searchable(isIndividual: true, isGlobal: false)
+                        ->copyable()
+                        ->copyableState(function ($state) {
+                            return ($state);
+                        })
+                        ->copyMessage('Tersalin')
+                        ->sortable(),
 
                     TextColumn::make('qism.abbr_qism')
                         ->label('Qism')
@@ -340,6 +357,88 @@ class TahunAjaranAktifResource extends Resource
                 ExportBulkAction::make()
                     ->label('Export')
                     ->exporter(TahunAjaranAktifExporter::class),
+
+                Tables\Actions\BulkAction::make('generatetahunajaranaktif')
+                    ->label(__('Generate Tahun Ajaran Aktif'))
+                    ->color('info')
+                    // ->requiresConfirmation()
+                    // ->modalIcon('heroicon-o-exclamation-triangle')
+                    // ->modalIconColor('danger')
+                    // ->modalHeading('Simpan data santri tinggal kelas?')
+                    // ->modalDescription('Setelah klik tombol "Simpan", maka status akan berubah')
+                    // ->modalSubmitActionLabel('Simpan')
+                    ->action(fn(Collection $records, array $data) => $records->each(
+                        function ($record) {
+
+                            // dd($record);
+
+                            // $naikqism = QismDetailHasKelas::where('qism_id', $record->qism_id)
+                            //     ->where('qism_detail_id', $record->qism_detail_id)
+                            //     ->where('kelas_id', $record->kelas_id)->first();
+
+                            $tahunberjalanaktif = TahunBerjalan::where('is_active', 1)->first();
+                            $ts = TahunBerjalan::where('tb', $tahunberjalanaktif->ts)->first();
+
+                            $cekdatats = TahunAjaranAktif::where('tahun_berjalan_id', $ts->id)
+                                ->where('qism_id', $record->qism_id)
+                                ->count();
+
+                            if ($cekdatats == 0) {
+
+                                $tahunberjalanaktif = TahunBerjalan::where('is_active', 1)->first();
+                                $ts = TahunBerjalan::where('tb', $tahunberjalanaktif->ts)->first();
+
+                                // $datakelassantri = KelasSantri::where('tahun_berjalan_id', $tahunberjalanaktif->id)
+                                //     ->where('santri_id', $record->santri_id)->first();
+
+                                $kelas = QismDetailHasKelas::where('qism_id', $record->qism_id)
+                                    ->where('qism_detail_id', $record->id)->first();
+
+                                $gettaaktif = TahunAjaranAktif::where('qism_id', $record->qism_id)->where('is_active', 1)->first();
+
+                                $getta = TahunAjaran::where('id', $gettaaktif->tahun_ajaran_id)->first();
+
+                                $getsemaktif = TahunAjaranAktif::where('qism_id', $record->qism_id)->where('is_active', 1)->first();
+
+                                $getsem = Semester::where('qism_id', $record->qism_id)->where('sem_id', $getsemaktif->semester_id)->first();
+
+                                $semberjalan = SemesterBerjalan::where('is_active', false)->first();
+
+                                $tahun = Carbon::now()->year;
+
+                                $getnismstart = NismPerTahun::where('tahun', $tahun)->first();
+                                $nismstart = $getnismstart->nismstart;
+                                $angktahun = substr($nismstart, 0, 2);
+
+                                $TahunAjaranAktifbaru = new TahunAjaranAktif;
+                                $TahunAjaranAktifbaru->qism_id = $record->qism_id;
+                                $TahunAjaranAktifbaru->tahun_berjalan_id = $ts->id;
+                                $TahunAjaranAktifbaru->tahun_ajaran_id = $getta->tahun_ajaran_id;
+                                $TahunAjaranAktifbaru->semester_id = $getsem->sem_sel;
+                                $TahunAjaranAktifbaru->is_active = 1;
+                                $TahunAjaranAktifbaru->save();
+
+                                $data['is_active'] = 0;
+                                $record->update($data);
+
+                                Notification::make()
+                                    ->success()
+                                    ->title('Data Tahun Ajaran Aktif generated')
+                                    ->color('Success')
+                                    ->send();
+                            } elseif ($cekdatats != 0) {
+                                Notification::make()
+                                    ->success()
+                                    ->title('Data Tahun Ajaran Aktif sudah ada')
+                                    ->icon('heroicon-o-exclamation-triangle')
+                                    ->iconColor('danger')
+                                    ->color('warning')
+                                    ->send();
+                            }
+                        }
+                    ))
+                    ->deselectRecordsAfterCompletion(),
+
 
             ]);
     }

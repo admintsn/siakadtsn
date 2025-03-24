@@ -7,6 +7,7 @@ use App\Filament\Admin\Resources\AcuanPsbResource\RelationManagers;
 use App\Filament\Exports\AcuanPsbExporter;
 use App\Filament\Imports\AcuanPsbImporter;
 use App\Models\AcuanPsb;
+use App\Models\JenisPendaftar;
 use App\Models\JenisSoal;
 use App\Models\KategoriSoal;
 use App\Models\Kelas;
@@ -42,6 +43,7 @@ use Filament\Notifications\Notification;
 use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\ExportBulkAction;
 use Filament\Tables\Actions\ImportAction;
@@ -123,6 +125,14 @@ class AcuanPsbResource extends Resource
 
                 ColumnGroup::make('Acuan PSB', [
 
+                    SelectColumn::make('jenis_pendaftar_id')
+                        ->label('Jenis Pendaftar')
+                        ->options(JenisPendaftar::all()->pluck('jenis_pendaftar', 'id'))
+                        ->sortable()
+                        ->extraAttributes([
+                            'style' => 'min-width:250px'
+                        ]),
+
                     SelectColumn::make('qism_id')
                         ->label('Qism')
                         ->options(Qism::all()->pluck('abbr_qism', 'id'))
@@ -141,6 +151,30 @@ class AcuanPsbResource extends Resource
 
                     SelectColumn::make('kelas_id')
                         ->label('Kelas')
+                        ->options(Kelas::all()->pluck('kelas', 'id'))
+                        ->sortable()
+                        ->extraAttributes([
+                            'style' => 'min-width:250px'
+                        ]),
+
+                    SelectColumn::make('qism_s')
+                        ->label('Qism S')
+                        ->options(Qism::all()->pluck('abbr_qism', 'id'))
+                        ->sortable()
+                        ->extraAttributes([
+                            'style' => 'min-width:250px'
+                        ]),
+
+                    SelectColumn::make('qism_detail_s')
+                        ->label('Qism Detail S')
+                        ->options(QismDetail::all()->pluck('abbr_qism_detail', 'id'))
+                        ->sortable()
+                        ->extraAttributes([
+                            'style' => 'min-width:250px'
+                        ]),
+
+                    SelectColumn::make('kelas_s')
+                        ->label('Kelas S')
                         ->options(Kelas::all()->pluck('kelas', 'id'))
                         ->sortable()
                         ->extraAttributes([
@@ -171,7 +205,7 @@ class AcuanPsbResource extends Resource
                             'style' => 'min-width:250px'
                         ]),
 
-                    SelectColumn::make('semester_id')
+                    SelectColumn::make('sem_id')
                         ->label('Semester')
                         ->options(Sem::all()->pluck('semester', 'id'))
                         ->sortable()
@@ -222,15 +256,15 @@ class AcuanPsbResource extends Resource
 
                 ]),
             ])
-            ->groups([
-                Group::make('qismDetail.id')
-                    ->titlePrefixedWithLabel(false)
-            ])
-            ->defaultGroup('qismDetail.id')
+            // ->groups([
+            //     Group::make('qismDetail.id')
+            //         ->titlePrefixedWithLabel(false)
+            // ])
+            // ->defaultGroup('qismDetail.id')
             ->recordUrl(null)
             ->searchOnBlur()
             ->extremePaginationLinks()
-            ->defaultPaginationPageOption(5)
+            ->defaultPaginationPageOption(10)
             ->filters([
                 QueryBuilder::make()
                     ->constraintPickerColumns(1)
@@ -305,9 +339,11 @@ class AcuanPsbResource extends Resource
             ])
             ->headerActions([
 
-                ImportAction::make()
-                    ->label('Import')
-                    ->importer(AcuanPsbImporter::class)
+                Action::make('refresh')
+                    ->label('Refresh')
+                    ->button()
+                    ->outlined()
+                    ->color('info')
             ])
             ->actions([
                 ActionGroup::make([
@@ -315,174 +351,50 @@ class AcuanPsbResource extends Resource
                 ]),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                Tables\Actions\DeleteBulkAction::make(),
+                // ]),
 
-                Tables\Actions\BulkAction::make('soal')
-                    ->label(__('Soal'))
-                    ->color('success')
+                Tables\Actions\BulkAction::make('setaktif')
+                    ->label(__('Set Aktif'))
+                    ->color('info')
                     // ->requiresConfirmation()
-                    // ->modalIcon('heroicon-o-check-circle')
-                    // ->modalIconColor('success')
-                    // ->modalHeading('Tandai Data sebagai Soal?')
+                    // ->modalIcon('heroicon-o-exclamation-triangle')
+                    // ->modalIconColor('danger')
+                    // ->modalHeading('Simpan data santri tinggal kelas?')
                     // ->modalDescription('Setelah klik tombol "Simpan", maka status akan berubah')
                     // ->modalSubmitActionLabel('Simpan')
                     ->action(fn(Collection $records, array $data) => $records->each(
                         function ($record) {
 
-                            $data['is_soal'] = 1;
+                            $data['is_active'] = 1;
                             $record->update($data);
 
                             return $record;
-
-                            Notification::make()
-                                ->success()
-                                ->title('Data telah diubah')
-                                ->persistent()
-                                ->color('Success')
-                                ->send();
                         }
                     ))
                     ->deselectRecordsAfterCompletion(),
 
-                Tables\Actions\BulkAction::make('resetsoal')
-                    ->label(__('Reset Soal'))
-                    ->color('gray')
+                Tables\Actions\BulkAction::make('setnonaktif')
+                    ->label(__('Set Non Aktif'))
+                    ->color('info')
                     // ->requiresConfirmation()
-                    // ->modalIcon('heroicon-o-arrow-path')
-                    // ->modalIconColor('gray')
-                    // ->modalHeading(new HtmlString('Reset tanda Soal?'))
+                    // ->modalIcon('heroicon-o-exclamation-triangle')
+                    // ->modalIconColor('danger')
+                    // ->modalHeading('Simpan data santri tinggal kelas?')
                     // ->modalDescription('Setelah klik tombol "Simpan", maka status akan berubah')
                     // ->modalSubmitActionLabel('Simpan')
                     ->action(fn(Collection $records, array $data) => $records->each(
                         function ($record) {
 
-                            $data['is_soal'] = 0;
+
+                            $data['is_active'] = null;
                             $record->update($data);
 
                             return $record;
-
-                            Notification::make()
-                                ->success()
-                                ->title('Status Ananda telah diupdate')
-                                ->persistent()
-                                ->color('Success')
-                                ->send();
-                        }
-                    ))->deselectRecordsAfterCompletion(),
-
-                Tables\Actions\BulkAction::make('nilai')
-                    ->label(__('Nilai'))
-                    ->color('success')
-                    // ->requiresConfirmation()
-                    // ->modalIcon('heroicon-o-check-circle')
-                    // ->modalIconColor('success')
-                    // ->modalHeading('Tandai Data sebagai Nilai?')
-                    // ->modalDescription('Setelah klik tombol "Simpan", maka status akan berubah')
-                    // ->modalSubmitActionLabel('Simpan')
-                    ->action(fn(Collection $records, array $data) => $records->each(
-                        function ($record) {
-
-                            $data['is_nilai'] = 1;
-                            $record->update($data);
-
-                            return $record;
-
-                            Notification::make()
-                                ->success()
-                                ->title('Data telah diubah')
-                                ->persistent()
-                                ->color('Success')
-                                ->send();
                         }
                     ))
                     ->deselectRecordsAfterCompletion(),
-
-                Tables\Actions\BulkAction::make('resetnilai')
-                    ->label(__('Reset Nilai'))
-                    ->color('gray')
-                    // ->requiresConfirmation()
-                    // ->modalIcon('heroicon-o-arrow-path')
-                    // ->modalIconColor('gray')
-                    // ->modalHeading(new HtmlString('Reset tanda Nilai?'))
-                    // ->modalDescription('Setelah klik tombol "Simpan", maka status akan berubah')
-                    // ->modalSubmitActionLabel('Simpan')
-                    ->action(fn(Collection $records, array $data) => $records->each(
-                        function ($record) {
-
-                            $data['is_nilai'] = 0;
-                            $record->update($data);
-
-                            return $record;
-
-                            Notification::make()
-                                ->success()
-                                ->title('Status Ananda telah diupdate')
-                                ->persistent()
-                                ->color('Success')
-                                ->send();
-                        }
-                    ))->deselectRecordsAfterCompletion(),
-
-                Tables\Actions\BulkAction::make('soalnilai')
-                    ->label(__('Soal & Nilai'))
-                    ->color('success')
-                    // ->requiresConfirmation()
-                    // ->modalIcon('heroicon-o-check-circle')
-                    // ->modalIconColor('success')
-                    // ->modalHeading('Tandai Data sebagai Soal?')
-                    // ->modalDescription('Setelah klik tombol "Simpan", maka status akan berubah')
-                    // ->modalSubmitActionLabel('Simpan')
-                    ->action(fn(Collection $records, array $data) => $records->each(
-                        function ($record) {
-
-                            $data['is_soal'] = 1;
-                            $data['is_nilai'] = 1;
-                            $record->update($data);
-
-                            return $record;
-
-                            Notification::make()
-                                ->success()
-                                ->title('Data telah diubah')
-                                ->persistent()
-                                ->color('Success')
-                                ->send();
-                        }
-                    ))
-                    ->deselectRecordsAfterCompletion(),
-
-                Tables\Actions\BulkAction::make('resetsoalnilai')
-                    ->label(__('Reset Soal & Nilai'))
-                    ->color('gray')
-                    // ->requiresConfirmation()
-                    // ->modalIcon('heroicon-o-arrow-path')
-                    // ->modalIconColor('gray')
-                    // ->modalHeading(new HtmlString('Reset tanda Soal?'))
-                    // ->modalDescription('Setelah klik tombol "Simpan", maka status akan berubah')
-                    // ->modalSubmitActionLabel('Simpan')
-                    ->action(fn(Collection $records, array $data) => $records->each(
-                        function ($record) {
-
-                            $data['is_soal'] = 0;
-                            $data['is_nilai'] = 0;
-                            $record->update($data);
-
-                            return $record;
-
-                            Notification::make()
-                                ->success()
-                                ->title('Status Ananda telah diupdate')
-                                ->persistent()
-                                ->color('Success')
-                                ->send();
-                        }
-                    ))->deselectRecordsAfterCompletion(),
-
-                ExportBulkAction::make()
-                    ->label('Export')
-                    ->exporter(AcuanPsbExporter::class),
 
             ]);
     }

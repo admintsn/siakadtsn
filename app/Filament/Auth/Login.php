@@ -25,6 +25,7 @@ class Login extends BaseAuth
     {
         return TextInput::make('username')
             ->label('Username')
+            ->placeholder('Input nomor Kartu Keluarga')
             ->required()
             ->autocomplete()
             ->autofocus()

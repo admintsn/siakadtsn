@@ -2075,7 +2075,7 @@ class DataSantriResource extends Resource
                                                 ->length(16)
                                                 ->maxLength(16)
                                                 ->required()
-                                                ->unique(Santri::class, 'nik')
+                                                ->unique(Santri::class, 'nik', ignoreRecord: true)
                                                 //->default('3295131306822002')
                                                 ->hidden(fn(Get $get) =>
                                                 $get('kewarganegaraan_id') != 1),
@@ -2098,7 +2098,7 @@ class DataSantriResource extends Resource
                                                 ->hintColor('danger')
                                                 ->required()
                                                 //->default('3295131306822002')
-                                                ->unique(Santri::class, 'kitas')
+                                                ->unique(Santri::class, 'kitas', ignoreRecord: true)
                                                 ->hidden(fn(Get $get) =>
                                                 $get('kewarganegaraan_id') != 2),
 
@@ -2455,7 +2455,7 @@ class DataSantriResource extends Resource
 
                                             Select::make('hafalan_id')
                                                 ->label('Hafalan')
-                                                ->placeholder('Pilih Yang membiayai sekolah')
+                                                ->placeholder('Pilih jumlah hafalan dalam juz')
                                                 ->options(Hafalan::whereIsActive(1)->pluck('hafalan', 'id'))
                                                 ->required()
                                                 ->suffix('juz')
@@ -2854,8 +2854,8 @@ class DataSantriResource extends Resource
                     ->label('EMIS Sedang Dikerjakan')
                     // ->description(fn (): string => 'EMIS Sedang Dikerjakan', position: 'above')
                     ->sortable()
-                    // ->toggleable(isToggledHiddenByDefault: true)
-                    ->toggleable()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    // ->toggleable()
                     ->wrapHeader()
                     ->extraAttributes(['class' => 'w-[8]'])
                     ->alignCenter(),
@@ -2863,8 +2863,8 @@ class DataSantriResource extends Resource
                 CheckboxColumn::make('santri.is_emis')
                     ->label('EMIS')
                     ->sortable()
-                    // ->toggleable(isToggledHiddenByDefault: true)
-                    ->toggleable()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    // ->toggleable()
                     ->wrapHeader()
                     ->extraAttributes(['class' => 'w-[8]'])
                     ->alignCenter(),
@@ -2872,8 +2872,8 @@ class DataSantriResource extends Resource
                 CheckboxColumn::make('santri.is_emisgagal')
                     ->label('EMIS Gagal')
                     ->sortable()
-                    // ->toggleable(isToggledHiddenByDefault: true)
-                    ->toggleable()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    // ->toggleable()
                     ->wrapHeader()
                     ->extraAttributes(['class' => 'w-[8]'])
                     ->alignCenter(),
@@ -2901,6 +2901,8 @@ class DataSantriResource extends Resource
                     ->default('Belum Lengkap')
                     ->size(TextColumn\TextColumnSize::Large)
                     ->searchable(isIndividual: true, isGlobal: false)
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    // ->toggleable()
                     ->weight(FontWeight::Bold)
                     // ->description(fn ($record): string => "Status Data Walisantri:", position: 'above')
                     ->formatStateUsing(function (Model $record, $state) {
@@ -2939,6 +2941,8 @@ class DataSantriResource extends Resource
                     ->default('Belum Lengkap')
                     ->size(TextColumn\TextColumnSize::Large)
                     ->searchable(isIndividual: true, isGlobal: false)
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    // ->toggleable()
                     ->weight(FontWeight::Bold)
                     // ->description(fn ($record): string => "Status Data Santri:", position: 'above')
                     ->formatStateUsing(function (Model $record, $state) {
@@ -2981,6 +2985,21 @@ class DataSantriResource extends Resource
                     // ->toggleable()
                     ->sortable(),
 
+                SelectColumn::make('qism_detail_id')
+                    ->label('Qism Detail')
+                    ->options(QismDetail::whereIsActive(1)->pluck('abbr_qism_detail', 'id'))
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    ->sortable(query: function (Builder $query, string $direction): Builder {
+                        return $query
+                            ->orderBy('qism_detail_id', $direction)
+                            ->orderBy('kelas_id', $direction)
+                            ->orderBy('nama_lengkap', $direction);
+                    })
+                    ->disabled()
+                    ->extraAttributes([
+                        'style' => 'min-width:150px'
+                    ]),
+
                 TextColumn::make('qism_detail.kode_qism_detail')
                     ->label('Kode Qism Detail')
                     ->searchable(isIndividual: true, isGlobal: false)
@@ -3021,6 +3040,13 @@ class DataSantriResource extends Resource
                     ->copyMessage('Tersalin')
                     ->copyMessageDuration(1500),
 
+                TextColumn::make('santri.nama_panggilan')
+                    ->label('Panggilan')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable(),
+
                 TextColumn::make('santri.nism')
                     ->label('NISM')
                     ->searchable(isIndividual: true, isGlobal: false)
@@ -3028,6 +3054,19 @@ class DataSantriResource extends Resource
                     ->copyable()
                     ->copyableState(function (Model $record, $state) {
                         return ('510035210133' . $state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
+                TextColumn::make('santri.kartu_keluarga')
+                    ->label('Kartu Keluarga')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
                     })
                     ->copyMessage('Tersalin')
                     ->copyMessageDuration(1500),
@@ -3284,19 +3323,6 @@ class DataSantriResource extends Resource
 
                 TextColumn::make('santri.keb_dis_lainnya')
                     ->label('Kebutuhan Disabilitas Lainnya')
-                    ->searchable(isIndividual: true, isGlobal: false)
-                    // ->toggleable(isToggledHiddenByDefault: true)
-                    ->toggleable()
-                    ->sortable()
-                    ->copyable()
-                    ->copyableState(function (Model $record, $state) {
-                        return ($state);
-                    })
-                    ->copyMessage('Tersalin')
-                    ->copyMessageDuration(1500),
-
-                TextColumn::make('santri.kartu_keluarga')
-                    ->label('Kartu Keluarga')
                     ->searchable(isIndividual: true, isGlobal: false)
                     // ->toggleable(isToggledHiddenByDefault: true)
                     ->toggleable()
@@ -3901,13 +3927,6 @@ class DataSantriResource extends Resource
                     ->copyMessage('Tersalin')
                     ->copyMessageDuration(1500),
 
-                TextColumn::make('santri.nama_panggilan')
-                    ->label('Panggilan')
-                    ->searchable(isIndividual: true, isGlobal: false)
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    // ->toggleable()
-                    ->sortable(),
-
                 TextColumn::make('santri.umur')
                     ->label('Umur')
                     ->searchable(isIndividual: true, isGlobal: false)
@@ -3965,6 +3984,12 @@ class DataSantriResource extends Resource
                 QueryBuilder::make()
                     ->constraintPickerColumns(1)
                     ->constraints([
+
+                        TextConstraint::make('angkatan_tahun')
+                            ->relationship(
+                                name: 'santri',
+                                titleAttribute: 'angkatan_tahun',
+                            ),
 
                         SelectConstraint::make('qism_id')
                             ->label('Qism')
@@ -4067,6 +4092,8 @@ class DataSantriResource extends Resource
 
                                 $semberjalan = SemesterBerjalan::where('is_active', false)->first();
 
+                                $santri = Santri::where('id', $record->santri_id)->first();
+
                                 $kelassantri = new KelasSantri;
 
                                 $kelassantri->santri_id = $record->santri_id;
@@ -4078,12 +4105,14 @@ class DataSantriResource extends Resource
                                 $kelassantri->qism_detail_id = $datakelassantri->qism_detail_id;
                                 $kelassantri->kelas_id = $datakelassantri->kelas_id;
                                 $kelassantri->semester_berjalan_id = $semberjalan->id;
+                                $kelassantri->nama_lengkap = $santri->nama_lengkap;
+                                $kelassantri->is_active = 1;
                                 $kelassantri->save();
 
                                 Notification::make()
                                     ->success()
                                     ->title('Status Ananda telah diupdate')
-                                    ->persistent()
+                                    // ->persistent()
                                     ->color('Success')
                                     ->send();
                             } elseif ($cekdatats != 0) {
@@ -4092,7 +4121,7 @@ class DataSantriResource extends Resource
                                     ->title('Santri tidak dapat diubah status "tinggal kelas"')
                                     ->icon('heroicon-o-exclamation-triangle')
                                     ->iconColor('danger')
-                                    ->persistent()
+                                    // ->persistent()
                                     ->color('warning')
                                     ->send();
                             }
@@ -4153,6 +4182,8 @@ class DataSantriResource extends Resource
 
                                     $semberjalan = SemesterBerjalan::where('is_active', false)->first();
 
+                                    $santri = Santri::where('id', $record->santri_id)->first();
+
                                     $kelassantri = new KelasSantri;
 
                                     $kelassantri->santri_id = $record->santri_id;
@@ -4164,13 +4195,15 @@ class DataSantriResource extends Resource
                                     $kelassantri->qism_detail_id = $data_s->qism_detail_s;
                                     $kelassantri->kelas_id = $data_s->kelas_s;
                                     $kelassantri->semester_berjalan_id = $semberjalan->id;
+                                    $kelassantri->nama_lengkap = $santri->nama_lengkap;
+                                    $kelassantri->is_active = 1;
                                     $kelassantri->save();
 
                                     Notification::make()
                                         ->success()
                                         ->title('Status Ananda telah diupdate')
                                         ->icon('heroicon-o-check-circle')
-                                        ->persistent()
+                                        // ->persistent()
                                         ->color('Success')
                                         // ->actions([
                                         //     Action::make('view')
@@ -4186,7 +4219,7 @@ class DataSantriResource extends Resource
                                         ->title('Santri tidak dapat diubah status "Naik Kelas"')
                                         ->icon('heroicon-o-exclamation-triangle')
                                         ->iconColor('danger')
-                                        ->persistent()
+                                        // ->persistent()
                                         ->color('warning')
                                         ->send();
                                 }
@@ -4196,7 +4229,7 @@ class DataSantriResource extends Resource
                                     ->title('Santri tidak dapat diubah status "Naik Kelas"')
                                     ->icon('heroicon-o-exclamation-triangle')
                                     ->iconColor('danger')
-                                    ->persistent()
+                                    // ->persistent()
                                     ->color('warning')
                                     ->send();
                             }
@@ -4237,7 +4270,7 @@ class DataSantriResource extends Resource
                                 ->success()
                                 ->title('Status Ananda telah diupdate')
                                 ->icon('heroicon-o-check-circle')
-                                ->persistent()
+                                // ->persistent()
                                 ->color('Success')
                                 // ->actions([
                                 //     Action::make('view')
@@ -4283,7 +4316,7 @@ class DataSantriResource extends Resource
                                 ->success()
                                 ->title('Status Ananda telah diupdate')
                                 ->icon('heroicon-o-check-circle')
-                                ->persistent()
+                                // ->persistent()
                                 ->color('Success')
                                 // ->actions([
                                 //     Action::make('view')
@@ -4329,7 +4362,107 @@ class DataSantriResource extends Resource
                                 ->success()
                                 ->title('Status Ananda telah diupdate')
                                 ->icon('heroicon-o-check-circle')
-                                ->persistent()
+                                // ->persistent()
+                                ->color('Success')
+                                // ->actions([
+                                //     Action::make('view')
+                                //         ->button(),
+                                //     Action::make('undo')
+                                //         ->color('secondary'),
+                                // ])
+                                ->send();
+                        }
+                    ))
+                    ->deselectRecordsAfterCompletion(),
+
+                Tables\Actions\BulkAction::make('updatenamalengkap')
+                    ->label(__('Update Nama Lengkap'))
+                    ->color('info')
+                    ->visible(fn($livewire): bool => $livewire->activeTab === 'all')
+                    // ->requiresConfirmation()
+                    // ->modalIcon('heroicon-o-check-circle')
+                    // ->modalIconColor('success')
+                    // ->modalHeading('Simpan data santri tinggal kelas?')
+                    // ->modalDescription('Setelah klik tombol "Simpan", maka status akan berubah')
+                    // ->modalSubmitActionLabel('Simpan')
+                    ->action(fn(Collection $records, array $data) => $records->each(
+                        function ($record) {
+
+                            $santri = Santri::where('id', $record->santri_id)->first();
+
+                            $data['nama_lengkap'] = $santri->nama_lengkap;
+                            $record->update($data);
+
+                            Notification::make()
+                                ->success()
+                                ->title('Data Ananda telah diupdate')
+                                ->icon('heroicon-o-check-circle')
+                                // ->persistent()
+                                ->color('Success')
+                                // ->actions([
+                                //     Action::make('view')
+                                //         ->button(),
+                                //     Action::make('undo')
+                                //         ->color('secondary'),
+                                // ])
+                                ->send();
+                        }
+                    ))
+                    ->deselectRecordsAfterCompletion(),
+
+                Tables\Actions\BulkAction::make('hapusstatussantri')
+                    ->label(__('Hapus Status Santri'))
+                    ->color('warning')
+                    // ->requiresConfirmation()
+                    // ->modalIcon('heroicon-o-exclamation-triangle')
+                    // ->modalIconColor('danger')
+                    // ->modalHeading('Ubah Status menjadi "Tidak diterima naik qism?"')
+                    // ->modalDescription('Setelah klik tombol "Simpan", maka status akan berubah')
+                    // ->modalSubmitActionLabel('Simpan')
+                    ->action(fn(Collection $records, array $data) => $records->each(
+                        function ($record) {
+
+                            $santri = Santri::where('id', $record->santri_id)->first();
+
+                            //---
+
+                            StatusSantri::where('santri_id', $santri->id)
+                                ->where('stat_santri_id', 1)
+                                ->delete();
+
+                            Notification::make()
+                                ->success()
+                                ->title('Status Ananda telah diupdate')
+                                // ->persistent()
+                                ->color('Success')
+                                ->send();
+                        }
+                    ))
+                    ->deselectRecordsAfterCompletion(),
+
+                Tables\Actions\BulkAction::make('updatewalikk')
+                    ->label(__('Update Wali ID dan KK'))
+                    ->color('warning')
+                    // ->requiresConfirmation()
+                    // ->modalIcon('heroicon-o-exclamation-triangle')
+                    // ->modalIconColor('danger')
+                    // ->modalHeading('Ubah Status menjadi "Tidak diterima naik qism?"')
+                    // ->modalDescription('Setelah klik tombol "Simpan", maka status akan berubah')
+                    // ->modalSubmitActionLabel('Simpan')
+                    ->action(fn(Collection $records, array $data) => $records->each(
+                        function ($record) {
+
+                            $santri = Santri::where('id', $record->santri_id)->first();
+
+                            $data['walisantri_id'] = $santri->walisantri_id;
+                            $data['kartu_keluarga'] = $santri->kartu_keluarga;
+                            $record->update($data);
+
+                            Notification::make()
+                                ->success()
+                                ->title('Data Ananda telah diupdate')
+                                ->icon('heroicon-o-check-circle')
+                                // ->persistent()
                                 ->color('Success')
                                 // ->actions([
                                 //     Action::make('view')

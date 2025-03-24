@@ -12,5 +12,10 @@ class MenginapTidak extends Model
         return $this->hasMany(Walisantri::class);
     }
 
+    public function pesanDaftars()
+    {
+        return $this->hasMany(PesanDaftar::class);
+    }
+
     use log;
 }

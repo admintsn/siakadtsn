@@ -122,8 +122,10 @@ class User extends Authenticatable implements FilamentUser
                 return auth()->user()->panelrole_id == 1;
             case 'tsn':
                 return auth()->user()->panelrole_id == 2 || auth()->user()->panelrole_id == 1;
+            case 'walisantri':
+                return auth()->user()->panelrole_id == 3 || auth()->user()->panelrole_id == 2 || auth()->user()->panelrole_id == 1;
             default:
-                return true;
+                return false;
         }
     }
 
@@ -133,6 +135,7 @@ class User extends Authenticatable implements FilamentUser
             1 => 'admin',
             2 => 'tsn',
             3 => '/',
+            4 => '/403',
         };
     }
 

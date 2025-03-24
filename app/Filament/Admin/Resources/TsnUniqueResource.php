@@ -7,6 +7,7 @@ use App\Filament\Admin\Resources\TsnUniqueResource\Pages;
 use App\Filament\Admin\Resources\TsnUniqueResource\RelationManagers;
 use App\Filament\Exports\TsnUniqueExporter;
 use App\Filament\Imports\TsnUniqueImporter;
+use App\Models\Panelrole;
 use App\Models\TsnUnique;
 use App\Models\User;
 use Filament\Forms;
@@ -30,6 +31,7 @@ use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Filters\QueryBuilder;
 use Filament\Tables\Filters\QueryBuilder\Constraints\BooleanConstraint;
 use Filament\Tables\Filters\QueryBuilder\Constraints\DateConstraint;
+use Filament\Tables\Filters\QueryBuilder\Constraints\SelectConstraint;
 use Filament\Tables\Filters\QueryBuilder\Constraints\TextConstraint;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -164,6 +166,15 @@ class TsnUniqueResource extends Resource
 
                 ]),
 
+                ColumnGroup::make('Panel Role', [
+
+                    TextColumn::make('panelrole.panelrole')
+                        ->label('Panel Role')
+                        ->searchable(isIndividual: true, isGlobal: false)
+                        ->alignCenter(),
+
+                ]),
+
                 ColumnGroup::make('Req Status', [
 
                     CheckboxColumn::make('is_request')
@@ -228,6 +239,11 @@ class TsnUniqueResource extends Resource
                             ->label('Username')
                             ->nullable(),
 
+                            SelectConstraint::make('panelrole_id')
+                            ->label('Panel Role')
+                            ->options(Panelrole::where('is_active', true)->pluck('panelrole', 'id'))
+                            ->nullable(),
+
                         BooleanConstraint::make('is_active')
                             ->label('Status')
                             ->icon(false)
@@ -278,8 +294,8 @@ class TsnUniqueResource extends Resource
                     ->label('Export')
                     ->exporter(TsnUniqueExporter::class),
 
-                BulkAction::make('Ubah Unique')
-                    ->label(__('Ubah Unique'))
+                BulkAction::make('generateunique')
+                    ->label(__('Generate Unique'))
                     ->color('info')
                     // ->requiresConfirmation()
                     // ->modalIcon('heroicon-o-check-circle')
@@ -290,11 +306,16 @@ class TsnUniqueResource extends Resource
                     ->action(fn(Collection $records, array $data) => $records->each(
                         function ($record) {
 
-                            $password = $record->tsnunique;
+                            $tsnunique = random_int(10000000, 99999999);
+
+                            $password = $tsnunique;
                             $updatepassword = Hash::make($password);
 
                             User::where('username', $record->username)
-                                ->update(['password' => $updatepassword]);
+                                ->update([
+                                    'tsnunique' => $tsnunique,
+                                    'password' => $updatepassword,
+                            ]);
 
                             Notification::make()
                                 // ->success()

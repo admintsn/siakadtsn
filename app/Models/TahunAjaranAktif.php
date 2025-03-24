@@ -28,5 +28,10 @@ class TahunAjaranAktif extends Model
         return $this->belongsTo(Sem::class,'semester_id');
     }
 
+    public function tahunBerjalan()
+    {
+        return $this->belongsTo(TahunBerjalan::class);
+    }
+
     use log;
 }

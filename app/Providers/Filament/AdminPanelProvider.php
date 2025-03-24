@@ -128,6 +128,9 @@ class AdminPanelProvider extends PanelProvider
                 SpotlightPlugin::make(),
                 // FilamentClearCachePlugin::make(),
             ])
+            ->resources([
+                config('filament-logger.activity_resource')
+            ])
             ->viteTheme('resources/css/filament/admin/theme.css');
     }
 }

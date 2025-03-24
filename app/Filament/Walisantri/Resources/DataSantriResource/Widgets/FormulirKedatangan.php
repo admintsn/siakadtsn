@@ -79,6 +79,12 @@ use RalphJSmit\Filament\Components\Forms\Sidebar;
 
 class FormulirKedatangan extends BaseWidget
 {
+
+    public static function canView(): bool
+    {
+        return auth()->user()->panelrole_id == 3;
+    }
+
     protected int | string | array $columnSpan = 'full';
 
     protected static bool $isLazy = false;

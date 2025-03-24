@@ -1,23 +1,26 @@
 <?php
+
+use App\Filament\Admin\Clusters\Report;
+
 return [
     'datetime_format' => 'd/m/Y H:i:s',
     'date_format' => 'd/m/Y',
 
     'activity_resource' => \Z3d0X\FilamentLogger\Resources\ActivityResource::class,
-	'scoped_to_tenant' => true,
-	'navigation_sort' => null,
+    'scoped_to_tenant' => true,
+    'navigation_sort' => 9999,
 
     'resources' => [
         'enabled' => true,
         'log_name' => 'Resource',
         'logger' => \Z3d0X\FilamentLogger\Loggers\ResourceLogger::class,
         'color' => 'success',
-		
+
         'exclude' => [
             //App\Filament\Resources\UserResource::class,
         ],
-        'cluster' => null,
-        'navigation_group' =>'Settings',
+        'cluster' => Report::class,
+        'navigation_group' => null,
     ],
 
     'access' => [

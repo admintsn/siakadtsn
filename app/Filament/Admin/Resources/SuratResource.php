@@ -423,6 +423,17 @@ class SuratResource extends Resource
                         ->copyMessage('Tersalin')
                         ->copyMessageDuration(1500),
 
+                    TextColumn::make('nama_panggilan')
+                        ->label('Panggilan')
+                        ->searchable(isIndividual: true, isGlobal: false)
+                        ->sortable()
+                        ->copyable()
+                        ->copyableState(function (Model $record, $state) {
+                            return ($state);
+                        })
+                        ->copyMessage('Tersalin')
+                        ->copyMessageDuration(1500),
+
                     TextColumn::make('nism')
                         ->label('NISM')
                         ->searchable(isIndividual: true, isGlobal: false)

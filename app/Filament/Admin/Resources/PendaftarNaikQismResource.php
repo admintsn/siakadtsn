@@ -4,6 +4,7 @@ namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\PendaftarNaikQismResource\Pages;
 use App\Filament\Admin\Resources\PendaftarNaikQismResource\RelationManagers;
+use App\Models\AcuanPsb;
 use App\Models\AnandaBerada;
 use App\Models\BersediaTidak;
 use App\Models\Cita;
@@ -4270,11 +4271,13 @@ class PendaftarNaikQismResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        $tahunberjalanaktif = TahunBerjalan::where('is_active', 1)->first();
-        $ts = TahunBerjalan::where('tb', $tahunberjalanaktif->ts)->first();
+        // $tahunberjalanaktif = TahunBerjalan::where('is_active', 1)->first();
+        // $ts = TahunBerjalan::where('tb', $tahunberjalanaktif->ts)->first();
+
+        $tbpsb = AcuanPsb::where('is_active', true)->first();
 
         return parent::getEloquentQuery()->whereIn('qism_id', Auth::user()->mudirqism)
             ->where('jenis_pendaftar_id', 2)
-            ->where('tahun_berjalan_id', $ts->id);
+            ->where('tahun_berjalan_id', $tbpsb->tahun_berjalan_id);
     }
 }

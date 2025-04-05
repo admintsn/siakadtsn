@@ -588,6 +588,7 @@ class NomorSurat extends BaseWidget
 
                                         Select::make('qism_id')
                                             ->label('Qism')
+                                            ->default(7)
                                             ->options(Qism::all()->pluck('abbr_qism', 'id')),
 
                                     ]),
@@ -675,7 +676,7 @@ class NomorSurat extends BaseWidget
 
                                                 $set('nomor_surat', $nomor . '/' . $lembaga->lembaga_surat . '.' . $qism->kode_surat . '/' . $jenis->kode . '/' . $tahunh->tahunhberjalan . '/' . $bulan . '/' . $tahunm->tahunmberjalan);
                                                 $set('perihal_surat', $jenis->jenis_surat);
-                                                $set('nama_file', $tahun . '.' . sprintf("%02d", $bulan) . '.' . $tanggal . ' ' . $lembaga->lembaga_surat . '-' . $qism->abbr_qism . ' ' . $jenis->jenis_surat . ' ' . $get('nama_manual'));
+                                                $set('nama_file', $tahun . '.' . sprintf("%02d", $bulan) . '.' . sprintf("%02d", $tanggal) . ' ' . $lembaga->lembaga_surat . '-' . $qism->abbr_qism . ' ' . $jenis->jenis_surat . ' ' . $get('nama_manual'));
                                             })
                                             ->required(),
                                     ]),

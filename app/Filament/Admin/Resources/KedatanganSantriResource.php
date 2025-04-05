@@ -593,13 +593,13 @@ class KedatanganSantriResource extends Resource
 
                             $walisantri = Walisantri::where('id', $record->walisantri_id)->first();
 
-                            if ($walisantri->hp_komunikasi == null) {
-                                return null;
-                            } elseif ($walisantri->hp_komunikasi != null) {
+                            if ($walisantri->hp_komunikasi ?? null) {
 
                                 $walisantri = Walisantri::where('id', $record->walisantri_id)->first();
 
                                 return 'https://wa.me/62' . $walisantri->hp_komunikasi;
+                            } elseif ($walisantri->hp_komunikasi ?? null) {
+                                return '0';
                             }
                         })
                         ->badge()

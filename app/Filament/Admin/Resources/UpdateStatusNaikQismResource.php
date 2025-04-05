@@ -4,14 +4,17 @@ namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\UpdateStatusNaikQismResource\Pages;
 use App\Filament\Admin\Resources\UpdateStatusNaikQismResource\RelationManagers;
+use App\Models\AcuanPsb;
 use App\Models\Kelas;
 use App\Models\KelasSantri;
 use App\Models\QismDetail;
 use App\Models\QismDetailHasKelas;
 use App\Models\Santri;
+use App\Models\StatusSantri;
 use App\Models\TahunAjaran;
 use App\Models\TahunAjaranAktif;
 use App\Models\TahunBerjalan;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
@@ -84,6 +87,12 @@ class UpdateStatusNaikQismResource extends Resource
 
                 TextInputColumn::make('santri.kartu_keluarga')
                     ->label('KK')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    ->visible(auth()->user()->id == 1)
+                    ->sortable(),
+
+                TextColumn::make('santri.statussantri.statSantri.stat_santri')
+                    ->label('Status')
                     ->searchable(isIndividual: true, isGlobal: false)
                     ->visible(auth()->user()->id == 1)
                     ->sortable(),
@@ -446,7 +455,46 @@ class UpdateStatusNaikQismResource extends Resource
                             //         ->color('secondary'),
                             // ])
                             ->send();
-                    }))->deselectRecordsAfterCompletion()
+                    }))->deselectRecordsAfterCompletion(),
+
+                Tables\Actions\BulkAction::make('aktif')
+                    ->label(__('Aktif'))
+                    ->color('success')
+                    ->visible(fn(): bool => auth()->user()->id == 1)
+                    // ->requiresConfirmation()
+                    // ->modalIcon('heroicon-o-check-circle')
+                    // ->modalIconColor('success')
+                    // ->modalHeading('Simpan data santri tinggal kelas?')
+                    // ->modalDescription('Setelah klik tombol "Simpan", maka status akan berubah')
+                    // ->modalSubmitActionLabel('Simpan')
+                    ->action(fn(Collection $records, array $data) => $records->each(
+                        function ($record) {
+
+                            $statussantri = StatusSantri::where('santri_id', $record->santri_id)->first();
+                            $statussantri->stat_santri_id = 3;
+                            $statussantri->keterangan_status_santri_id = null;
+                            $statussantri->save();
+
+                            $statususer = User::where('id', $record->santri->walisantri->user->id)->first();
+                            $statususer->is_active = 1;
+                            $statususer->save();
+
+                            Notification::make()
+                                ->success()
+                                ->title('Status Ananda telah diupdate')
+                                ->icon('heroicon-o-check-circle')
+                                // ->persistent()
+                                ->color('Success')
+                                // ->actions([
+                                //     Action::make('view')
+                                //         ->button(),
+                                //     Action::make('undo')
+                                //         ->color('secondary'),
+                                // ])
+                                ->send();
+                        }
+                    ))
+                    ->deselectRecordsAfterCompletion(),
             ]);
     }
 
@@ -470,12 +518,12 @@ class UpdateStatusNaikQismResource extends Resource
     public static function getEloquentQuery(): Builder
     {
 
-        $tahunberjalanaktif = TahunBerjalan::where('is_active', 1)->first();
-        $ts = TahunBerjalan::where('tb', $tahunberjalanaktif->ts)->first();
+        // $tahunberjalanaktif = TahunBerjalan::where('is_active', 1)->first();
+        // $ts = TahunBerjalan::where('tb', $tahunberjalanaktif->ts)->first();
 
-        return parent::getEloquentQuery()->where('tahun_berjalan_id', $tahunberjalanaktif->id)
-            ->whereIn('qism_id', Auth::user()->mudirqism)->whereHas('statussantri', function ($query) {
-                $query->where('stat_santri_id', 3);
-            });
+        $tbpsb = AcuanPsb::where('is_active', true)->where('jenis_pendaftar_id', 2)->first();
+
+        return parent::getEloquentQuery()->where('tahun_berjalan_id', $tbpsb->tahun_berjalan_id)
+            ->whereIn('qism_id', Auth::user()->mudirqism);
     }
 }

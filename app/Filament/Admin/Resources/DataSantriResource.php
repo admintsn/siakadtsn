@@ -105,6 +105,7 @@ use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Filters\QueryBuilder\Constraints\SelectConstraint;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction as TablesExportBulkAction;
 use Schmeits\FilamentCharacterCounter\Forms\Components\TextInput as ComponentsTextInput;
 use stdClass;
 
@@ -2850,6 +2851,15 @@ class DataSantriResource extends Resource
         return $table
             ->columns([
 
+                TextColumn::make('santri.jenis_pendaftar_id')
+                    ->label('Mendaftar Naik Qism')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    // ->toggleable()
+                    ->wrapHeader()
+                    ->extraAttributes(['class' => 'w-[8]'])
+                    ->sortable(),
+
                 CheckboxColumn::make('santri.emis_onprocess')
                     ->label('EMIS Sedang Dikerjakan')
                     // ->description(fn (): string => 'EMIS Sedang Dikerjakan', position: 'above')
@@ -3017,6 +3027,8 @@ class DataSantriResource extends Resource
                 TextColumn::make('qism_detail.abbr_qism_detail')
                     ->label('Qism')
                     ->searchable(isIndividual: true, isGlobal: false)
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    // ->toggleable()
                     ->sortable(),
 
                 TextColumn::make('kelas.kelas')
@@ -4037,26 +4049,35 @@ class DataSantriResource extends Resource
 
                     ]),
             ])
-            ->defaultSort('santri.nama_lengkap')
+            ->defaultSort(function (Builder $query, string $direction): Builder {
+                return $query
+                    ->orderBy('qism_detail_id', $direction)
+                    ->orderBy('kelas_id', $direction)
+                    ->orderBy('nama_lengkap', $direction);
+            })
             ->headerActions([])
             ->actions([
                 ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
-                    Tables\Actions\EditAction::make(),
-                    Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\EditAction::make()
+                        ->visible(auth()->user()->id == 1),
+                    Tables\Actions\DeleteAction::make()
+                        ->visible(auth()->user()->id == 1),
                 ]),
 
             ])
             ->bulkActions([
 
-                ExportBulkAction::make()
-                    ->label('Export')
-                    ->exporter(DataSantriExporter::class),
+                TablesExportBulkAction::make(),
+
+                // ExportBulkAction::make()
+                //     ->label('Export')
+                //     ->exporter(DataSantriExporter::class),
 
                 Tables\Actions\BulkAction::make('tinggalkelas')
                     ->label(__('Tinggal Kelas'))
                     ->color('danger')
-                    ->visible(fn($livewire): bool => $livewire->activeTab === 'Aktif')
+                    ->visible(fn($livewire): bool => $livewire->activeTab === 'Aktif' && auth()->user()->id == 1)
                     // ->requiresConfirmation()
                     // ->modalIcon('heroicon-o-exclamation-triangle')
                     // ->modalIconColor('danger')
@@ -4132,7 +4153,7 @@ class DataSantriResource extends Resource
                 Tables\Actions\BulkAction::make('naikkelas')
                     ->label(__('Naik Kelas'))
                     ->color('success')
-                    ->visible(fn($livewire): bool => $livewire->activeTab === 'Aktif')
+                    ->visible(fn($livewire): bool => $livewire->activeTab === 'Aktif' && auth()->user()->id == 1)
                     // ->requiresConfirmation()
                     // ->modalIcon('heroicon-o-check-circle')
                     // ->modalIconColor('success')
@@ -4240,7 +4261,7 @@ class DataSantriResource extends Resource
                 Tables\Actions\BulkAction::make('lulus')
                     ->label(__('Lulus'))
                     ->color('success')
-                    ->visible(fn($livewire): bool => $livewire->activeTab === 'Aktif')
+                    ->visible(fn($livewire): bool => $livewire->activeTab === 'Aktif' && auth()->user()->id == 1)
                     // ->requiresConfirmation()
                     // ->modalIcon('heroicon-o-check-circle')
                     // ->modalIconColor('success')
@@ -4286,7 +4307,7 @@ class DataSantriResource extends Resource
                 Tables\Actions\BulkAction::make('tamat')
                     ->label(__('Tamat'))
                     ->color('success')
-                    ->visible(fn($livewire): bool => $livewire->activeTab === 'Aktif')
+                    ->visible(fn($livewire): bool => $livewire->activeTab === 'Tidak Aktif' && auth()->user()->id == 1)
                     // ->requiresConfirmation()
                     // ->modalIcon('heroicon-o-check-circle')
                     // ->modalIconColor('success')
@@ -4303,14 +4324,10 @@ class DataSantriResource extends Resource
 
                             $santris = Santri::where('walisantri_id', $record->santri->walisantri_id)->pluck('id');
 
-                            $countstatusaktif = StatusSantri::whereIn('santri_id', $santris)
-                                ->where('stat_santri_id', 3)->count();
+                            $statususer = User::where('id', $record->santri->walisantri->user->id)->first();
+                            $statususer->is_active = 1;
+                            $statususer->save();
 
-                            if ($countstatusaktif == 0) {
-                                $statususer = User::where('id', $record->santri->walisantri->user->id)->first();
-                                $statususer->is_active = 0;
-                                $statususer->save();
-                            }
 
                             Notification::make()
                                 ->success()
@@ -4332,7 +4349,7 @@ class DataSantriResource extends Resource
                 Tables\Actions\BulkAction::make('keluar')
                     ->label(__('Keluar'))
                     ->color('danger')
-                    ->visible(fn($livewire): bool => $livewire->activeTab === 'Aktif')
+                    ->visible(fn($livewire): bool => $livewire->activeTab === 'Aktif' && auth()->user()->id == 1)
                     // ->requiresConfirmation()
                     // ->modalIcon('heroicon-o-check-circle')
                     // ->modalIconColor('success')
@@ -4375,10 +4392,49 @@ class DataSantriResource extends Resource
                     ))
                     ->deselectRecordsAfterCompletion(),
 
+                Tables\Actions\BulkAction::make('aktif')
+                    ->label(__('Aktif'))
+                    ->color('success')
+                    ->visible(fn($livewire): bool => $livewire->activeTab === 'Aktif' && auth()->user()->id == 1)
+                    // ->requiresConfirmation()
+                    // ->modalIcon('heroicon-o-check-circle')
+                    // ->modalIconColor('success')
+                    // ->modalHeading('Simpan data santri tinggal kelas?')
+                    // ->modalDescription('Setelah klik tombol "Simpan", maka status akan berubah')
+                    // ->modalSubmitActionLabel('Simpan')
+                    ->action(fn(Collection $records, array $data) => $records->each(
+                        function ($record) {
+
+                            $statussantri = StatusSantri::where('santri_id', $record->santri_id)->first();
+                            $statussantri->stat_santri_id = 3;
+                            $statussantri->keterangan_status_santri_id = null;
+                            $statussantri->save();
+
+                            $statususer = User::where('id', $record->santri->walisantri->user->id)->first();
+                            $statususer->is_active = 1;
+                            $statususer->save();
+
+                            Notification::make()
+                                ->success()
+                                ->title('Status Ananda telah diupdate')
+                                ->icon('heroicon-o-check-circle')
+                                // ->persistent()
+                                ->color('Success')
+                                // ->actions([
+                                //     Action::make('view')
+                                //         ->button(),
+                                //     Action::make('undo')
+                                //         ->color('secondary'),
+                                // ])
+                                ->send();
+                        }
+                    ))
+                    ->deselectRecordsAfterCompletion(),
+
                 Tables\Actions\BulkAction::make('updatenamalengkap')
                     ->label(__('Update Nama Lengkap'))
                     ->color('info')
-                    ->visible(fn($livewire): bool => $livewire->activeTab === 'all')
+                    ->visible(fn($livewire): bool => $livewire->activeTab === 'all' && auth()->user()->id == 1)
                     // ->requiresConfirmation()
                     // ->modalIcon('heroicon-o-check-circle')
                     // ->modalIconColor('success')
@@ -4413,6 +4469,7 @@ class DataSantriResource extends Resource
                 Tables\Actions\BulkAction::make('hapusstatussantri')
                     ->label(__('Hapus Status Santri'))
                     ->color('warning')
+                    ->visible(auth()->user()->id == 1)
                     // ->requiresConfirmation()
                     // ->modalIcon('heroicon-o-exclamation-triangle')
                     // ->modalIconColor('danger')
@@ -4443,6 +4500,7 @@ class DataSantriResource extends Resource
                 Tables\Actions\BulkAction::make('updatewalikk')
                     ->label(__('Update Wali ID dan KK'))
                     ->color('warning')
+                    ->visible(auth()->user()->id == 1)
                     // ->requiresConfirmation()
                     // ->modalIcon('heroicon-o-exclamation-triangle')
                     // ->modalIconColor('danger')

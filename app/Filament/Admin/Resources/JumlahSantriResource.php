@@ -35,6 +35,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Collection;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction as TablesExportBulkAction;
 
 class JumlahSantriResource extends Resource
 {
@@ -153,9 +154,12 @@ class JumlahSantriResource extends Resource
             ->actions([])
             ->bulkActions([
 
-                ExportBulkAction::make()
-                    ->label('Export')
-                    ->exporter(JumlahSantriExporter::class),
+                TablesExportBulkAction::make(),
+
+
+                // ExportBulkAction::make()
+                //     ->label('Export')
+                //     ->exporter(JumlahSantriExporter::class),
 
                 BulkAction::make('refresh')
                     ->label(__('Refresh'))
@@ -166,192 +170,192 @@ class JumlahSantriResource extends Resource
                             $tahunberjalanaktif = TahunBerjalan::where('is_active', 1)->first();
 
                             $tapaa = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 1)
                                 ->where('kelas_id', 7)->count();
 
                             $tapab = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 1)
                                 ->where('kelas_id', 8)->count();
 
                             $tapia = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 2)
                                 ->where('kelas_id', 7)->count();
 
                             $tapib = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 2)
                                 ->where('kelas_id', 8)->count();
 
                             $ptpa1 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 3)
                                 ->where('kelas_id', 1)->count();
 
                             $ptpa1 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 3)
                                 ->where('kelas_id', 1)->count();
 
                             $ptpa2 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 3)
                                 ->where('kelas_id', 2)->count();
 
                             $ptpa3 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 3)
                                 ->where('kelas_id', 3)->count();
 
                             $ptpa4 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 3)
                                 ->where('kelas_id', 4)->count();
 
                             $ptpa5 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 3)
                                 ->where('kelas_id', 5)->count();
 
                             $ptpa6 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 3)
                                 ->where('kelas_id', 6)->count();
 
                             $ptpi1 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 4)
                                 ->where('kelas_id', 1)->count();
 
                             $ptpi1 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 4)
                                 ->where('kelas_id', 1)->count();
 
                             $ptpi2 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 4)
                                 ->where('kelas_id', 2)->count();
 
                             $ptpi3 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 4)
                                 ->where('kelas_id', 3)->count();
 
                             $ptpi4 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 4)
                                 ->where('kelas_id', 4)->count();
 
                             $ptpi5 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 4)
                                 ->where('kelas_id', 5)->count();
 
                             $ptpi6 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 4)
                                 ->where('kelas_id', 6)->count();
 
                             $tqpa1 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 5)
                                 ->where('kelas_id', 1)->count();
 
                             $tqpa2 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 5)
                                 ->where('kelas_id', 2)->count();
 
                             $tqpa3 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 5)
                                 ->where('kelas_id', 3)->count();
 
                             $tqpi1 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 6)
                                 ->where('kelas_id', 1)->count();
 
                             $tqpi2 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 6)
                                 ->where('kelas_id', 2)->count();
 
                             $idd1 = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 7)
                                 ->where('kelas_id', 1)->count();
 
                             $mtw = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 8)
                                 ->where('kelas_id', 9)->count();
 
                             $tna = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_detail_id', 9)
                                 ->where('kelas_id', 7)->count();
 
                             $tnb = KelasSantri::whereHas('statussantri', function ($query) {
-                                $query->where('status', 'Aktif');
+                                $query->where('stat_santri_id', 3);
                             })
                                 ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
-                                ->where('qism_detail_id', 9)
+                                ->where('qism_detail_id', 10)
                                 ->where('kelas_id', 8)->count();
 
                             // $cekqism = $record->qism_id;
@@ -520,7 +524,7 @@ class JumlahSantriResource extends Resource
                             $jumlahsantri->putra = 0;
                             $jumlahsantri->save();
 
-                            $jumlahsantri = JumlahSantri::where('qism_id', 6)->where('kelas_id', 8)->first();
+                            $jumlahsantri = JumlahSantri::where('qism_id', 8)->where('kelas_id', 8)->first();
                             $jumlahsantri->putra = 0;
                             $jumlahsantri->save();
 
@@ -528,7 +532,7 @@ class JumlahSantriResource extends Resource
                             $jumlahsantri->putri = $tna;
                             $jumlahsantri->save();
 
-                            $jumlahsantri = JumlahSantri::where('qism_id', 6)->where('kelas_id', 8)->first();
+                            $jumlahsantri = JumlahSantri::where('qism_id', 8)->where('kelas_id', 8)->first();
                             $jumlahsantri->putri = $tnb;
                             $jumlahsantri->save();
 
@@ -536,7 +540,7 @@ class JumlahSantriResource extends Resource
                             $jumlahsantri->total = 0 + $tna;
                             $jumlahsantri->save();
 
-                            $jumlahsantri = JumlahSantri::where('qism_id', 6)->where('kelas_id', 8)->first();
+                            $jumlahsantri = JumlahSantri::where('qism_id', 8)->where('kelas_id', 8)->first();
                             $jumlahsantri->total = 0 + $tnb;
                             $jumlahsantri->save();
 

@@ -38,7 +38,7 @@ class KedatanganSantriResource extends Resource
 
     // protected static ?string $cluster = ConfigLembaga::class;
 
-    protected static ?string $navigationGroup = 'PSB';
+    protected static ?string $navigationGroup = 'Data Santri';
 
     // protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 

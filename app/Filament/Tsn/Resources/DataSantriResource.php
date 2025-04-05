@@ -2,10 +2,13 @@
 
 namespace App\Filament\Tsn\Resources;
 
+use App\Filament\Admin\Resources\DataSantriResource as ResourcesDataSantriResource;
 use App\Filament\Tsn\Resources\DataSantriResource\Pages;
 use App\Filament\Tsn\Resources\DataSantriResource\RelationManagers;
 use App\Models\DataSantri;
 use App\Models\KelasSantri;
+use App\Models\SemesterBerjalan;
+use App\Models\TahunBerjalan;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,15 +16,16 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class DataSantriResource extends Resource
 {
     protected static ?string $model = KelasSantri::class;
 
-    public static function canViewAny(): bool
-    {
-        return auth()->user()->id == 1;
-    }
+    // public static function canViewAny(): bool
+    // {
+    //     return auth()->user()->id == 1;
+    // }
 
     protected static ?string $modelLabel = 'Data Santri';
 
@@ -41,30 +45,13 @@ class DataSantriResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                //
-            ]);
+
+        return ResourcesDataSantriResource::form($form);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                //
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+        return ResourcesDataSantriResource::table($table);
     }
 
     public static function getRelations(): array
@@ -82,5 +69,17 @@ class DataSantriResource extends Resource
             'view' => Pages\ViewDataSantri::route('/{record}'),
             'edit' => Pages\EditDataSantri::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $tahunberjalan = TahunBerjalan::where('is_active', 1)->first();
+
+        if (Auth::user()->id === 1 or Auth::user()->id === 2) {
+            return parent::getEloquentQuery()->where('tahun_berjalan_id', $tahunberjalan->id);
+        } else {
+
+            return parent::getEloquentQuery()->whereIn('qism_id', Auth::user()->mudirqism)->where('tahun_berjalan_id', $tahunberjalan->id);
+        }
     }
 }

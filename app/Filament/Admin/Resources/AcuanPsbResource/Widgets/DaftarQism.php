@@ -256,7 +256,7 @@ class DaftarQism extends BaseWidget
                             $ts = TahunBerjalan::where('tb', $tahunberjalanaktif->ts)->first();
 
                             $cekdatats = AcuanPsb::where('jenis_pendaftar_id', 2)
-                                ->where('tahun_berjalan_id', $ts->id)
+                                ->where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                 ->where('qism_id', $record->qism_id)
                                 ->where('qism_detail_id', $record->id)
                                 ->count();
@@ -299,7 +299,7 @@ class DaftarQism extends BaseWidget
                                 $acuanpsblama->tahap_pendaftaran_id = 1;
                                 $acuanpsblama->status_pendaftaran_id = null;
                                 $acuanpsblama->daftarnaikqism = 'Belum Mendaftar';
-                                $acuanpsblama->tahun_berjalan_id = $ts->id;
+                                $acuanpsblama->tahun_berjalan_id = $tahunberjalanaktif->id;
                                 $acuanpsblama->angkatan_tahun = null;
                                 $acuanpsblama->qism_id = $record->qism_id;
                                 $acuanpsblama->qism_detail_id = $record->id;

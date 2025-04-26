@@ -16,6 +16,39 @@ class DataSantriExporter extends Exporter
     {
         return [
 
+            ExportColumn::make('qism_detail.abbr_qism_detail')
+                ->label('Qism'),
+
+            ExportColumn::make('kelas.kelas')
+                ->label('Kelas'),
+
+            ExportColumn::make('kelas_internal')
+                ->label('Kelas Internal'),
+
+            ExportColumn::make('kelas_internal_barab')
+                ->label('Kelas Internal Bahasa Arab'),
+
+            ExportColumn::make('santri.nama_lengkap')
+                ->label('Nama'),
+
+            ExportColumn::make('santri.nism')
+                ->label('NISM'),
+
+            ExportColumn::make('santri.nama_panggilan')
+                ->label('Panggilan'),
+
+            ExportColumn::make('santri.nik')
+                ->label('NIK'),
+
+            ExportColumn::make('santri.jeniskelamin.jeniskelamin')
+                ->label('Jenis Kelamin'),
+
+            ExportColumn::make('santri.tempat_lahir')
+                ->label('Tempat Lahir'),
+
+            ExportColumn::make('santri.tanggal_lahir')
+                ->label('Tanggal Lahir'),
+
             ExportColumn::make('walisantri.ak_no_kk')
                 ->label('KK'),
 
@@ -122,55 +155,82 @@ class DataSantriExporter extends Exporter
                 ->label('Handphone Wali'),
 
             ExportColumn::make('walisantri.al_ak_provinsi.provinsi')
-                ->label('Provinsi'),
+                ->label('Provinsi Ayah'),
 
             ExportColumn::make('walisantri.al_ak_kabupaten.kabupaten')
-                ->label('Kabupaten'),
+                ->label('Kabupaten Ayah'),
 
             ExportColumn::make('walisantri.al_ak_kecamatan.kecamatan')
-                ->label('Kecamatan'),
+                ->label('Kecamatan Ayah'),
 
             ExportColumn::make('walisantri.al_ak_kelurahan.kelurahan')
-                ->label('Kelurahan'),
+                ->label('Kelurahan Ayah'),
 
             ExportColumn::make('walisantri.al_ak_rt')
-                ->label('RT'),
+                ->label('RT Ayah'),
 
             ExportColumn::make('walisantri.al_ak_rw')
-                ->label('RW'),
+                ->label('RW Ayah'),
 
             ExportColumn::make('walisantri.al_ak_alamat')
-                ->label('Alamat'),
+                ->label('Alamat Ayah'),
 
             ExportColumn::make('walisantri.al_ak_kodepos')
-                ->label('Kodepos'),
+                ->label('Kodepos Ayah'),
+
+            ExportColumn::make('walisantri.al_ik_provinsi.provinsi')
+                ->label('Provinsi Ibu'),
+
+            ExportColumn::make('walisantri.al_ik_kabupaten.kabupaten')
+                ->label('Kabupaten Ibu'),
+
+            ExportColumn::make('walisantri.al_ik_kecamatan.kecamatan')
+                ->label('Kecamatan Ibu'),
+
+            ExportColumn::make('walisantri.al_ik_kelurahan.kelurahan')
+                ->label('Kelurahan Ibu'),
+
+            ExportColumn::make('walisantri.al_ik_rt')
+                ->label('RT Ibu'),
+
+            ExportColumn::make('walisantri.al_ik_rw')
+                ->label('RW Ibu'),
+
+            ExportColumn::make('walisantri.al_ik_alamat')
+                ->label('Alamat Ibu'),
+
+            ExportColumn::make('walisantri.al_ik_kodepos')
+                ->label('Kodepos Ibu'),
+
+            ExportColumn::make('walisantri.al_w_provinsi.provinsi')
+                ->label('Provinsi Wali'),
+
+            ExportColumn::make('walisantri.al_w_kabupaten.kabupaten')
+                ->label('Kabupaten Wali'),
+
+            ExportColumn::make('walisantri.al_w_kecamatan.kecamatan')
+                ->label('Kecamatan Wali'),
+
+            ExportColumn::make('walisantri.al_w_kelurahan.kelurahan')
+                ->label('Kelurahan Wali'),
+
+            ExportColumn::make('walisantri.al_w_rt')
+                ->label('RT Wali'),
+
+            ExportColumn::make('walisantri.al_w_rw')
+                ->label('RW Wali'),
+
+            ExportColumn::make('walisantri.al_w_alamat')
+                ->label('Alamat Wali'),
+
+            ExportColumn::make('walisantri.al_w_kodepos')
+                ->label('Kodepos Wali'),
 
             ExportColumn::make('statussantri.statSantri.stat_santri')
                 ->label('Status'),
 
             ExportColumn::make('statussantri.ket_status')
                 ->label('Ket Status'),
-
-            ExportColumn::make('santri.nama_lengkap')
-                ->label('Nama'),
-
-            ExportColumn::make('santri.nism')
-                ->label('NISM'),
-
-            ExportColumn::make('santri.nama_panggilan')
-                ->label('Panggilan'),
-
-            ExportColumn::make('santri.nik')
-                ->label('NIK'),
-
-            ExportColumn::make('santri.jeniskelamin.jeniskelamin')
-                ->label('Jenis Kelamin'),
-
-            ExportColumn::make('santri.tempat_lahir')
-                ->label('Tempat Lahir'),
-
-            ExportColumn::make('santri.tanggal_lahir')
-                ->label('Tanggal Lahir'),
 
             ExportColumn::make('santri.umur')
                 ->label('Umur'),
@@ -240,18 +300,6 @@ class DataSantriExporter extends Exporter
 
             ExportColumn::make('kelas.id')
                 ->label('Kode Kelas'),
-
-            ExportColumn::make('qism_detail.abbr_qism_detail')
-                ->label('Qism'),
-
-            ExportColumn::make('kelas.kelas')
-                ->label('Kelas'),
-
-            ExportColumn::make('kelas_internal')
-                ->label('Kelas Internal'),
-
-            ExportColumn::make('kelas_internal_barab')
-                ->label('Kelas Internal Bahasa Arab'),
 
             ExportColumn::make('kelas_internal_matematika')
                 ->label('Kelas Internal Matematika'),

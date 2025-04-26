@@ -412,6 +412,13 @@ class SuratResource extends Resource
                         ->listWithLineBreaks()
                         ->sortable(),
 
+                    TextColumn::make('statusSantris.kss.keterangan')
+                        ->label('Status')
+                        ->searchable(isIndividual: true, isGlobal: false)
+                        // ->toggleable(isToggledHiddenByDefault: true)
+                        ->toggleable()
+                        ->sortable(),
+
                     TextColumn::make('nama_lengkap')
                         ->label('Nama')
                         ->searchable(isIndividual: true, isGlobal: false)

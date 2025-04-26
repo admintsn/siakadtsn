@@ -2864,8 +2864,8 @@ class DataSantriResource extends Resource
                     ->label('EMIS Sedang Dikerjakan')
                     // ->description(fn (): string => 'EMIS Sedang Dikerjakan', position: 'above')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    // ->toggleable()
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
                     ->wrapHeader()
                     ->extraAttributes(['class' => 'w-[8]'])
                     ->alignCenter(),
@@ -2873,8 +2873,8 @@ class DataSantriResource extends Resource
                 CheckboxColumn::make('santri.is_emis')
                     ->label('EMIS')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    // ->toggleable()
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
                     ->wrapHeader()
                     ->extraAttributes(['class' => 'w-[8]'])
                     ->alignCenter(),
@@ -2882,11 +2882,20 @@ class DataSantriResource extends Resource
                 CheckboxColumn::make('santri.is_emisgagal')
                     ->label('EMIS Gagal')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    // ->toggleable()
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
                     ->wrapHeader()
                     ->extraAttributes(['class' => 'w-[8]'])
                     ->alignCenter(),
+
+                TextInputColumn::make('santri.catatan_emis')
+                    ->label('Catatan EMIS')
+                    // ->extraAttributes([
+                    //     'style' => 'width:200px'
+                    // ])
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable(),
 
                 CheckboxColumn::make('is_mustamiah')
                     ->label('Mustamiah?')
@@ -3918,6 +3927,240 @@ class DataSantriResource extends Resource
                     ->copyMessage('Tersalin')
                     ->copyMessageDuration(1500),
 
+                TextColumn::make('walisantri.al_ik_stts_rmh.status_kepemilikan_rumah')
+                    ->label('Status Rumah')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
+                TextColumn::make('walisantri.al_ik_provinsi.provinsi')
+                    ->label('Provinsi')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
+                TextColumn::make('walisantri.al_ik_kabupaten.kabupaten')
+                    ->label('Kabupaten')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
+                TextColumn::make('walisantri.al_ik_kecamatan.kecamatan')
+                    ->label('Kecamatan')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
+                TextColumn::make('walisantri.al_ik_kelurahan.kelurahan')
+                    ->label('Kelurahan')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
+                TextColumn::make('walisantri.al_ik_rt')
+                    ->label('RT')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
+                TextColumn::make('walisantri.al_ik_rw')
+                    ->label('RW')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
+                TextColumn::make('walisantri.al_ik_alamat')
+                    ->label('Alamat')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
+                TextColumn::make('walisantri.al_ik_kodepos')
+                    ->label('Kodepos')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
+                TextColumn::make('walisantri.al_w_stts_rmh.status_kepemilikan_rumah')
+                    ->label('Status Rumah')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
+                TextColumn::make('walisantri.al_w_provinsi.provinsi')
+                    ->label('Provinsi')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
+                TextColumn::make('walisantri.al_w_kabupaten.kabupaten')
+                    ->label('Kabupaten')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
+                TextColumn::make('walisantri.al_w_kecamatan.kecamatan')
+                    ->label('Kecamatan')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
+                TextColumn::make('walisantri.al_w_kelurahan.kelurahan')
+                    ->label('Kelurahan')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
+                TextColumn::make('walisantri.al_w_rt')
+                    ->label('RT')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
+                TextColumn::make('walisantri.al_w_rw')
+                    ->label('RW')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
+                TextColumn::make('walisantri.al_w_alamat')
+                    ->label('Alamat')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
+                TextColumn::make('walisantri.al_w_kodepos')
+                    ->label('Kodepos')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->sortable()
+                    ->copyable()
+                    ->copyableState(function (Model $record, $state) {
+                        return ($state);
+                    })
+                    ->copyMessage('Tersalin')
+                    ->copyMessageDuration(1500),
+
                 TextColumn::make('tanggalupdate')
                     ->label('Alamat Surat')
                     ->default('Belum Lengkap')
@@ -3963,15 +4206,6 @@ class DataSantriResource extends Resource
                 TextColumn::make('santri.al_s_waktu_tempuh.waktu_tempuh')
                     ->label('Waktu Tempuh')
                     ->searchable(isIndividual: true, isGlobal: false)
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    // ->toggleable()
-                    ->sortable(),
-
-                TextInputColumn::make('santri.catatan_emis')
-                    ->label('Catatan EMIS')
-                    // ->extraAttributes([
-                    //     'style' => 'width:200px'
-                    // ])
                     ->toggleable(isToggledHiddenByDefault: true)
                     // ->toggleable()
                     ->sortable(),

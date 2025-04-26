@@ -3951,14 +3951,7 @@ class PendaftarSantriBaruResource extends Resource
                     ->iconColor('success')
                     // ->circular()
                     ->alignCenter()
-                    ->placeholder(function (Model $record) {
-                        if ($record->status_pendaftaran_id == 1 || $record->status_pendaftaran_id == 3) {
-
-                            return (new HtmlString(''));
-                        } else {
-                            return (new HtmlString('Belum Upload'));
-                        }
-                    })
+                    ->placeholder(new HtmlString('Belum Upload'))
                     ->url(function (Model $record) {
                         if ($record->file_kk !== null) {
 
@@ -3979,14 +3972,7 @@ class PendaftarSantriBaruResource extends Resource
                     ->iconColor('success')
                     // ->circular()
                     ->alignCenter()
-                    ->placeholder(function (Model $record) {
-                        if ($record->status_pendaftaran_id == 1 || $record->status_pendaftaran_id == 3) {
-
-                            return (new HtmlString(''));
-                        } else {
-                            return (new HtmlString('Belum Upload'));
-                        }
-                    })
+                    ->placeholder(new HtmlString('Belum Upload'))
                     ->url(function (Model $record) {
                         if ($record->file_akte !== null) {
 
@@ -4007,14 +3993,7 @@ class PendaftarSantriBaruResource extends Resource
                     ->iconColor('success')
                     // ->circular()
                     ->alignCenter()
-                    ->placeholder(function (Model $record) {
-                        if ($record->status_pendaftaran_id == 1 || $record->status_pendaftaran_id == 3) {
-
-                            return (new HtmlString(''));
-                        } else {
-                            return (new HtmlString('Belum Upload'));
-                        }
-                    })
+                    ->placeholder(new HtmlString('Belum Upload'))
                     ->url(function (Model $record) {
                         if ($record->file_srs !== null) {
 
@@ -4035,14 +4014,7 @@ class PendaftarSantriBaruResource extends Resource
                     ->iconColor('success')
                     // ->circular()
                     ->alignCenter()
-                    ->placeholder(function (Model $record) {
-                        if ($record->status_pendaftaran_id == 1 || $record->status_pendaftaran_id == 3) {
-
-                            return (new HtmlString(''));
-                        } else {
-                            return (new HtmlString('Belum Upload'));
-                        }
-                    })
+                    ->placeholder(new HtmlString('Belum Upload'))
                     ->url(function (Model $record) {
                         if ($record->file_ijz !== null) {
 
@@ -4063,14 +4035,7 @@ class PendaftarSantriBaruResource extends Resource
                     ->iconColor('success')
                     // ->circular()
                     ->alignCenter()
-                    ->placeholder(function (Model $record) {
-                        if ($record->status_pendaftaran_id == 1 || $record->status_pendaftaran_id == 3) {
-
-                            return (new HtmlString(''));
-                        } else {
-                            return (new HtmlString('Belum Upload'));
-                        }
-                    })
+                    ->placeholder(new HtmlString('Belum Upload'))
                     ->url(function (Model $record) {
                         if ($record->file_skt !== null) {
 
@@ -4091,14 +4056,7 @@ class PendaftarSantriBaruResource extends Resource
                     ->iconColor('success')
                     // ->circular()
                     ->alignCenter()
-                    ->placeholder(function (Model $record) {
-                        if ($record->status_pendaftaran_id == 1 || $record->status_pendaftaran_id == 3) {
-
-                            return (new HtmlString(''));
-                        } else {
-                            return (new HtmlString('Belum Upload'));
-                        }
-                    })
+                    ->placeholder(new HtmlString('Belum Upload'))
                     ->url(function (Model $record) {
                         if ($record->file_skuasa !== null) {
 
@@ -4119,14 +4077,7 @@ class PendaftarSantriBaruResource extends Resource
                     ->iconColor('success')
                     // ->circular()
                     ->alignCenter()
-                    ->placeholder(function (Model $record) {
-                        if ($record->status_pendaftaran_id == 1 || $record->status_pendaftaran_id == 3) {
-
-                            return (new HtmlString(''));
-                        } else {
-                            return (new HtmlString('Belum Upload'));
-                        }
-                    })
+                    ->placeholder(new HtmlString('Belum Upload'))
                     ->url(function (Model $record) {
                         if ($record->file_spkm !== null) {
 
@@ -4147,14 +4098,7 @@ class PendaftarSantriBaruResource extends Resource
                     ->iconColor('success')
                     // ->circular()
                     ->alignCenter()
-                    ->placeholder(function (Model $record) {
-                        if ($record->status_pendaftaran_id == 1 || $record->status_pendaftaran_id == 3) {
-
-                            return (new HtmlString(''));
-                        } else {
-                            return (new HtmlString('Belum Upload'));
-                        }
-                    })
+                    ->placeholder(new HtmlString('Belum Upload'))
                     ->url(function (Model $record) {
                         if ($record->file_pka !== null) {
 
@@ -4175,14 +4119,7 @@ class PendaftarSantriBaruResource extends Resource
                     ->iconColor('success')
                     // ->circular()
                     ->alignCenter()
-                    ->placeholder(function (Model $record) {
-                        if ($record->status_pendaftaran_id == 1 || $record->status_pendaftaran_id == 3) {
-
-                            return (new HtmlString(''));
-                        } else {
-                            return (new HtmlString('Belum Upload'));
-                        }
-                    })
+                    ->placeholder(new HtmlString('Belum Upload'))
                     ->url(function (Model $record) {
                         if ($record->file_ktmu !== null) {
 
@@ -4203,14 +4140,7 @@ class PendaftarSantriBaruResource extends Resource
                     ->iconColor('success')
                     // ->circular()
                     ->alignCenter()
-                    ->placeholder(function (Model $record) {
-                        if ($record->status_pendaftaran_id == 1 || $record->status_pendaftaran_id == 3) {
-
-                            return (new HtmlString(''));
-                        } else {
-                            return (new HtmlString('Belum Upload'));
-                        }
-                    })
+                    ->placeholder(new HtmlString('Belum Upload'))
                     ->url(function (Model $record) {
                         if ($record->file_ktmp !== null) {
 
@@ -4231,14 +4161,7 @@ class PendaftarSantriBaruResource extends Resource
                     ->iconColor('success')
                     // ->circular()
                     ->alignCenter()
-                    ->placeholder(function (Model $record) {
-                        if ($record->status_pendaftaran_id == 1 || $record->status_pendaftaran_id == 3) {
-
-                            return (new HtmlString(''));
-                        } else {
-                            return (new HtmlString('Belum Upload'));
-                        }
-                    })
+                    ->placeholder(new HtmlString('Belum Upload'))
                     ->url(function (Model $record) {
                         if ($record->file_cvd !== null) {
 

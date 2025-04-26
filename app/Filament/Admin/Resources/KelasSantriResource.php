@@ -152,6 +152,16 @@ class KelasSantriResource extends Resource
                     ->label('Santri')
                     ->searchable(isIndividual: true, isGlobal: false)
                     ->sortable(),
+                    
+                TextInputColumn::make('santri.nama_panggilan')
+                    ->label('Panggilan')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    ->toggleable()
+                    // ->toggledHiddenByDefault(true)
+                    ->extraAttributes([
+                        'style' => 'width:150px'
+                    ])
+                    ->sortable(),
 
                 TextInputColumn::make('kode_nomor_rapor')
                     ->label('Kode Nomor Rapor')
@@ -250,7 +260,12 @@ class KelasSantriResource extends Resource
 
             ])
             ->recordUrl(null)
-            ->defaultSort('nama_lengkap')
+            ->defaultSort(function (Builder $query, string $direction): Builder {
+                return $query
+                    ->orderBy('qism_detail_id', $direction)
+                    ->orderBy('kelas_id', $direction)
+                    ->orderBy('nama_lengkap', $direction);
+            })
             ->searchOnBlur()
             ->filters([
                 QueryBuilder::make()

@@ -3758,14 +3758,7 @@ class PendaftarNaikQismResource extends Resource
                     ->iconColor('success')
                     // ->circular()
                     ->alignCenter()
-                    ->placeholder(function (Model $record) {
-                        if ($record->status_pendaftaran_id == 1 || $record->status_pendaftaran_id == 3) {
-
-                            return (new HtmlString(''));
-                        } else {
-                            return (new HtmlString('Belum Upload'));
-                        }
-                    })
+                    ->placeholder(new HtmlString('Belum Upload'))
                     ->url(function (Model $record) {
                         if ($record->file_kk !== null) {
 
@@ -3786,14 +3779,7 @@ class PendaftarNaikQismResource extends Resource
                     ->iconColor('success')
                     // ->circular()
                     ->alignCenter()
-                    ->placeholder(function (Model $record) {
-                        if ($record->status_pendaftaran_id == 1 || $record->status_pendaftaran_id == 3) {
-
-                            return (new HtmlString(''));
-                        } else {
-                            return (new HtmlString('Belum Upload'));
-                        }
-                    })
+                    ->placeholder(new HtmlString('Belum Upload'))
                     ->url(function (Model $record) {
                         if ($record->file_skt !== null) {
 
@@ -3814,14 +3800,7 @@ class PendaftarNaikQismResource extends Resource
                     ->iconColor('success')
                     // ->circular()
                     ->alignCenter()
-                    ->placeholder(function (Model $record) {
-                        if ($record->status_pendaftaran_id == 1 || $record->status_pendaftaran_id == 3) {
-
-                            return (new HtmlString(''));
-                        } else {
-                            return (new HtmlString('Belum Upload'));
-                        }
-                    })
+                    ->placeholder(new HtmlString('Belum Upload'))
                     ->url(function (Model $record) {
                         if ($record->file_spkm !== null) {
 
@@ -3842,14 +3821,7 @@ class PendaftarNaikQismResource extends Resource
                     ->iconColor('success')
                     // ->circular()
                     ->alignCenter()
-                    ->placeholder(function (Model $record) {
-                        if ($record->status_pendaftaran_id == 1 || $record->status_pendaftaran_id == 3) {
-
-                            return (new HtmlString(''));
-                        } else {
-                            return (new HtmlString('Belum Upload'));
-                        }
-                    })
+                    ->placeholder(new HtmlString('Belum Upload'))
                     ->url(function (Model $record) {
                         if ($record->file_pka !== null) {
 
@@ -3870,14 +3842,7 @@ class PendaftarNaikQismResource extends Resource
                     ->iconColor('success')
                     // ->circular()
                     ->alignCenter()
-                    ->placeholder(function (Model $record) {
-                        if ($record->status_pendaftaran_id == 1 || $record->status_pendaftaran_id == 3) {
-
-                            return (new HtmlString(''));
-                        } else {
-                            return (new HtmlString('Belum Upload'));
-                        }
-                    })
+                    ->placeholder(new HtmlString('Belum Upload'))
                     ->url(function (Model $record) {
                         if ($record->file_ktmu !== null) {
 
@@ -3898,14 +3863,7 @@ class PendaftarNaikQismResource extends Resource
                     ->iconColor('success')
                     // ->circular()
                     ->alignCenter()
-                    ->placeholder(function (Model $record) {
-                        if ($record->status_pendaftaran_id == 1 || $record->status_pendaftaran_id == 3) {
-
-                            return (new HtmlString(''));
-                        } else {
-                            return (new HtmlString('Belum Upload'));
-                        }
-                    })
+                    ->placeholder(new HtmlString('Belum Upload'))
                     ->url(function (Model $record) {
                         if ($record->file_ktmp !== null) {
 
@@ -3926,14 +3884,7 @@ class PendaftarNaikQismResource extends Resource
                     ->iconColor('success')
                     // ->circular()
                     ->alignCenter()
-                    ->placeholder(function (Model $record) {
-                        if ($record->status_pendaftaran_id == 1 || $record->status_pendaftaran_id == 3) {
-
-                            return (new HtmlString(''));
-                        } else {
-                            return (new HtmlString('Belum Upload'));
-                        }
-                    })
+                    ->placeholder(new HtmlString('Belum Upload'))
                     ->url(function (Model $record) {
                         if ($record->file_cvd !== null) {
 

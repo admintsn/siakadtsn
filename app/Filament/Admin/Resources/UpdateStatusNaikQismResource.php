@@ -256,17 +256,18 @@ class UpdateStatusNaikQismResource extends Resource
 
                             if ($record->is_mustamiah == true) {
 
-                                $tahunberjalanaktif = TahunBerjalan::where('is_active', 1)->first();
-                                $ts = TahunBerjalan::where('tb', $tahunberjalanaktif->ts)->first();
-
                                 $tamaktif = TahunAjaranAktif::where('is_active', true)->where('qism_id', $record->qism_id)->first();
 
                                 $tamsel = TahunAjaran::where('id', $tamaktif->tahun_ajaran_id)->first();
 
+                                $acuanpsb = AcuanPsb::where('is_active', true)->where('qism_id', $record->qism_id)->where('jenis_pendaftar_id', 2)->first();
+
+                                $gettslama = TahunBerjalan::where('id', $acuanpsb->tahun_berjalan_id)->first();
+                                $tslama = TahunBerjalan::where('tb', $gettslama->ts)->first();
 
                                 $santri = Santri::where('id', $record->santri_id)->first();
-                                $santri->tahun_berjalan_id = $ts->id;
-                                $santri->tahun_ajaran_id = $tamsel->tahun_ajaran_id;
+                                $santri->tahun_berjalan_id = $tslama->id;
+                                $santri->tahun_ajaran_id = $acuanpsb->tahun_ajaran_id;
                                 $santri->qism_id = $record->qism_id;
                                 $santri->qism_detail_id = $record->qism_detail_id;
                                 $santri->kelas_id = $record->kelas_id;
@@ -318,16 +319,18 @@ class UpdateStatusNaikQismResource extends Resource
 
                                 if ($naikqism->qism_s != null) {
 
-                                    $tahunberjalanaktif = TahunBerjalan::where('is_active', 1)->first();
-                                    $ts = TahunBerjalan::where('tb', $tahunberjalanaktif->ts)->first();
-
                                     $taaktif = TahunAjaranAktif::where('is_active', true)->where('qism_id', $naikqism->qism_s)->first();
 
                                     $tasel = TahunAjaran::where('id', $taaktif->tahun_ajaran_id)->first();
 
+                                    $acuanpsb = AcuanPsb::where('is_active', true)->where('qism_id', $record->qism_id)->where('jenis_pendaftar_id', 2)->first();
+
+                                    $gettslama = TahunBerjalan::where('id', $acuanpsb->tahun_berjalan_id)->first();
+                                    $tslama = TahunBerjalan::where('tb', $gettslama->ts)->first();
+
                                     $santri = Santri::where('id', $record->santri_id)->first();
-                                    $santri->tahun_berjalan_id = $ts->id;
-                                    $santri->tahun_ajaran_id = $tasel->tahun_ajaran_id;
+                                    $santri->tahun_berjalan_id = $tslama->id;
+                                    $santri->tahun_ajaran_id = $acuanpsb->tahun_ajaran_id;
                                     $santri->qism_id = $naikqism->qism_s;
                                     $santri->qism_detail_id = $naikqism->qism_detail_s;
                                     $santri->kelas_id = $naikqism->kelas_s;

@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class MapelsRelationManager extends RelationManager
 {
-    use CanBeEmbeddedInModals;
+    // use CanBeEmbeddedInModals;
 
     protected static string $relationship = 'mapels';
 

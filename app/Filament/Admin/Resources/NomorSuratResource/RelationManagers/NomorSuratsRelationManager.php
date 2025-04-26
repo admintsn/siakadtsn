@@ -39,7 +39,7 @@ class NomorSuratsRelationManager extends RelationManager
 {
     protected static string $relationship = 'nomorSurats';
 
-    use CanBeEmbeddedInModals;
+    // use CanBeEmbeddedInModals;
 
     public function form(Form $form): Form
     {

@@ -27,10 +27,10 @@ class ListDataSantris extends ListRecords
                 ->modifyQueryUsing(fn(Builder $query) => $query->whereHas('statussantri', function ($query) {
                     $query->where('stat_santri_id', 4);
                 })),
-                'Angkatan baru' => Tab::make()
-                ->modifyQueryUsing(fn(Builder $query) => $query->whereHas('statussantri', function ($query) {
-                    $query->where('stat_santri_id', 3);
-                })),
+            // 'Angkatan baru' => Tab::make()
+            //     ->modifyQueryUsing(fn(Builder $query) => $query->whereHas('statussantri', function ($query) {
+            //         $query->where('stat_santri_id', 3);
+            //     })),
         ];
     }
 

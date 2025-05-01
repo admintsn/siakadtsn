@@ -211,6 +211,7 @@ class NomorSuratsRelationManager extends RelationManager
                                     ->label('Jenis Surat')
                                     ->live()
                                     ->options(JenisSurat::whereIsActive(1)->pluck('jenis_surat', 'id'))
+                                    ->disabled(fn (Get $get) => $get('qism_id') == null)
                                     ->afterStateUpdated(function (Get $get, Set $set, $state) {
 
                                         $tahun = Carbon::parse($get('tanggal_surat'))->year;
@@ -248,6 +249,7 @@ class NomorSuratsRelationManager extends RelationManager
                                 Select::make('qism_id')
                                     ->label('Qism')
                                     ->options(Qism::all()->pluck('abbr_qism', 'id'))
+                                    ->live()
                                     ->required(),
 
                             ]),

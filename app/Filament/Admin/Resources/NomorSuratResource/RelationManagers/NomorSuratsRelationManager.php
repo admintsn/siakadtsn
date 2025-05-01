@@ -138,7 +138,7 @@ class NomorSuratsRelationManager extends RelationManager
                                                 $set('nomor', sprintf("%03d", 1));
 
                                                 $set('lembaga_surat_id', 1);
-                                                $set('qism_id', $qism->qism_id);
+                                                $set('qism_id', $qism?->qism_id);
 
                                                 $set('bulan_masehi', Carbon::parse($state)->month);
                                                 $set('tahunhberjalan_id', $thb->id);

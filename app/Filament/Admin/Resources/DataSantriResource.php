@@ -2888,6 +2888,15 @@ class DataSantriResource extends Resource
                     ->extraAttributes(['class' => 'w-[8]'])
                     ->alignCenter(),
 
+                CheckboxColumn::make('santri.is_emis_lulus')
+                    ->label('EMIS Lulus')
+                    ->sortable()
+                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable()
+                    ->wrapHeader()
+                    ->extraAttributes(['class' => 'w-[8]'])
+                    ->alignCenter(),
+
                 TextInputColumn::make('santri.catatan_emis')
                     ->label('Catatan EMIS')
                     // ->extraAttributes([

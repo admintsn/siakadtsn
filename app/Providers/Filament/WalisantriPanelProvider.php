@@ -70,6 +70,7 @@ class WalisantriPanelProvider extends PanelProvider
                 'warning' => Color::Orange,
             ])
             ->font('Assistant')
+            
             ->brandLogo(fn() => view('filament.logo'))
             ->brandLogoHeight('auto')
             ->favicon(asset('favicon-32x32.png'))

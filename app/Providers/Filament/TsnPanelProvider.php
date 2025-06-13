@@ -65,6 +65,7 @@ class TsnPanelProvider extends PanelProvider
                 'warning' => Color::Orange,
             ])
             ->font('Assistant')
+            
             ->brandLogo(asset('SiakadTSN V1 Logo.png'))
             ->brandLogoHeight('5rem')
             ->favicon(asset('favicon-32x32.png'))

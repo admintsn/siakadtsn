@@ -337,7 +337,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ak_status_id') != 1)
+                                                    $get('ak_status_id') != 1)
                                                 ->schema([
 
                                                     TextInput::make('ak_nama_kunyah')
@@ -347,7 +347,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ak_status_id') != 1)
+                                                    $get('ak_status_id') != 1)
                                                 ->schema([
 
                                                     ToggleButtons::make('ak_kewarganegaraan_id')
@@ -364,7 +364,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ak_kewarganegaraan_id') != 1 ||
+                                                    $get('ak_kewarganegaraan_id') != 1 ||
                                                     $get('ak_status_id') != 1)
                                                 ->schema([
 
@@ -381,7 +381,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ak_kewarganegaraan_id') != 2 ||
+                                                    $get('ak_kewarganegaraan_id') != 2 ||
                                                     $get('ak_status_id') != 1)
                                                 ->schema([
 
@@ -399,7 +399,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ak_status_id') != 1)
+                                                    $get('ak_status_id') != 1)
                                                 ->schema([
 
                                                     TextInput::make('ak_tempat_lahir')
@@ -423,7 +423,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(6)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ak_status_id') != 1)
+                                                    $get('ak_status_id') != 1)
                                                 ->schema([
 
                                                     Select::make('ak_pend_terakhir_id')
@@ -453,7 +453,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ak_status_id') != 1)
+                                                    $get('ak_status_id') != 1)
                                                 ->schema([
 
                                                     ToggleButtons::make('ak_tdk_hp_id')
@@ -475,7 +475,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ak_tdk_hp_id') != 1 ||
+                                                    $get('ak_tdk_hp_id') != 1 ||
                                                     $get('ak_status_id') != 1)
                                                 ->schema([
 
@@ -514,7 +514,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(2)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ak_status_id') != 1)
+                                                    $get('ak_status_id') != 1)
                                                 ->schema([
 
                                                     Placeholder::make('')
@@ -525,7 +525,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(2)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ak_status_id') != 1)
+                                                    $get('ak_status_id') != 1)
                                                 ->schema([
 
                                                     Textarea::make('ak_ustadz_kajian')
@@ -536,7 +536,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(2)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ak_status_id') != 1)
+                                                    $get('ak_status_id') != 1)
                                                 ->schema([
 
                                                     TextArea::make('ak_tempat_kajian')
@@ -548,7 +548,7 @@ class DataAlumniResource extends Resource
                                             // KARTU KELUARGA AYAH KANDUNG
                                             Grid::make(2)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ak_status_id') != 1)
+                                                    $get('ak_status_id') != 1)
                                                 ->schema([
                                                     Placeholder::make('')
                                                         ->content(new HtmlString('<div class="border-b">
@@ -559,7 +559,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ak_status_id') != 1)
+                                                    $get('ak_status_id') != 1)
                                                 ->schema([
 
                                                     ToggleButtons::make('ak_kk_sama_pendaftar_id')
@@ -589,7 +589,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ak_status_id') != 1)
+                                                    $get('ak_status_id') != 1)
                                                 ->schema([
 
                                                     ComponentsTextInput::make('ak_no_kk')
@@ -617,7 +617,7 @@ class DataAlumniResource extends Resource
                                             // ALAMAT AYAH KANDUNG
                                             Grid::make(2)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ak_status_id') != 1)
+                                                    $get('ak_status_id') != 1)
                                                 ->schema([
                                                     Placeholder::make('')
                                                         ->content(new HtmlString('<div class="border-b">
@@ -628,7 +628,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ak_status_id') != 1)
+                                                    $get('ak_status_id') != 1)
                                                 ->schema([
 
                                                     ToggleButtons::make('al_ak_tgldi_ln_id')
@@ -642,7 +642,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(2)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('al_ak_tgldi_ln_id') != 1)
+                                                    $get('al_ak_tgldi_ln_id') != 1)
                                                 ->schema([
 
                                                     Textarea::make('al_ak_almt_ln')
@@ -652,7 +652,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('al_ak_tgldi_ln_id') != 2 ||
+                                                    $get('al_ak_tgldi_ln_id') != 2 ||
                                                     $get('ak_status_id') != 1)
                                                 ->schema([
 
@@ -668,7 +668,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('al_ak_tgldi_ln_id') != 2 ||
+                                                    $get('al_ak_tgldi_ln_id') != 2 ||
                                                     $get('ak_status_id') != 1)
                                                 ->schema([
 
@@ -702,7 +702,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('al_ak_tgldi_ln_id') != 2 ||
+                                                    $get('al_ak_tgldi_ln_id') != 2 ||
                                                     $get('ak_status_id') != 1)
                                                 ->schema([
 
@@ -745,7 +745,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('al_ak_tgldi_ln_id') != 2 ||
+                                                    $get('al_ak_tgldi_ln_id') != 2 ||
                                                     $get('ak_status_id') != 1)
                                                 ->schema([
 
@@ -758,7 +758,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('al_ak_tgldi_ln_id') != 2 ||
+                                                    $get('al_ak_tgldi_ln_id') != 2 ||
                                                     $get('ak_status_id') != 1)
                                                 ->schema([
 
@@ -768,7 +768,7 @@ class DataAlumniResource extends Resource
                                                         ->helperText('Isi 0 jika tidak ada RT/RW')
                                                         ->required()
                                                         ->disabled(fn(Get $get) =>
-                                                        $get('al_ak_kodepos') == null)
+                                                            $get('al_ak_kodepos') == null)
                                                         ->numeric(),
 
                                                     TextInput::make('al_ak_rw')
@@ -776,19 +776,19 @@ class DataAlumniResource extends Resource
                                                         ->helperText('Isi 0 jika tidak ada RT/RW')
                                                         ->required()
                                                         ->disabled(fn(Get $get) =>
-                                                        $get('al_ak_kodepos') == null)
+                                                            $get('al_ak_kodepos') == null)
                                                         ->numeric(),
                                                 ]),
 
                                             Grid::make(2)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('al_ak_tgldi_ln_id') != 2 ||
+                                                    $get('al_ak_tgldi_ln_id') != 2 ||
                                                     $get('ak_status_id') != 1)
                                                 ->schema([
                                                     Textarea::make('al_ak_alamat')
                                                         ->label('Alamat')
                                                         ->disabled(fn(Get $get) =>
-                                                        $get('al_ak_kodepos') == null)
+                                                            $get('al_ak_kodepos') == null)
                                                         ->required(),
                                                 ]),
 
@@ -810,7 +810,7 @@ class DataAlumniResource extends Resource
                                                         ->boolean()
                                                         ->options(YaTidak::whereIsActive(1)->pluck('ya_tidak', 'id'))
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ak_nama_lengkap_sama_id') != 2)
+                                                            $get('ak_nama_lengkap_sama_id') != 2)
                                                         ->afterStateUpdated(function (Get $get, Set $set) {
 
                                                             if ($get('ik_nama_lengkap_sama_id') == 1) {
@@ -864,7 +864,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ik_status_id') != 1)
+                                                    $get('ik_status_id') != 1)
                                                 ->schema([
 
                                                     TextInput::make('ik_nama_kunyah')
@@ -875,7 +875,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ik_status_id') != 1)
+                                                    $get('ik_status_id') != 1)
                                                 ->schema([
 
                                                     ToggleButtons::make('ik_kewarganegaraan_id')
@@ -890,7 +890,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ik_kewarganegaraan_id') != 1 ||
+                                                    $get('ik_kewarganegaraan_id') != 1 ||
                                                     $get('ik_status_id') != 1)
                                                 ->schema([
 
@@ -907,7 +907,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ik_kewarganegaraan_id') != 2 ||
+                                                    $get('ik_kewarganegaraan_id') != 2 ||
                                                     $get('ik_status_id') != 1)
                                                 ->schema([
 
@@ -924,7 +924,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ik_status_id') != 1)
+                                                    $get('ik_status_id') != 1)
                                                 ->schema([
 
                                                     TextInput::make('ik_tempat_lahir')
@@ -947,7 +947,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(6)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ik_status_id') != 1)
+                                                    $get('ik_status_id') != 1)
                                                 ->schema([
 
                                                     Select::make('ik_pend_terakhir_id')
@@ -977,7 +977,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ik_status_id') != 1)
+                                                    $get('ik_status_id') != 1)
                                                 ->schema([
 
                                                     ToggleButtons::make('ik_tdk_hp_id')
@@ -1002,7 +1002,7 @@ class DataAlumniResource extends Resource
                                                         ->options(YaTidak::whereIsActive(1)->pluck('ya_tidak', 'id'))
 
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ik_tdk_hp_id') != 1 ||
+                                                            $get('ik_tdk_hp_id') != 1 ||
                                                             $get('ak_nomor_handphone_sama_id') != 2 ||
                                                             $get('ik_status_id') != 1)
                                                         ->afterStateUpdated(function (Get $get, Set $set) {
@@ -1026,13 +1026,13 @@ class DataAlumniResource extends Resource
                                                         // $get('ik_nomor_handphone_sama_id') == 1)
                                                         ->dehydrated()
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ik_tdk_hp_id') != 1 ||
+                                                            $get('ik_tdk_hp_id') != 1 ||
                                                             $get('ik_status_id') != 1),
                                                 ]),
 
                                             Grid::make(2)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ik_status_id') != 1)
+                                                    $get('ik_status_id') != 1)
                                                 ->schema([
 
                                                     Placeholder::make('')
@@ -1053,7 +1053,7 @@ class DataAlumniResource extends Resource
                                                         ->boolean()
                                                         ->options(YaTidak::whereIsActive(1)->pluck('ya_tidak', 'id'))
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ik_status_id') != 1)
+                                                            $get('ik_status_id') != 1)
                                                         ->afterStateUpdated(function (Get $get, Set $set) {
 
                                                             if ($get('ik_kajian_sama_ak_id') == 1) {
@@ -1069,7 +1069,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(2)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ik_status_id') != 1)
+                                                    $get('ik_status_id') != 1)
                                                 ->schema([
 
                                                     Textarea::make('ik_ustadz_kajian')
@@ -1080,7 +1080,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(2)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ik_status_id') != 1)
+                                                    $get('ik_status_id') != 1)
                                                 ->schema([
 
                                                     TextArea::make('ik_tempat_kajian')
@@ -1101,7 +1101,7 @@ class DataAlumniResource extends Resource
                                                 ])
 
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ik_status_id') != 1),
+                                                    $get('ik_status_id') != 1),
 
                                             Grid::make(4)
                                                 ->schema([
@@ -1135,7 +1135,7 @@ class DataAlumniResource extends Resource
                                                             }
                                                         })
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ik_status_id') != 1),
+                                                            $get('ik_status_id') != 1),
 
                                                     ToggleButtons::make('al_ik_sama_ak_id')
                                                         ->label('Alamat sama dengan Ayah Kandung')
@@ -1147,7 +1147,7 @@ class DataAlumniResource extends Resource
                                                         ->boolean()
                                                         ->options(YaTidak::whereIsActive(1)->pluck('ya_tidak', 'id'))
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ik_status_id') != 1),
+                                                            $get('ik_status_id') != 1),
 
                                                     ToggleButtons::make('ik_kk_sama_pendaftar_id')
                                                         ->label('Apakah KK dan Nama Kepala Keluarga sama dengan Pendaftar?')
@@ -1157,7 +1157,7 @@ class DataAlumniResource extends Resource
                                                         ->boolean()
                                                         ->options(YaTidak::whereIsActive(1)->pluck('ya_tidak', 'id'))
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ik_kk_sama_ak_id') != 2 ||
+                                                            $get('ik_kk_sama_ak_id') != 2 ||
                                                             $get('ak_kk_sama_pendaftar_id') != 2 ||
                                                             $get('ik_status_id') != 1)
                                                         ->afterStateUpdated(function (Get $get, Set $set) {
@@ -1178,7 +1178,7 @@ class DataAlumniResource extends Resource
 
                                             Grid::make(4)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ik_kk_sama_ak_id') != 2 ||
+                                                    $get('ik_kk_sama_ak_id') != 2 ||
                                                     $get('ik_status_id') != 1)
                                                 ->schema([
 
@@ -1215,7 +1215,7 @@ class DataAlumniResource extends Resource
                                                 <p class="text-lg">IBU KANDUNG</p>
                                             </div>')),
                                                 ])->hidden(fn(Get $get) =>
-                                                $get('ik_kk_sama_ak_id') == null ||
+                                                    $get('ik_kk_sama_ak_id') == null ||
                                                     $get('ik_kk_sama_ak_id') != 2 ||
                                                     $get('ik_status_id') != 1),
 
@@ -1230,7 +1230,7 @@ class DataAlumniResource extends Resource
                                                         ->boolean()
                                                         ->options(YaTidak::whereIsActive(1)->pluck('ya_tidak', 'id'))
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ik_kk_sama_ak_id') != 2 ||
+                                                            $get('ik_kk_sama_ak_id') != 2 ||
                                                             $get('ik_status_id') != 1),
 
                                                 ]),
@@ -1242,7 +1242,7 @@ class DataAlumniResource extends Resource
                                                         ->label('Alamat Luar Negeri')
                                                         ->required()
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ik_kk_sama_ak_id') != 2 ||
+                                                            $get('ik_kk_sama_ak_id') != 2 ||
                                                             $get('al_ik_tgldi_ln_id') != 1 ||
                                                             $get('ik_status_id') != 1),
 
@@ -1259,7 +1259,7 @@ class DataAlumniResource extends Resource
                                                         ->required()
                                                         ->native(false)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ik_kk_sama_ak_id') != 2 ||
+                                                            $get('ik_kk_sama_ak_id') != 2 ||
                                                             $get('al_ik_tgldi_ln_id') != 2 ||
                                                             $get('ik_status_id') != 1),
 
@@ -1277,7 +1277,7 @@ class DataAlumniResource extends Resource
                                                         ->live()
                                                         ->native(false)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ik_kk_sama_ak_id') != 2 ||
+                                                            $get('ik_kk_sama_ak_id') != 2 ||
                                                             $get('al_ik_tgldi_ln_id') != 2 ||
                                                             $get('ik_status_id') != 1)
                                                         ->afterStateUpdated(function (Set $set) {
@@ -1298,7 +1298,7 @@ class DataAlumniResource extends Resource
                                                         ->live()
                                                         ->native(false)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ik_kk_sama_ak_id') != 2 ||
+                                                            $get('ik_kk_sama_ak_id') != 2 ||
                                                             $get('al_ik_tgldi_ln_id') != 2 ||
                                                             $get('ik_status_id') != 1),
 
@@ -1318,7 +1318,7 @@ class DataAlumniResource extends Resource
                                                         ->live()
                                                         ->native(false)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ik_kk_sama_ak_id') != 2 ||
+                                                            $get('ik_kk_sama_ak_id') != 2 ||
                                                             $get('al_ik_tgldi_ln_id') != 2 ||
                                                             $get('ik_status_id') != 1),
 
@@ -1333,7 +1333,7 @@ class DataAlumniResource extends Resource
                                                         ->live()
                                                         ->native(false)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ik_kk_sama_ak_id') != 2 ||
+                                                            $get('ik_kk_sama_ak_id') != 2 ||
                                                             $get('al_ik_tgldi_ln_id') != 2 ||
                                                             $get('ik_status_id') != 1)
                                                         ->afterStateUpdated(function (Get $get, ?string $state, Set $set, ?string $old) {
@@ -1361,7 +1361,7 @@ class DataAlumniResource extends Resource
                                                         ->required()
                                                         ->dehydrated()
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ik_kk_sama_ak_id') != 2 ||
+                                                            $get('ik_kk_sama_ak_id') != 2 ||
                                                             $get('al_ik_tgldi_ln_id') != 2 ||
                                                             $get('ik_status_id') != 1),
                                                 ]),
@@ -1376,9 +1376,9 @@ class DataAlumniResource extends Resource
                                                         ->required()
                                                         ->numeric()
                                                         ->disabled(fn(Get $get) =>
-                                                        $get('al_ik_kodepos') == null)
+                                                            $get('al_ik_kodepos') == null)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ik_kk_sama_ak_id') != 2 ||
+                                                            $get('ik_kk_sama_ak_id') != 2 ||
                                                             $get('al_ik_tgldi_ln_id') != 2 ||
                                                             $get('ik_status_id') != 1),
 
@@ -1388,9 +1388,9 @@ class DataAlumniResource extends Resource
                                                         ->required()
                                                         ->numeric()
                                                         ->disabled(fn(Get $get) =>
-                                                        $get('al_ik_kodepos') == null)
+                                                            $get('al_ik_kodepos') == null)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ik_kk_sama_ak_id') != 2 ||
+                                                            $get('ik_kk_sama_ak_id') != 2 ||
                                                             $get('al_ik_tgldi_ln_id') != 2 ||
                                                             $get('ik_status_id') != 1),
 
@@ -1403,9 +1403,9 @@ class DataAlumniResource extends Resource
                                                         ->label('Alamat')
                                                         ->required()
                                                         ->disabled(fn(Get $get) =>
-                                                        $get('al_ik_kodepos') == null)
+                                                            $get('al_ik_kodepos') == null)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ik_kk_sama_ak_id') != 2 ||
+                                                            $get('ik_kk_sama_ak_id') != 2 ||
                                                             $get('al_ik_tgldi_ln_id') != 2 ||
                                                             $get('ik_status_id') != 1),
 
@@ -1464,7 +1464,7 @@ class DataAlumniResource extends Resource
                                             Grid::make(2)
 
                                                 ->hidden(fn(Get $get) =>
-                                                $get('w_status_id') != 3)
+                                                    $get('w_status_id') != 3)
                                                 ->schema([
 
                                                     Placeholder::make('')
@@ -1484,7 +1484,7 @@ class DataAlumniResource extends Resource
                                                         ->required()
                                                         ->native(false)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3),
+                                                            $get('w_status_id') != 3),
 
                                                 ]),
 
@@ -1499,7 +1499,7 @@ class DataAlumniResource extends Resource
                                                         ->boolean()
                                                         ->options(YaTidak::whereIsActive(1)->pluck('ya_tidak', 'id'))
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3 ||
+                                                            $get('w_status_id') != 3 ||
                                                             $get('ak_nama_lengkap_sama_id') != 2 ||
                                                             $get('ik_nama_lengkap_sama_id') != 2)
                                                         ->afterStateUpdated(function (Get $get, Set $set) {
@@ -1520,7 +1520,7 @@ class DataAlumniResource extends Resource
                                                         // $get('w_nama_lengkap_sama_id') == 1)
                                                         ->dehydrated()
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3),
+                                                            $get('w_status_id') != 3),
 
                                                 ]),
 
@@ -1531,7 +1531,7 @@ class DataAlumniResource extends Resource
                                                         ->label('Nama Hijroh/Islami/Panggilan')
                                                         ->required()
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3),
+                                                            $get('w_status_id') != 3),
 
                                                 ]),
 
@@ -1547,7 +1547,7 @@ class DataAlumniResource extends Resource
                                                         ->live()
                                                         // ->native(false)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3),
+                                                            $get('w_status_id') != 3),
 
                                                 ]),
 
@@ -1563,7 +1563,7 @@ class DataAlumniResource extends Resource
                                                         ->maxLength(16)
                                                         ->required()
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_kewarganegaraan_id') != 1 ||
+                                                            $get('w_kewarganegaraan_id') != 1 ||
                                                             $get('w_status_id') != 3),
 
                                                 ]),
@@ -1575,7 +1575,7 @@ class DataAlumniResource extends Resource
                                                         ->label('Asal Negara')
                                                         ->required()
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_kewarganegaraan_id') != 2 ||
+                                                            $get('w_kewarganegaraan_id') != 2 ||
                                                             $get('w_status_id') != 3),
 
                                                     TextInput::make('w_kitas')
@@ -1584,7 +1584,7 @@ class DataAlumniResource extends Resource
                                                         ->hintColor('danger')
                                                         ->required()
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_kewarganegaraan_id') != 2 ||
+                                                            $get('w_kewarganegaraan_id') != 2 ||
                                                             $get('w_status_id') != 3),
                                                 ]),
 
@@ -1597,7 +1597,7 @@ class DataAlumniResource extends Resource
                                                         ->hintColor('danger')
                                                         ->required()
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3),
+                                                            $get('w_status_id') != 3),
 
                                                     DatePicker::make('w_tanggal_lahir')
                                                         ->label('Tanggal Lahir')
@@ -1610,7 +1610,7 @@ class DataAlumniResource extends Resource
                                                         // ->native(false)
                                                         ->closeOnDateSelection()
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3),
+                                                            $get('w_status_id') != 3),
                                                 ]),
 
                                             Grid::make(6)
@@ -1624,7 +1624,7 @@ class DataAlumniResource extends Resource
                                                         ->required()
                                                         ->native(false)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3),
+                                                            $get('w_status_id') != 3),
 
                                                     Select::make('w_pekerjaan_utama_id')
                                                         ->label('Pekerjaan Utama')
@@ -1634,7 +1634,7 @@ class DataAlumniResource extends Resource
                                                         ->required()
                                                         ->native(false)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3),
+                                                            $get('w_status_id') != 3),
 
                                                     Select::make('w_pghsln_rt_id')
                                                         ->label('Penghasilan Rata-Rata')
@@ -1644,7 +1644,7 @@ class DataAlumniResource extends Resource
                                                         ->required()
                                                         ->native(false)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3),
+                                                            $get('w_status_id') != 3),
                                                 ]),
 
                                             Grid::make(4)
@@ -1658,7 +1658,7 @@ class DataAlumniResource extends Resource
                                                         ->boolean()
                                                         ->options(YaTidak::whereIsActive(1)->pluck('ya_tidak', 'id'))
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3),
+                                                            $get('w_status_id') != 3),
 
                                                 ]),
 
@@ -1673,7 +1673,7 @@ class DataAlumniResource extends Resource
                                                         ->boolean()
                                                         ->options(YaTidak::whereIsActive(1)->pluck('ya_tidak', 'id'))
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_tdk_hp_id') != 1 ||
+                                                            $get('w_tdk_hp_id') != 1 ||
                                                             $get('ak_nomor_handphone_sama_id') != 2 ||
                                                             $get('ik_nomor_handphone_sama_id') != 2 ||
                                                             $get('w_status_id') != 3)
@@ -1698,7 +1698,7 @@ class DataAlumniResource extends Resource
                                                         // $get('w_nomor_handphone_sama_id') == 1)
                                                         ->dehydrated()
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_tdk_hp_id') != 1 ||
+                                                            $get('w_tdk_hp_id') != 1 ||
                                                             $get('w_status_id') != 3),
                                                 ]),
 
@@ -1710,7 +1710,7 @@ class DataAlumniResource extends Resource
                                      <p class="text-lg">Kajian yang diikuti</p>
                                  </div>'))
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3),
+                                                            $get('w_status_id') != 3),
 
                                                 ]),
 
@@ -1722,7 +1722,7 @@ class DataAlumniResource extends Resource
                                                         ->required()
                                                         // ->default('4232')
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3),
+                                                            $get('w_status_id') != 3),
 
                                                 ]),
 
@@ -1734,7 +1734,7 @@ class DataAlumniResource extends Resource
                                                         ->required()
                                                         // ->default('4232')
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3),
+                                                            $get('w_status_id') != 3),
 
                                                 ]),
 
@@ -1747,7 +1747,7 @@ class DataAlumniResource extends Resource
                                 <p class="text-lg">WALI</p>
                              </div>'))
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3),
+                                                            $get('w_status_id') != 3),
                                                 ]),
 
                                             Grid::make(4)
@@ -1761,7 +1761,7 @@ class DataAlumniResource extends Resource
                                                         ->boolean()
                                                         ->options(YaTidak::whereIsActive(1)->pluck('ya_tidak', 'id'))
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('ak_kk_sama_pendaftar_id') != 2 ||
+                                                            $get('ak_kk_sama_pendaftar_id') != 2 ||
                                                             $get('ik_kk_sama_pendaftar_id') != 2 ||
                                                             $get('w_status_id') != 3)
                                                         ->afterStateUpdated(function (Get $get, Set $set) {
@@ -1791,7 +1791,7 @@ class DataAlumniResource extends Resource
                                                         // $get('w_kk_sama_pendaftar_id') == 1)
                                                         ->dehydrated()
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3),
+                                                            $get('w_status_id') != 3),
 
                                                     TextInput::make('w_kep_kel_kk')
                                                         ->label('Nama Kepala Keluarga')
@@ -1802,7 +1802,7 @@ class DataAlumniResource extends Resource
                                                         // $get('w_kk_sama_pendaftar_id') == 1)
                                                         ->dehydrated()
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3),
+                                                            $get('w_status_id') != 3),
                                                 ]),
 
 
@@ -1815,7 +1815,7 @@ class DataAlumniResource extends Resource
                                                 <p class="text-lg">WALI</p>
                                             </div>'))
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3),
+                                                            $get('w_status_id') != 3),
                                                 ]),
 
                                             Grid::make(4)
@@ -1829,7 +1829,7 @@ class DataAlumniResource extends Resource
                                                         ->boolean()
                                                         ->options(YaTidak::whereIsActive(1)->pluck('ya_tidak', 'id'))
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('w_status_id') != 3),
+                                                            $get('w_status_id') != 3),
 
                                                 ]),
 
@@ -1840,7 +1840,7 @@ class DataAlumniResource extends Resource
                                                         ->label('Alamat Luar Negeri')
                                                         ->required()
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('al_w_tgldi_ln_id') != 1),
+                                                            $get('al_w_tgldi_ln_id') != 1),
 
                                                 ]),
 
@@ -1855,7 +1855,7 @@ class DataAlumniResource extends Resource
                                                         ->required()
                                                         ->native(false)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('al_w_tgldi_ln_id') != 2 ||
+                                                            $get('al_w_tgldi_ln_id') != 2 ||
                                                             $get('w_status_id') != 3),
 
                                                 ]),
@@ -1872,7 +1872,7 @@ class DataAlumniResource extends Resource
                                                         ->live()
                                                         ->native(false)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('al_w_tgldi_ln_id') != 2 ||
+                                                            $get('al_w_tgldi_ln_id') != 2 ||
                                                             $get('w_status_id') != 3)
                                                         ->afterStateUpdated(function (Set $set) {
                                                             $set('al_w_kabupaten_id', null);
@@ -1892,7 +1892,7 @@ class DataAlumniResource extends Resource
                                                         ->live()
                                                         ->native(false)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('al_w_tgldi_ln_id') != 2 ||
+                                                            $get('al_w_tgldi_ln_id') != 2 ||
                                                             $get('w_status_id') != 3),
 
                                                 ]),
@@ -1911,7 +1911,7 @@ class DataAlumniResource extends Resource
                                                         ->live()
                                                         ->native(false)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('al_w_tgldi_ln_id') != 2 ||
+                                                            $get('al_w_tgldi_ln_id') != 2 ||
                                                             $get('w_status_id') != 3),
 
                                                     Select::make('al_w_kelurahan_id')
@@ -1925,7 +1925,7 @@ class DataAlumniResource extends Resource
                                                         ->live()
                                                         ->native(false)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('al_w_tgldi_ln_id') != 2 ||
+                                                            $get('al_w_tgldi_ln_id') != 2 ||
                                                             $get('w_status_id') != 3)
                                                         ->afterStateUpdated(function (Get $get, ?string $state, Set $set, ?string $old) {
 
@@ -1953,7 +1953,7 @@ class DataAlumniResource extends Resource
                                                         ->required()
                                                         ->dehydrated()
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('al_w_tgldi_ln_id') != 2 ||
+                                                            $get('al_w_tgldi_ln_id') != 2 ||
                                                             $get('w_status_id') != 3),
                                                 ]),
 
@@ -1967,9 +1967,9 @@ class DataAlumniResource extends Resource
                                                         ->required()
                                                         ->numeric()
                                                         ->disabled(fn(Get $get) =>
-                                                        $get('al_w_kodepos') == null)
+                                                            $get('al_w_kodepos') == null)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('al_w_tgldi_ln_id') != 2 ||
+                                                            $get('al_w_tgldi_ln_id') != 2 ||
                                                             $get('w_status_id') != 3),
 
                                                     TextInput::make('al_w_rw')
@@ -1978,9 +1978,9 @@ class DataAlumniResource extends Resource
                                                         ->required()
                                                         ->numeric()
                                                         ->disabled(fn(Get $get) =>
-                                                        $get('al_w_kodepos') == null)
+                                                            $get('al_w_kodepos') == null)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('al_w_tgldi_ln_id') != 2 ||
+                                                            $get('al_w_tgldi_ln_id') != 2 ||
                                                             $get('w_status_id') != 3),
 
                                                 ]),
@@ -1992,9 +1992,9 @@ class DataAlumniResource extends Resource
                                                         ->label('Alamat')
                                                         ->required()
                                                         ->disabled(fn(Get $get) =>
-                                                        $get('al_w_kodepos') == null)
+                                                            $get('al_w_kodepos') == null)
                                                         ->hidden(fn(Get $get) =>
-                                                        $get('al_w_tgldi_ln_id') != 2 ||
+                                                            $get('al_w_tgldi_ln_id') != 2 ||
                                                             $get('w_status_id') != 3),
 
                                                 ]),
@@ -2076,7 +2076,7 @@ class DataAlumniResource extends Resource
                                                 ->unique(Santri::class, 'nik', ignoreRecord: true)
                                                 //->default('3295131306822002')
                                                 ->hidden(fn(Get $get) =>
-                                                $get('kewarganegaraan_id') != 1),
+                                                    $get('kewarganegaraan_id') != 1),
 
                                         ]),
 
@@ -2088,7 +2088,7 @@ class DataAlumniResource extends Resource
                                                 ->required()
                                                 //->default('asfasdad')
                                                 ->hidden(fn(Get $get) =>
-                                                $get('kewarganegaraan_id') != 2),
+                                                    $get('kewarganegaraan_id') != 2),
 
                                             TextInput::make('kitas')
                                                 ->label('KITAS Calon Santri')
@@ -2098,7 +2098,7 @@ class DataAlumniResource extends Resource
                                                 //->default('3295131306822002')
                                                 ->unique(Santri::class, 'kitas', ignoreRecord: true)
                                                 ->hidden(fn(Get $get) =>
-                                                $get('kewarganegaraan_id') != 2),
+                                                    $get('kewarganegaraan_id') != 2),
 
                                         ]),
 
@@ -2222,7 +2222,7 @@ class DataAlumniResource extends Resource
                                                 ->required()
                                                 //->default('asfasdad')
                                                 ->hidden(fn(Get $get) =>
-                                                $get('cita_cita_id') != 10),
+                                                    $get('cita_cita_id') != 10),
                                         ]),
 
                                     Grid::make(4)
@@ -2242,7 +2242,7 @@ class DataAlumniResource extends Resource
                                                 ->required()
                                                 //->default('asfasdad')
                                                 ->hidden(fn(Get $get) =>
-                                                $get('hobi_id') != 6),
+                                                    $get('hobi_id') != 6),
 
                                         ]),
 
@@ -2267,7 +2267,7 @@ class DataAlumniResource extends Resource
                                                 ->required()
                                                 //->default('asfasdad')
                                                 ->hidden(fn(Get $get) =>
-                                                $get('keb_khus_id') != 6),
+                                                    $get('keb_khus_id') != 6),
                                         ]),
 
                                     Grid::make(4)
@@ -2287,7 +2287,7 @@ class DataAlumniResource extends Resource
                                                 ->required()
                                                 //->default('asfasdad')
                                                 ->hidden(fn(Get $get) =>
-                                                $get('keb_dis_id') != 8),
+                                                    $get('keb_dis_id') != 8),
                                         ]),
 
                                     Placeholder::make('')
@@ -2319,7 +2319,7 @@ class DataAlumniResource extends Resource
                                                 ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
                                                 ->required()
                                                 ->hidden(fn(Get $get) =>
-                                                $get('tdk_hp_id') != 1),
+                                                    $get('tdk_hp_id') != 1),
 
                                         ]),
 
@@ -2354,7 +2354,7 @@ class DataAlumniResource extends Resource
                                                 ->required()
                                                 //->default('asdasf')
                                                 ->hidden(fn(Get $get) =>
-                                                $get('ps_mendaftar_keinginan_id') != 4),
+                                                    $get('ps_mendaftar_keinginan_id') != 4),
                                         ]),
 
                                     Placeholder::make('')
@@ -2382,7 +2382,7 @@ class DataAlumniResource extends Resource
                                                 ->required()
                                                 //->default('asfasdad')
                                                 ->hidden(fn(Get $get) =>
-                                                $get('bya_sklh_id') != 4),
+                                                    $get('bya_sklh_id') != 4),
                                         ]),
 
                                     Placeholder::make('')
@@ -2405,7 +2405,7 @@ class DataAlumniResource extends Resource
                                                 ->required()
                                                 //->default('2421324')
                                                 ->hidden(fn(Get $get) =>
-                                                $get('belum_nisn_id') != 1),
+                                                    $get('belum_nisn_id') != 1),
                                         ]),
 
                                     Grid::make(4)
@@ -2425,7 +2425,7 @@ class DataAlumniResource extends Resource
                                                 ->required()
                                                 //->default('32524324')
                                                 ->hidden(fn(Get $get) =>
-                                                $get('nomor_kip_memiliki_id') != 1),
+                                                    $get('nomor_kip_memiliki_id') != 1),
                                         ]),
 
                                     Placeholder::make('')
@@ -2458,7 +2458,7 @@ class DataAlumniResource extends Resource
                                                 ->required()
                                                 ->suffix('juz')
                                                 ->hidden(fn(Get $get) =>
-                                                $get('qism_id') == 1)
+                                                    $get('qism_id') == 1)
                                                 ->native(false),
 
                                         ]),
@@ -2580,7 +2580,7 @@ class DataAlumniResource extends Resource
                                                 ->required()
                                                 //->default('Kontrak/Kost')
                                                 ->hidden(fn(Get $get) =>
-                                                $get('al_s_status_mukim_id') == 1)
+                                                    $get('al_s_status_mukim_id') == 1)
                                                 ->live()
                                                 ->native(false)
                                                 ->dehydrated(),
@@ -2602,10 +2602,10 @@ class DataAlumniResource extends Resource
                                                 ->hidden(
                                                     fn(Get $get) =>
                                                     $get('al_s_status_mukim_id') != 2 ||
-                                                        $get('al_s_stts_tptgl_id') == 1 ||
-                                                        $get('al_s_stts_tptgl_id') == 2 ||
-                                                        $get('al_s_stts_tptgl_id') == 3 ||
-                                                        $get('al_s_stts_tptgl_id') == null
+                                                    $get('al_s_stts_tptgl_id') == 1 ||
+                                                    $get('al_s_stts_tptgl_id') == 2 ||
+                                                    $get('al_s_stts_tptgl_id') == 3 ||
+                                                    $get('al_s_stts_tptgl_id') == null
                                                 )
                                                 ->afterStateUpdated(function (Set $set) {
                                                     $set('al_s_kabupaten_id', null);
@@ -2628,10 +2628,10 @@ class DataAlumniResource extends Resource
                                                 ->hidden(
                                                     fn(Get $get) =>
                                                     $get('al_s_status_mukim_id') != 2 ||
-                                                        $get('al_s_stts_tptgl_id') == 1 ||
-                                                        $get('al_s_stts_tptgl_id') == 2 ||
-                                                        $get('al_s_stts_tptgl_id') == 3 ||
-                                                        $get('al_s_stts_tptgl_id') == null
+                                                    $get('al_s_stts_tptgl_id') == 1 ||
+                                                    $get('al_s_stts_tptgl_id') == 2 ||
+                                                    $get('al_s_stts_tptgl_id') == 3 ||
+                                                    $get('al_s_stts_tptgl_id') == null
                                                 ),
 
                                         ]),
@@ -2653,10 +2653,10 @@ class DataAlumniResource extends Resource
                                                 ->hidden(
                                                     fn(Get $get) =>
                                                     $get('al_s_status_mukim_id') != 2 ||
-                                                        $get('al_s_stts_tptgl_id') == 1 ||
-                                                        $get('al_s_stts_tptgl_id') == 2 ||
-                                                        $get('al_s_stts_tptgl_id') == 3 ||
-                                                        $get('al_s_stts_tptgl_id') == null
+                                                    $get('al_s_stts_tptgl_id') == 1 ||
+                                                    $get('al_s_stts_tptgl_id') == 2 ||
+                                                    $get('al_s_stts_tptgl_id') == 3 ||
+                                                    $get('al_s_stts_tptgl_id') == null
                                                 ),
 
                                             Select::make('al_s_kelurahan_id')
@@ -2673,10 +2673,10 @@ class DataAlumniResource extends Resource
                                                 ->hidden(
                                                     fn(Get $get) =>
                                                     $get('al_s_status_mukim_id') != 2 ||
-                                                        $get('al_s_stts_tptgl_id') == 1 ||
-                                                        $get('al_s_stts_tptgl_id') == 2 ||
-                                                        $get('al_s_stts_tptgl_id') == 3 ||
-                                                        $get('al_s_stts_tptgl_id') == null
+                                                    $get('al_s_stts_tptgl_id') == 1 ||
+                                                    $get('al_s_stts_tptgl_id') == 2 ||
+                                                    $get('al_s_stts_tptgl_id') == 3 ||
+                                                    $get('al_s_stts_tptgl_id') == null
                                                 )
                                                 ->afterStateUpdated(function (Get $get, ?string $state, Set $set, ?string $old) {
 
@@ -2703,10 +2703,10 @@ class DataAlumniResource extends Resource
                                                 ->hidden(
                                                     fn(Get $get) =>
                                                     $get('al_s_status_mukim_id') != 2 ||
-                                                        $get('al_s_stts_tptgl_id') == 1 ||
-                                                        $get('al_s_stts_tptgl_id') == 2 ||
-                                                        $get('al_s_stts_tptgl_id') == 3 ||
-                                                        $get('al_s_stts_tptgl_id') == null
+                                                    $get('al_s_stts_tptgl_id') == 1 ||
+                                                    $get('al_s_stts_tptgl_id') == 2 ||
+                                                    $get('al_s_stts_tptgl_id') == 3 ||
+                                                    $get('al_s_stts_tptgl_id') == null
                                                 ),
 
                                         ]),
@@ -2721,15 +2721,15 @@ class DataAlumniResource extends Resource
                                                 ->required()
                                                 ->numeric()
                                                 ->disabled(fn(Get $get) =>
-                                                $get('al_s_kodepos') == null)
+                                                    $get('al_s_kodepos') == null)
                                                 //->default('2')
                                                 ->hidden(
                                                     fn(Get $get) =>
                                                     $get('al_s_status_mukim_id') != 2 ||
-                                                        $get('al_s_stts_tptgl_id') == 1 ||
-                                                        $get('al_s_stts_tptgl_id') == 2 ||
-                                                        $get('al_s_stts_tptgl_id') == 3 ||
-                                                        $get('al_s_stts_tptgl_id') == null
+                                                    $get('al_s_stts_tptgl_id') == 1 ||
+                                                    $get('al_s_stts_tptgl_id') == 2 ||
+                                                    $get('al_s_stts_tptgl_id') == 3 ||
+                                                    $get('al_s_stts_tptgl_id') == null
                                                 ),
 
                                             TextInput::make('al_s_rw')
@@ -2738,15 +2738,15 @@ class DataAlumniResource extends Resource
                                                 ->required()
                                                 ->numeric()
                                                 ->disabled(fn(Get $get) =>
-                                                $get('al_s_kodepos') == null)
+                                                    $get('al_s_kodepos') == null)
                                                 //->default('2')
                                                 ->hidden(
                                                     fn(Get $get) =>
                                                     $get('al_s_status_mukim_id') != 2 ||
-                                                        $get('al_s_stts_tptgl_id') == 1 ||
-                                                        $get('al_s_stts_tptgl_id') == 2 ||
-                                                        $get('al_s_stts_tptgl_id') == 3 ||
-                                                        $get('al_s_stts_tptgl_id') == null
+                                                    $get('al_s_stts_tptgl_id') == 1 ||
+                                                    $get('al_s_stts_tptgl_id') == 2 ||
+                                                    $get('al_s_stts_tptgl_id') == 3 ||
+                                                    $get('al_s_stts_tptgl_id') == null
                                                 ),
 
                                         ]),
@@ -2758,15 +2758,15 @@ class DataAlumniResource extends Resource
                                                 ->label('Alamat')
                                                 ->required()
                                                 ->disabled(fn(Get $get) =>
-                                                $get('al_s_kodepos') == null)
+                                                    $get('al_s_kodepos') == null)
                                                 //->default('sdfsdasdada')
                                                 ->hidden(
                                                     fn(Get $get) =>
                                                     $get('al_s_status_mukim_id') != 2 ||
-                                                        $get('al_s_stts_tptgl_id') == 1 ||
-                                                        $get('al_s_stts_tptgl_id') == 2 ||
-                                                        $get('al_s_stts_tptgl_id') == 3 ||
-                                                        $get('al_s_stts_tptgl_id') == null
+                                                    $get('al_s_stts_tptgl_id') == 1 ||
+                                                    $get('al_s_stts_tptgl_id') == 2 ||
+                                                    $get('al_s_stts_tptgl_id') == 3 ||
+                                                    $get('al_s_stts_tptgl_id') == null
                                                 ),
 
                                         ]),
@@ -2784,7 +2784,7 @@ class DataAlumniResource extends Resource
                                                 ->hidden(
                                                     fn(Get $get) =>
                                                     $get('al_s_status_mukim_id') != 2 ||
-                                                        $get('al_s_stts_tptgl_id') == null
+                                                    $get('al_s_stts_tptgl_id') == null
                                                 ),
 
                                             Select::make('al_s_transportasi_id')
@@ -2798,7 +2798,7 @@ class DataAlumniResource extends Resource
                                                 ->hidden(
                                                     fn(Get $get) =>
                                                     $get('al_s_status_mukim_id') != 2 ||
-                                                        $get('al_s_stts_tptgl_id') == null
+                                                    $get('al_s_stts_tptgl_id') == null
                                                 ),
 
                                         ]),
@@ -2817,7 +2817,7 @@ class DataAlumniResource extends Resource
                                                 ->hidden(
                                                     fn(Get $get) =>
                                                     $get('al_s_status_mukim_id') != 2 ||
-                                                        $get('al_s_stts_tptgl_id') == null
+                                                    $get('al_s_stts_tptgl_id') == null
                                                 ),
 
                                             TextInput::make('al_s_koordinat')
@@ -2826,7 +2826,7 @@ class DataAlumniResource extends Resource
                                                 ->hidden(
                                                     fn(Get $get) =>
                                                     $get('al_s_status_mukim_id') != 2 ||
-                                                        $get('al_s_stts_tptgl_id') == null
+                                                    $get('al_s_stts_tptgl_id') == null
                                                 ),
                                         ]),
                                 ]),
@@ -2939,7 +2939,7 @@ class DataAlumniResource extends Resource
                         // } elseif ($wsemis4->ws_emis4 !== null) {
                         //     return ('Lengkap');
                         // }
-
+            
                         if ($state !== '1') {
                             return ('Belum lengkap');
                         } elseif ($state == '1') {
@@ -2951,7 +2951,7 @@ class DataAlumniResource extends Resource
                     ->extraAttributes(['class' => 'w-[8]'])
                     ->color(function (Model $record, $state) {
                         // $wsemis4 = Walisantri::where('id', $record->walisantri_id)->first();
-
+            
                         // dd($pendaftar->ps_kadm_status);
                         if ($state !== '1') {
                             return ('danger');
@@ -2995,7 +2995,7 @@ class DataAlumniResource extends Resource
                         // } elseif ($semis4->s_emis4 !== null) {
                         //     return ('success');
                         // }
-
+            
                         if ($state !== '1') {
                             return ('danger');
                         } elseif ($state == '1') {
@@ -4334,7 +4334,7 @@ class DataAlumniResource extends Resource
                                 ->where('santri_id', $record->santri_id)->count();
 
                             // dd($record->santri_id, $cekdatats);
-
+                
                             if ($cekdatats == 0) {
 
                                 $tahunberjalanaktif = TahunBerjalan::where('is_active', 1)->first();
@@ -4411,7 +4411,7 @@ class DataAlumniResource extends Resource
 
                             if ($cekdatats == 0) {
                                 //cek apakah sudah ada data tahun berjalan selanjutnya di kelas_santris
-
+                
                                 $cekkelassantrisaatini = KelasSantri::where('tahun_berjalan_id', $tahunberjalanaktif->id)
                                     ->where('santri_id', $record->santri_id)->first();
 
@@ -4425,7 +4425,7 @@ class DataAlumniResource extends Resource
                                     //!null = di kelas terakhir
                                     //jika null, maka santri relevan untuk naik kelas
                                     //jika !null, maka santri tidak relevan untuk naik kelas
-
+                
                                     $tahunberjalanaktif = TahunBerjalan::where('is_active', 1)->first();
                                     $ts = TahunBerjalan::where('tb', $tahunberjalanaktif->ts)->first();
 
@@ -4722,7 +4722,7 @@ class DataAlumniResource extends Resource
                             $santri = Santri::where('id', $record->santri_id)->first();
 
                             //---
-
+                
                             StatusSantri::where('santri_id', $santri->id)
                                 ->where('stat_santri_id', 1)
                                 ->delete();
@@ -4800,9 +4800,17 @@ class DataAlumniResource extends Resource
         $tahunberjalanaktif = TahunBerjalan::where('is_active', 0)->first();
         $ts = TahunBerjalan::where('tb', $tahunberjalanaktif->ts)->first();
 
-        return parent::getEloquentQuery()->where('tahun_berjalan_id', $tahunberjalanaktif->id)
-            ->whereIn('qism_id', Auth::user()->mudirqism)->whereHas('statussantri', function ($query) {
-                $query->where('stat_santri_id', '!=', 3);
-            });
+        // return parent::getEloquentQuery()->where('tahun_berjalan_id', $tahunberjalanaktif->id)
+        //     ->whereIn('qism_id', Auth::user()->mudirqism)->whereHas('statussantri', function ($query) {
+        //         $query->where('stat_santri_id', '!=', 3);
+        //     });
+
+        return parent::getEloquentQuery()
+            ->whereHas('statussantri', function ($query) {
+                $query->where('stat_santri_id', '!=', 3)
+                    ->where('stat_santri_id', '!=', 1)
+                    ->where('stat_santri_id', '!=', 2);
+            })
+            ->groupBy('santri_id');
     }
 }

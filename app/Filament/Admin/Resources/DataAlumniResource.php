@@ -3003,58 +3003,58 @@ class DataAlumniResource extends Resource
                         }
                     }),
 
-                TextColumn::make('qism.kode_qism')
-                    ->label('Kode Qism')
-                    ->searchable(isIndividual: true, isGlobal: false)
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    // ->toggleable()
-                    ->sortable(),
+                // TextColumn::make('qism.kode_qism')
+                //     ->label('Kode Qism')
+                //     ->searchable(isIndividual: true, isGlobal: false)
+                //     ->toggleable(isToggledHiddenByDefault: true)
+                //     // ->toggleable()
+                //     ->sortable(),
 
-                SelectColumn::make('qism_detail_id')
-                    ->label('Qism Detail')
-                    ->options(QismDetail::whereIsActive(1)->pluck('abbr_qism_detail', 'id'))
-                    ->searchable(isIndividual: true, isGlobal: false)
-                    ->sortable(query: function (Builder $query, string $direction): Builder {
-                        return $query
-                            ->orderBy('qism_detail_id', $direction)
-                            ->orderBy('kelas_id', $direction)
-                            ->orderBy('nama_lengkap', $direction);
-                    })
-                    ->disabled()
-                    ->extraAttributes([
-                        'style' => 'min-width:150px'
-                    ]),
+                // SelectColumn::make('qism_detail_id')
+                //     ->label('Qism Detail')
+                //     ->options(QismDetail::whereIsActive(1)->pluck('abbr_qism_detail', 'id'))
+                //     ->searchable(isIndividual: true, isGlobal: false)
+                //     ->sortable(query: function (Builder $query, string $direction): Builder {
+                //         return $query
+                //             ->orderBy('qism_detail_id', $direction)
+                //             ->orderBy('kelas_id', $direction)
+                //             ->orderBy('nama_lengkap', $direction);
+                //     })
+                //     ->disabled()
+                //     ->extraAttributes([
+                //         'style' => 'min-width:150px'
+                //     ]),
 
-                TextColumn::make('qism_detail.kode_qism_detail')
-                    ->label('Kode Qism Detail')
-                    ->searchable(isIndividual: true, isGlobal: false)
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    // ->toggleable()
-                    ->sortable(),
+                // TextColumn::make('qism_detail.kode_qism_detail')
+                //     ->label('Kode Qism Detail')
+                //     ->searchable(isIndividual: true, isGlobal: false)
+                //     ->toggleable(isToggledHiddenByDefault: true)
+                //     // ->toggleable()
+                //     ->sortable(),
 
-                TextColumn::make('kelas.id')
-                    ->label('Kode Kelas')
-                    ->searchable(isIndividual: true, isGlobal: false)
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    // ->toggleable()
-                    ->sortable(),
+                // TextColumn::make('kelas.id')
+                //     ->label('Kode Kelas')
+                //     ->searchable(isIndividual: true, isGlobal: false)
+                //     ->toggleable(isToggledHiddenByDefault: true)
+                //     // ->toggleable()
+                //     ->sortable(),
 
-                TextColumn::make('qism_detail.abbr_qism_detail')
-                    ->label('Qism')
-                    ->searchable(isIndividual: true, isGlobal: false)
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    // ->toggleable()
-                    ->sortable(),
+                // TextColumn::make('qism_detail.abbr_qism_detail')
+                //     ->label('Qism')
+                //     ->searchable(isIndividual: true, isGlobal: false)
+                //     ->toggleable(isToggledHiddenByDefault: true)
+                //     // ->toggleable()
+                //     ->sortable(),
 
-                TextColumn::make('kelas.kelas')
-                    ->label('Kelas')
-                    ->searchable(isIndividual: true, isGlobal: false)
-                    ->sortable(),
+                // TextColumn::make('kelas.kelas')
+                //     ->label('Kelas')
+                //     ->searchable(isIndividual: true, isGlobal: false)
+                //     ->sortable(),
 
-                TextColumn::make('kelas_internal')
-                    ->label('Kelas Internal')
-                    ->searchable(isIndividual: true, isGlobal: false)
-                    ->sortable(),
+                // TextColumn::make('kelas_internal')
+                //     ->label('Kelas Internal')
+                //     ->searchable(isIndividual: true, isGlobal: false)
+                //     ->sortable(),
 
                 TextColumn::make('santri.nama_lengkap')
                     ->label('Nama')

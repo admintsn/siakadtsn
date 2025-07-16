@@ -269,7 +269,7 @@ class DataImtihanResource extends Resource
                                                 $set('kode_soal', $kodesoal);
 
                                                 $jumlahsantri = KelasSantri::whereHas('statussantri', function ($query) {
-                                                    $query->where('status', 'Aktif');
+                                                    $query->where('stat_santri_id', 3);
                                                 })
                                                     ->where('qism_detail_id', $get('qism_detail_id'))
                                                     ->where('tahun_berjalan_id', $get('tahun_berjalan_id'))
@@ -283,7 +283,7 @@ class DataImtihanResource extends Resource
                                                 $set('kode_soal', $kodesoal);
 
                                                 $jumlahsantri = KelasSantri::whereHas('statussantri', function ($query) {
-                                                    $query->where('status', 'Aktif');
+                                                    $query->where('stat_santri_id', 3);
                                                 })
                                                     ->where('qism_detail_id', $get('qism_detail_id'))
                                                     ->where('tahun_berjalan_id', $get('tahun_berjalan_id'))
@@ -301,7 +301,7 @@ class DataImtihanResource extends Resource
                                             $set('kode_soal', $kodesoal);
 
                                             $jumlahsantri = KelasSantri::whereHas('statussantri', function ($query) {
-                                                $query->where('status', 'Aktif');
+                                                $query->where('stat_santri_id', 3);
                                             })
                                                 ->where('qism_detail_id', $get('qism_detail_id'))
                                                 ->where('tahun_berjalan_id', $get('tahun_berjalan_id'))

@@ -934,6 +934,7 @@ class DataImtihanResource extends Resource
                 Tables\Actions\BulkAction::make('generatesoal')
                     ->label(__('Generate Soal'))
                     ->color('info')
+                    ->visible(fn($livewire): bool => $livewire->activeTab === 'all' && auth()->user()->id == 1)
                     // ->requiresConfirmation()
                     // ->modalIcon('heroicon-o-exclamation-triangle')
                     // ->modalIconColor('danger')

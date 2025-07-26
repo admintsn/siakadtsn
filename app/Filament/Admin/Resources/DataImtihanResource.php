@@ -613,8 +613,8 @@ class DataImtihanResource extends Resource
             ->recordUrl(null)
             ->searchOnBlur()
             ->extremePaginationLinks()
-            ->defaultPaginationPageOption(25)
-            ->infinite()
+            ->defaultPaginationPageOption(5)
+            // ->infinite()
             ->filters([
                 QueryBuilder::make()
                     ->constraintPickerColumns(1)

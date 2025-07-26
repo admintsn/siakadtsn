@@ -241,12 +241,12 @@ class DataImtihanResource extends Resource
 
                                     $getkelas = Kelas::where('id', $get('kelas_id'))->first();
                                     // $kelas = $getkelas->abbr_kelas;
-
+                        
                                     $getkelass = $get('kelas_id');
                                     $getkelasinternal = $get('kelas_internal');
 
                                     // dd($getkelasinternal);
-
+                        
                                     $getsemester = Sem::where('id', $get('semester_id'))->first();
                                     $semester = $getsemester->abbr_semester;
 
@@ -449,6 +449,12 @@ class DataImtihanResource extends Resource
                             'style' => 'min-width:250px'
                         ]),
 
+                    TextInputColumn::make('keterangan_nilai')
+                        ->label('Keterangan Nilai')
+                        ->extraAttributes([
+                            'style' => 'min-width:250px'
+                        ]),
+
                     SelectColumn::make('qism_id')
                         ->label('Qism')
                         ->options(Qism::all()->pluck('abbr_qism', 'id'))
@@ -545,12 +551,6 @@ class DataImtihanResource extends Resource
                             'style' => 'min-width:250px'
                         ]),
 
-                    TextInputColumn::make('keterangan_nilai')
-                        ->label('Keterangan Nilai')
-                        ->extraAttributes([
-                            'style' => 'min-width:250px'
-                        ]),
-
                     SelectColumn::make('staff_admin_id')
                         ->label('Staff Admin')
                         ->options(StaffAdmin::all()->pluck('nama_staff', 'id'))
@@ -613,7 +613,8 @@ class DataImtihanResource extends Resource
             ->recordUrl(null)
             ->searchOnBlur()
             ->extremePaginationLinks()
-            ->defaultPaginationPageOption(5)
+            ->defaultPaginationPageOption(25)
+            ->infinite()
             ->filters([
                 QueryBuilder::make()
                     ->constraintPickerColumns(1)
@@ -929,6 +930,190 @@ class DataImtihanResource extends Resource
                                 ->send();
                         }
                     ))->deselectRecordsAfterCompletion(),
+
+                Tables\Actions\BulkAction::make('generatesoal')
+                    ->label(__('Generate Soal'))
+                    ->color('info')
+                    // ->requiresConfirmation()
+                    // ->modalIcon('heroicon-o-exclamation-triangle')
+                    // ->modalIconColor('danger')
+                    // ->modalHeading('Simpan data santri tinggal kelas?')
+                    // ->modalDescription('Setelah klik tombol "Simpan", maka status akan berubah')
+                    // ->modalSubmitActionLabel('Simpan')
+                    ->action(fn(Collection $records, array $data) => $records->each(
+                        function ($record) {
+
+                            $gettaaktif = TahunAjaranAktif::where('is_active', 1)->first();
+
+                            $cekdataimtihan = Nilai::where('jenis_soal_id', $record->jenis_soal_id)
+                                ->where('mahad_id', 1)
+                                ->where('qism_id', $record->qism_id)
+                                ->where('qism_detail_id', $record->qism_detail_id)
+                                ->where('tahun_berjalan_id', $gettaaktif->tahun_berjalan_id)
+                                ->where('semester_id', $record->semester_id)
+                                ->where('kelas_id', $record->kelas_id)
+                                ->where('mapel_id', $record->mapel_id)
+                                ->where('pengajar_id', $record->pengajar_id)
+                                ->count();
+
+                            if ($cekdataimtihan == 0) {
+
+                                $gettaaktif = TahunAjaranAktif::where('is_active', 1)->first();
+
+                                $gettaqismaktif = TahunAjaranAktif::where('is_active', 1)->where('qism_id', $record->qism_id)->first();
+
+                                $getsemberjalanaktif = SemesterBerjalan::where('is_active', 1)->first();
+
+                                $getqismdetail = QismDetail::where('id', $record->qism_detail_id)->first();
+                                $qismdetail = $getqismdetail->abbr_qism_detail;
+
+                                $gettahunajaran = TahunAjaran::where('id', $gettaqismaktif->tahun_ajaran_id)->first();
+                                $tahunajaran = $gettahunajaran->abbr_ta;
+
+                                $gettahunberjalan = $record->tahun_berjalan;
+
+                                $getkelas = Kelas::where('id', $record->kelas_id)->first();
+                                // $kelas = $getkelas->abbr_kelas;
+                
+                                $getkelass = $record->kelas_id;
+                                $getkelasinternal = $record->kelas_internal;
+
+                                // dd($getkelasinternal);
+                
+                                $getsemester = Sem::where('id', $gettaqismaktif->semester_id)->first();
+                                $semester = $getsemester->abbr_semester;
+
+                                $getmapel = Mapel::where('id', $record->mapel_id)->first();
+                                $mapel = $getmapel->mapel;
+
+                                if ($getkelasinternal === null) {
+
+                                    if ($getkelass === null) {
+
+                                        $jumlahsantri = KelasSantri::whereHas('statussantri', function ($query) {
+                                            $query->where('stat_santri_id', 3);
+                                        })
+                                            ->where('qism_detail_id', $record->qism_detail_id)
+                                            ->where('tahun_berjalan_id', $gettaaktif->tahun_berjalan_id)
+                                            ->where('kelas_id', $record->kelas_id)
+                                            ->count();
+
+                                        $nilaibaru = new Nilai;
+                                        $nilaibaru->jenis_soal_id = $record->jenis_soal_id;
+                                        $nilaibaru->mahad_id = 1;
+                                        $nilaibaru->qism_id = $record->qism_id;
+                                        $nilaibaru->qism_detail_id = $record->qism_detail_id;
+                                        $nilaibaru->tahun_ajaran_id = $gettaqismaktif->tahun_ajaran_id;
+                                        $nilaibaru->tahun_berjalan_id = $gettaaktif->tahun_berjalan_id;
+                                        $nilaibaru->semester_id = $gettaqismaktif->semester_id;
+                                        $nilaibaru->semester_berjalan_id = $getsemberjalanaktif->id;
+                                        $nilaibaru->kelas_id = $record->kelas_id;
+                                        $nilaibaru->kelas_internal = $record->kelas_internal;
+                                        $nilaibaru->mapel_id = $record->mapel_id;
+                                        $nilaibaru->kategori_soal_id = $record->kategori_soal_id;
+                                        $nilaibaru->pengajar_id = $record->pengajar_id;
+                                        $nilaibaru->kode_soal = $qismdetail . "-" . $tahunajaran . "-" . $semester . "-" . $mapel;
+                                        $nilaibaru->jumlah_print = $jumlahsantri;
+                                        $nilaibaru->keterangan_nilai = $record->keterangan_nilai;
+                                        $nilaibaru->is_soal = $record->is_soal;
+                                        $nilaibaru->is_nilai = $record->is_nilai;
+                                        $nilaibaru->is_active = 1;
+                                        $nilaibaru->save();
+
+                                        Notification::make()
+                                            ->success()
+                                            ->title('Data Imtihan generated')
+                                            ->color('Success')
+                                            ->send();
+                                    } elseif ($getkelass !== null) {
+
+                                        $jumlahsantri = KelasSantri::whereHas('statussantri', function ($query) {
+                                            $query->where('stat_santri_id', 3);
+                                        })
+                                            ->where('qism_detail_id', $record->qism_detail_id)
+                                            ->where('tahun_berjalan_id', $gettaaktif->tahun_berjalan_id)
+                                            ->where('kelas_id', $record->kelas_id)
+                                            ->count();
+
+                                        $nilaibaru = new Nilai;
+                                        $nilaibaru->jenis_soal_id = $record->jenis_soal_id;
+                                        $nilaibaru->mahad_id = 1;
+                                        $nilaibaru->qism_id = $record->qism_id;
+                                        $nilaibaru->qism_detail_id = $record->qism_detail_id;
+                                        $nilaibaru->tahun_ajaran_id = $gettaqismaktif->tahun_ajaran_id;
+                                        $nilaibaru->tahun_berjalan_id = $gettaaktif->tahun_berjalan_id;
+                                        $nilaibaru->semester_id = $gettaqismaktif->semester_id;
+                                        $nilaibaru->semester_berjalan_id = $getsemberjalanaktif->id;
+                                        $nilaibaru->kelas_id = $record->kelas_id;
+                                        $nilaibaru->kelas_internal = $record->kelas_internal;
+                                        $nilaibaru->mapel_id = $record->mapel_id;
+                                        $nilaibaru->kategori_soal_id = $record->kategori_soal_id;
+                                        $nilaibaru->pengajar_id = $record->pengajar_id;
+                                        $nilaibaru->kode_soal = $qismdetail . "-" . $tahunajaran . "-" . $semester . "-" . $getkelas->abbr_kelas . "-" . $mapel;
+                                        $nilaibaru->jumlah_print = $jumlahsantri;
+                                        $nilaibaru->keterangan_nilai = $record->keterangan_nilai;
+                                        $nilaibaru->is_soal = $record->is_soal;
+                                        $nilaibaru->is_nilai = $record->is_nilai;
+                                        $nilaibaru->is_active = 1;
+                                        $nilaibaru->save();
+
+                                        Notification::make()
+                                            ->success()
+                                            ->title('Data Imtihan generated')
+                                            ->color('Success')
+                                            ->send();
+                                    }
+                                } elseif ($getkelasinternal !== null) {
+
+                                    $jumlahsantri = KelasSantri::whereHas('statussantri', function ($query) {
+                                        $query->where('stat_santri_id', 3);
+                                    })
+                                        ->where('qism_detail_id', $record->qism_detail_id)
+                                        ->where('tahun_berjalan_id', $gettaaktif->tahun_berjalan_id)
+                                        ->where('kelas_internal', $record->kelas_internal)
+                                        ->count();
+
+                                    $nilaibaru = new Nilai;
+                                    $nilaibaru->jenis_soal_id = $record->jenis_soal_id;
+                                    $nilaibaru->mahad_id = 1;
+                                    $nilaibaru->qism_id = $record->qism_id;
+                                    $nilaibaru->qism_detail_id = $record->qism_detail_id;
+                                    $nilaibaru->tahun_ajaran_id = $gettaqismaktif->tahun_ajaran_id;
+                                    $nilaibaru->tahun_berjalan_id = $gettaaktif->tahun_berjalan_id;
+                                    $nilaibaru->semester_id = $gettaqismaktif->semester_id;
+                                    $nilaibaru->semester_berjalan_id = $getsemberjalanaktif->id;
+                                    $nilaibaru->kelas_id = $record->kelas_id;
+                                    $nilaibaru->kelas_internal = $record->kelas_internal;
+                                    $nilaibaru->mapel_id = $record->mapel_id;
+                                    $nilaibaru->kategori_soal_id = $record->kategori_soal_id;
+                                    $nilaibaru->pengajar_id = $record->pengajar_id;
+                                    $nilaibaru->kode_soal = $qismdetail . "-" . $tahunajaran . "-" . $semester . "-" . $getkelasinternal . "-" . $mapel;
+                                    $nilaibaru->jumlah_print = $jumlahsantri;
+                                    $nilaibaru->keterangan_nilai = $record->keterangan_nilai;
+                                    $nilaibaru->is_soal = $record->is_soal;
+                                    $nilaibaru->is_nilai = $record->is_nilai;
+                                    $nilaibaru->is_active = 1;
+                                    $nilaibaru->save();
+
+                                    Notification::make()
+                                        ->success()
+                                        ->title('Data Imtihan generated')
+                                        ->color('Success')
+                                        ->send();
+                                }
+
+                            } elseif ($cekdataimtihan != 0) {
+                                Notification::make()
+                                    ->success()
+                                    ->title('Data Imtihan telah tersedia')
+                                    ->icon('heroicon-o-exclamation-triangle')
+                                    ->iconColor('danger')
+                                    ->color('warning')
+                                    ->send();
+                            }
+                        }
+                    ))
+                    ->deselectRecordsAfterCompletion(),
 
                 ExportBulkAction::make()
                     ->label('Export')

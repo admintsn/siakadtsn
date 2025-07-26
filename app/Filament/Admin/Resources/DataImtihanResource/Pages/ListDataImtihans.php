@@ -7,6 +7,7 @@ use App\ListTrait;
 use App\Models\SemesterBerjalan;
 use App\Models\TahunAjaranAktif;
 use App\Models\TahunBerjalan;
+use Fibtegis\FilamentInfiniteScroll\Concerns\InteractsWithInfiniteScroll;
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
@@ -24,6 +25,7 @@ class ListDataImtihans extends ListRecords
     // }
 
     use ListTrait;
+    use InteractsWithInfiniteScroll;
 
     public function getTabs(): array
     {

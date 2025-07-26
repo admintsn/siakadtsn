@@ -1116,6 +1116,34 @@ class DataImtihanResource extends Resource
                     ))
                     ->deselectRecordsAfterCompletion(),
 
+                    Tables\Actions\BulkAction::make('resetpengajar')
+                    ->label(__('Reset Pengajar'))
+                    ->color('gray')
+                    ->visible(fn($livewire): bool => $livewire->activeTab === 'Tahun Ajaran Aktif' && auth()->user()->id == 1)
+                    // ->requiresConfirmation()
+                    // ->modalIcon('heroicon-o-arrow-path')
+                    // ->modalIconColor('gray')
+                    // ->modalHeading(new HtmlString('Reset tanda Soal?'))
+                    // ->modalDescription('Setelah klik tombol "Simpan", maka status akan berubah')
+                    // ->modalSubmitActionLabel('Simpan')
+                    ->action(fn(Collection $records, array $data) => $records->each(
+                        function ($record) {
+
+                            $data['pengajar_id'] = null;
+                            $record->update($data);
+
+                            return $record;
+
+                            Notification::make()
+                                ->success()
+                                ->title('Pengajar telah direset')
+                                ->persistent()
+                                ->color('Success')
+                                ->send();
+                        }
+                    ))->deselectRecordsAfterCompletion(),
+
+
                 ExportBulkAction::make()
                     ->label('Export')
                     ->exporter(NilaiExporter::class),

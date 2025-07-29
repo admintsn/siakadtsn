@@ -119,8 +119,8 @@ class KelasSantriResource extends Resource
                         'style' => 'min-width:150px'
                     ]),
 
-                TextInputColumn::make('kelas_internal')
-                    ->label('Kelas Internal')
+                TextInputColumn::make('kelas_internal_barab')
+                    ->label('Kelas Internal Bahasa Arab')
                     ->searchable(isIndividual: true, isGlobal: false)
                     ->toggleable()
                     // ->toggledHiddenByDefault(true)
@@ -152,7 +152,7 @@ class KelasSantriResource extends Resource
                     ->label('Santri')
                     ->searchable(isIndividual: true, isGlobal: false)
                     ->sortable(),
-                    
+
                 TextInputColumn::make('santri.nama_panggilan')
                     ->label('Panggilan')
                     ->searchable(isIndividual: true, isGlobal: false)
@@ -161,6 +161,11 @@ class KelasSantriResource extends Resource
                     ->extraAttributes([
                         'style' => 'width:150px'
                     ])
+                    ->sortable(),
+
+                TextColumn::make('walisantri.ak_nama_lengkap')
+                    ->label('Nama Walisantri')
+                    ->searchable(isIndividual: true, isGlobal: false)
                     ->sortable(),
 
                 TextInputColumn::make('kode_nomor_rapor')
@@ -203,11 +208,6 @@ class KelasSantriResource extends Resource
                     ])
                     ->sortable(),
 
-                TextColumn::make('walisantri.ak_nama_lengkap')
-                    ->label('Nama Walisantri')
-                    ->searchable(isIndividual: true, isGlobal: false)
-                    ->sortable(),
-
                 SelectColumn::make('tahun_berjalan_id')
                     ->label('Tahun Berjalan')
                     ->options(TahunBerjalan::whereIsActive(1)->pluck('tb', 'id'))
@@ -238,8 +238,9 @@ class KelasSantriResource extends Resource
                         'style' => 'min-width:200px'
                     ]),
 
-                TextInputColumn::make('kelas_internal_barab')
-                    ->label('Kelas Internal Bahasa Arab')
+
+                TextInputColumn::make('kelas_internal')
+                    ->label('Kelas Internal')
                     ->searchable(isIndividual: true, isGlobal: false)
                     ->toggleable()
                     // ->toggledHiddenByDefault(true)
@@ -247,6 +248,7 @@ class KelasSantriResource extends Resource
                         'style' => 'width:150px'
                     ])
                     ->sortable(),
+
 
                 TextInputColumn::make('kelas_internal_matematika')
                     ->label('Kelas Internal Matematika')
@@ -363,7 +365,7 @@ class KelasSantriResource extends Resource
 
                             // dd($kt->terakhir);
                             // $ta = TahunAjaran::where('id', $record->tahun_ajaran_id)->first();
-
+                
                             $taaktif = TahunAjaranAktif::where('qism_id', $record->qism_id)
                                 ->where('tahun_ajaran_id', $record->tahun_ajaran_id)
                                 ->where('is_active', 1)->first();
@@ -385,12 +387,12 @@ class KelasSantriResource extends Resource
                                             return;
                                         } elseif ($record->nomor_rapor == null) {
 
-                                            if ($raporterakhir ==  null) {
+                                            if ($raporterakhir == null) {
                                                 $data['kode_nomor_rapor'] = 'R' . $record->qism_id . '' . $record->tahunAjaran->abbr_ta . '' . $sm->id;
                                                 $data['nomor_rapor'] = 1;
                                                 $record->update($data);
                                                 return $record;
-                                            } elseif ($raporterakhir !=  null) {
+                                            } elseif ($raporterakhir != null) {
                                                 $data['kode_nomor_rapor'] = 'R' . $record->qism_id . '' . $record->tahunAjaran->abbr_ta . '' . $sm->id;
                                                 $data['nomor_rapor'] = $raporterakhir + 1;
                                                 $record->update($data);
@@ -403,14 +405,14 @@ class KelasSantriResource extends Resource
                                             return;
                                         } elseif ($record->nomor_rapor == null) {
 
-                                            if ($raporterakhir ==  null) {
+                                            if ($raporterakhir == null) {
                                                 $data['kode_nomor_rapor'] = 'R' . $record->qism_id . '' . $record->tahunAjaran->abbr_ta . '' . $sm->id;
                                                 $data['kode_nomor_ijazah'] = 'I' . $record->qism_id . '' . $record->tahunAjaran->abbr_ta;
                                                 $data['nomor_rapor'] = 1;
                                                 $data['nomor_ijazah'] = 1;
                                                 $record->update($data);
                                                 return $record;
-                                            } elseif ($raporterakhir !=  null) {
+                                            } elseif ($raporterakhir != null) {
                                                 $data['kode_nomor_rapor'] = 'R' . $record->qism_id . '' . $record->tahunAjaran->abbr_ta . '' . $sm->id;
                                                 $data['kode_nomor_ijazah'] = 'I' . $record->qism_id . '' . $record->tahunAjaran->abbr_ta;
                                                 $data['nomor_rapor'] = $raporterakhir + 1;
@@ -428,12 +430,12 @@ class KelasSantriResource extends Resource
                                             return;
                                         } elseif ($record->nomor_rapor == null) {
 
-                                            if ($raporterakhir ==  null) {
+                                            if ($raporterakhir == null) {
                                                 $data['kode_nomor_rapor'] = 'R' . $record->qism_id . '' . $record->tahunAjaran->abbr_ta . '' . $sm->id;
                                                 $data['nomor_rapor'] = 1;
                                                 $record->update($data);
                                                 return $record;
-                                            } elseif ($raporterakhir !=  null) {
+                                            } elseif ($raporterakhir != null) {
                                                 $data['kode_nomor_rapor'] = 'R' . $record->qism_id . '' . $record->tahunAjaran->abbr_ta . '' . $sm->id;
                                                 $data['nomor_rapor'] = $raporterakhir + 1;
                                                 $record->update($data);
@@ -446,12 +448,12 @@ class KelasSantriResource extends Resource
                                             return;
                                         } elseif ($record->nomor_rapor == null) {
 
-                                            if ($raporterakhir ==  null) {
+                                            if ($raporterakhir == null) {
                                                 $data['kode_nomor_rapor'] = 'R' . $record->qism_id . '' . $record->tahunAjaran->abbr_ta . '' . $sm->id;
                                                 $data['nomor_rapor'] = 1;
                                                 $record->update($data);
                                                 return $record;
-                                            } elseif ($raporterakhir !=  null) {
+                                            } elseif ($raporterakhir != null) {
                                                 $data['kode_nomor_rapor'] = 'R' . $record->qism_id . '' . $record->tahunAjaran->abbr_ta . '' . $sm->id;
                                                 $data['nomor_rapor'] = $raporterakhir + 1;
                                                 $record->update($data);

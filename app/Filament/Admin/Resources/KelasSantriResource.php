@@ -129,6 +129,16 @@ class KelasSantriResource extends Resource
                     ])
                     ->sortable(),
 
+                TextInputColumn::make('kelas_internal_matematika')
+                    ->label('Kelas Internal Matematika')
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    ->toggleable()
+                    // ->toggledHiddenByDefault(true)
+                    ->extraAttributes([
+                        'style' => 'width:150px'
+                    ])
+                    ->sortable(),
+
                 CheckboxColumn::make('is_mustamiah')
                     ->label('Mustamiah?')
                     ->alignCenter(),
@@ -241,17 +251,6 @@ class KelasSantriResource extends Resource
 
                 TextInputColumn::make('kelas_internal')
                     ->label('Kelas Internal')
-                    ->searchable(isIndividual: true, isGlobal: false)
-                    ->toggleable()
-                    // ->toggledHiddenByDefault(true)
-                    ->extraAttributes([
-                        'style' => 'width:150px'
-                    ])
-                    ->sortable(),
-
-
-                TextInputColumn::make('kelas_internal_matematika')
-                    ->label('Kelas Internal Matematika')
                     ->searchable(isIndividual: true, isGlobal: false)
                     ->toggleable()
                     // ->toggledHiddenByDefault(true)

@@ -428,9 +428,14 @@ class DataImtihanResource extends Resource
                     TextInputColumn::make('file_nilai')
                         ->label('Link Nilai'),
 
+                    CheckboxColumn::make('status_soal')
+                        ->label('Status S')
+                        ->alignCenter(),
+
                     CheckboxColumn::make('is_nilai_selesai')
                         ->label('Status N')
                         ->alignCenter(),
+
 
                     SelectColumn::make('pengajar_id')
                         ->label('Nama Pengajar')
@@ -1116,7 +1121,7 @@ class DataImtihanResource extends Resource
                     ))
                     ->deselectRecordsAfterCompletion(),
 
-                    Tables\Actions\BulkAction::make('resetpengajar')
+                Tables\Actions\BulkAction::make('resetpengajar')
                     ->label(__('Reset Pengajar'))
                     ->color('gray')
                     ->visible(fn($livewire): bool => $livewire->activeTab === 'Tahun Ajaran Aktif' && auth()->user()->id == 1)

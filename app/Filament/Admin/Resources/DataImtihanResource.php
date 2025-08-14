@@ -64,6 +64,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rules\Unique;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction as TablesExportBulkAction;
 
 class DataImtihanResource extends Resource
 {
@@ -771,6 +772,9 @@ class DataImtihanResource extends Resource
                     ->modalWidth('full'),
             ])
             ->bulkActions([
+
+                TablesExportBulkAction::make(),
+
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),

@@ -777,6 +777,7 @@ class DataImtihanResource extends Resource
                 TablesExportBulkAction::make()->exports([
                     ExcelExport::make('table')->fromTable(),
                     ExcelExport::make('form')->fromForm(),
+                    ExcelExport::make('model')->fromModel(),
 
                     // ExcelExport::make()
                     //     ->askForWriterType()

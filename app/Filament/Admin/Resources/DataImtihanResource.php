@@ -775,11 +775,11 @@ class DataImtihanResource extends Resource
             ->bulkActions([
 
                 TablesExportBulkAction::make()->exports([
-                    // ExcelExport::make('table')->fromTable(),
-                    // ExcelExport::make('form')->fromForm(),
+                    ExcelExport::make('table')->fromTable(),
+                    ExcelExport::make('form')->fromForm(),
 
-                    ExcelExport::make()
-                        ->askForWriterType()
+                    // ExcelExport::make()
+                    //     ->askForWriterType()
                 ]),
 
                 Tables\Actions\BulkActionGroup::make([

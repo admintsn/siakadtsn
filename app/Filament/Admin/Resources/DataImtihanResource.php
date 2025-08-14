@@ -1153,9 +1153,9 @@ class DataImtihanResource extends Resource
                     ))->deselectRecordsAfterCompletion(),
 
 
-                ExportBulkAction::make()
-                    ->label('Export')
-                    ->exporter(NilaiExporter::class),
+                // ExportBulkAction::make()
+                //     ->label('Export')
+                //     ->exporter(NilaiExporter::class),
 
             ]);
     }

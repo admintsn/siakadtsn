@@ -90,7 +90,7 @@ class SemuaNilaiResource extends Resource
                     ->openUrlInNewTab(),
 
                 IconColumn::make('is_nilai_selesai')
-                    ->label('Status')
+                    ->label('Status Input Nilai')
                     ->alignCenter()
                     ->boolean()
                     // ->disabled()

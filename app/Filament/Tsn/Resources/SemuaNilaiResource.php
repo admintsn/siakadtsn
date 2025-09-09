@@ -97,9 +97,9 @@ class SemuaNilaiResource extends Resource
                     ->sortable(),
 
                 CheckboxColumn::make('is_input_rapor')
-                    ->label('Status I')
+                    ->label('Status Input Rapor')
                     ->alignCenter()
-                    ->disabled(!auth()->user()->id === 1),
+                    ->disabled(auth()->user()->id !== 1),
 
                 TextColumn::make('qismDetail.abbr_qism_detail')
                     ->label('Qism')

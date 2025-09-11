@@ -184,7 +184,8 @@ class NilaiHafalanResource extends Resource
                     CheckboxColumn::make('is_nilai_selesai')
                         ->label('Status')
                         ->alignCenter()
-                        ->sortable(),
+                        ->sortable()
+                        ->disabled(fn($record) => $record->is_input_rapor == 1),
 
                 ])->alignCenter(),
 

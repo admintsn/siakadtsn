@@ -188,6 +188,11 @@ class NilaiHafalanResource extends Resource
 
                 ])->alignCenter(),
 
+                CheckboxColumn::make('is_input_rapor')
+                    ->label('Status Input Rapor')
+                    ->alignCenter()
+                    ->disabled(auth()->user()->id !== 1),
+
                 TextColumn::make('keterangan_nilai')
                     ->label('Halaqoh')
                     ->sortable(),

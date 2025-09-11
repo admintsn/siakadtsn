@@ -150,22 +150,34 @@ class NilaiTulisLisanResource extends Resource
             // ->striped()
             ->columns([
 
-                TextColumn::make('file_nilai')
-                    ->label('Link')
-                    ->formatStateUsing(fn(string $state): string => __("Input"))
-                    ->icon('heroicon-s-pencil-square')
-                    ->iconColor('success')
-                    // ->circular()
-                    ->alignCenter()
-                    ->url(function (Model $record) {
-                        if ($record->file_nilai !== null) {
+                ColumnGroup::make('Hapus centang nilai selesai jika ingin edit kembali', [
 
-                            return ($record->file_nilai);
-                        }
-                    })
-                    ->badge()
-                    ->color('info')
-                    ->openUrlInNewTab(),
+                    TextColumn::make('file_nilai')
+                        ->label('Link')
+                        ->formatStateUsing(fn(string $state): string => __("Input"))
+                        ->icon('heroicon-s-pencil-square')
+                        ->iconColor('success')
+                        // ->circular()
+                        ->alignCenter()
+                        ->url(function (Model $record) {
+                            if ($record->file_nilai !== null) {
+
+                                return ($record->file_nilai);
+                            }
+                        })
+                        ->badge()
+                        ->color('info')
+                        ->openUrlInNewTab()
+                        ->disabledClick(
+                            function (Model $record) {
+                                if ($record->is_nilai_selesai == 1) {
+
+                                    return true;
+                                }
+                            }
+                        ),
+
+                ])->alignCenter(),
 
                 ColumnGroup::make('Centang jika input nilai telah selesai', [
 
@@ -175,6 +187,11 @@ class NilaiTulisLisanResource extends Resource
                         ->sortable(),
 
                 ])->alignCenter(),
+
+                CheckboxColumn::make('is_input_rapor')
+                    ->label('Status Input Rapor')
+                    ->alignCenter()
+                    ->disabled(auth()->user()->id !== 1),
 
                 TextColumn::make('kelas.kelas')
                     ->label('Kelas')

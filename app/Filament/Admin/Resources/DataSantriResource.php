@@ -4638,7 +4638,7 @@ class DataSantriResource extends Resource
                 Tables\Actions\BulkAction::make('aktif')
                     ->label(__('Aktif'))
                     ->color('success')
-                    ->visible(fn($livewire): bool => $livewire->activeTab === 'Aktif' && auth()->user()->id == 1)
+                    ->visible(fn($livewire): bool => $livewire->activeTab === 'Tidak Aktif' && auth()->user()->id == 1)
                     // ->requiresConfirmation()
                     // ->modalIcon('heroicon-o-check-circle')
                     // ->modalIconColor('success')

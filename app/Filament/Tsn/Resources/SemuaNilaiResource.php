@@ -99,7 +99,7 @@ class SemuaNilaiResource extends Resource
                 CheckboxColumn::make('is_input_rapor')
                     ->label('Status Input Rapor')
                     ->alignCenter()
-                    ->disabled(auth()->user()->id !== 1),
+                    ->disabled(auth()->user()->id !== 1 || auth()->user()->id !== 491 || auth()->user()->id !== 2),
 
                 TextColumn::make('qismDetail.abbr_qism_detail')
                     ->label('Qism')
